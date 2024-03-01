@@ -1,0 +1,23 @@
+name: Build NodeJS
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - 'v*'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Go into Frontend
+        run: cd power-pay-frontend
+      - name: Build
+        run: npm run build

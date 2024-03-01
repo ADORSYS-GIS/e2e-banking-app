@@ -1,0 +1,23 @@
+name: Build Backend
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - 'v*'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Go into Backend
+        run: cd power-pay-backend
+      - name: Build
+        run: mvn package
