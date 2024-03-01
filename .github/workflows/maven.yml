@@ -17,7 +17,5 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Go into Backend
-        run: cd power-pay-backend
-      - name: Build
-        run: mvn package
+      - name: Build Backend
+        run: cd power-pay-backend && mvn package
