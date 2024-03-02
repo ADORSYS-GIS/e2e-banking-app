@@ -8,9 +8,11 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      - postgres
     environment:
-      - DATABASE_URL=postgres://postgres:password@db:5432/postgres
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/postgres"
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
 
   postgres:
     image: postgres
@@ -30,14 +32,14 @@ services:
     ports:
       - "3000:80"
     environment:
-      - REACT_APP_API_URL=http://localhost:3000
+      - REACT_APP_BACKEND_URL=http://api:8080
 
   translator:
     build:
       context: ./power-pay-translator
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "5001:5000"
     environment:
       - BACKEND_API_URL=http://api:8080
 
