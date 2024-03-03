@@ -38,10 +38,19 @@ Logging and monitoring
 
 The Translation Service backend consists of the following components:
 
-Twilio SMS Gateway: A third-party service that sends SMS messages to the Translation Service backend.
-Translation Service: A Rust-based microservice that receives messages from the Twilio SMS gateway, parses and validates the messages, and forwards them to the PowerPay Service.
-PowerPay Service: A microservice that processes the messages and performs the necessary operations, such as sending money, registering users, and checking balances.
-Database: A cloud-native database that stores all the necessary information for the system to operate, such as user data, transaction history, and account balances.
+### Twilio SMS Gateway :
+
+ A third-party service that sends SMS messages to the Translation Service backend.
+
+### Translation Service:
+
+ A Rust-based microservice that receives messages from the Twilio SMS gateway, parses and validates the messages, and forwards them to the PowerPay Service.
+### PowerPay Service:
+
+ A microservice that processes the messages and performs the necessary operations, such as sending money, registering users, and checking balances.
+### Database:
+ 
+A cloud-native database that stores all the necessary information for the system to operate, such as user data, transaction history, and account balances.
 
 # Interactions
 
