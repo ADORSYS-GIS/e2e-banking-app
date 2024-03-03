@@ -49,35 +49,56 @@ The Translation Service backend consists of the following components:
 
  A microservice that processes the messages and performs the necessary operations, such as sending money, registering users, and checking balances.
 ### Database:
- 
+
 A cloud-native database that stores all the necessary information for the system to operate, such as user data, transaction history, and account balances.
 
 # Interactions
 
 The Translation Service backend interacts with the following components:
 
-Twilio SMS Gateway: The Translation Service backend receives messages from the Twilio SMS gateway using the Twilio API.
-PowerPay Service: The Translation Service backend forwards messages to the PowerPay Service using the PowerPay API.
-Database: The Translation Service backend reads and writes data to the database as needed.
+### Twilio SMS Gateway:
+ The Translation Service backend receives messages from the Twilio SMS gateway using the Twilio API.
+
+### PowerPay Service:
+
+ The Translation Service backend forwards messages to the PowerPay Service using the PowerPay API.
+### Database:
+
+ The Translation Service backend reads and writes data to the database as needed.
 
 # Technology
 
 The Translation Service backend is built using the following technology:
 
-Rust: A performant, reliable, and secure programming language for the backend.
-Twilio API: A third-party API for sending and receiving SMS messages.
-PowerPay API: A custom API for processing messages and performing operations in the PowerPay system.
-Cloud-native database: A scalable and highly available database for storing system data.
-Cloud platform: A cloud platform, such as GCP or AWS, for deploying the Translation Service backend.
+### Rust:
+
+ A performant, reliable, and secure programming language for the backend.
+### Twilio API:
+
+ A third-party API for sending and receiving SMS messages.
+### PowerPay API:
+
+ A custom API for processing messages and performing operations in the PowerPay system.
+### Cloud-native database:
+ A scalable and highly available database for storing system data.
+### Cloud platform:
+
+ A cloud platform, such as GCP or AWS, for deploying the Translation Service backend.
 
 
 # Architecture <a name="architecture"></a>
 
 The architecture of the Translation Service backend consists of the following components:
 
-API Gateway: Receives requests from external clients and forwards them to the Translation Service backend.
-Translation Service Backend: Processes requests, performs translation where necessary, and forwards them to the PowerPay service.
-PowerPay Service: Receives translated requests from the Translation Service backend and processes them accordingly.
+### API Gateway:
+
+ Receives requests from external clients and forwards them to the Translation Service backend.
+### Translation Service Backend:
+
+ Processes requests, performs translation where necessary, and forwards them to the PowerPay service.
+### PowerPay Service:
+
+ Receives translated requests from the Translation Service backend and processes them accordingly.
 The Translation Service backend acts as an intermediary between the API gateway and the PowerPay service, ensuring seamless communication by translating data as required.
 
 
@@ -91,7 +112,9 @@ The Translation Service backend integrates with the PowerPay service through a s
 # Error Handling <a name="error-handling"></a>
 The Translation Service backend includes robust error handling mechanisms to address any issues that may arise during translation or communication with the PowerPay service. This includes:
 
-Error Detection: Identifying errors during translation or data transmission.
+### Error Detection:
+
+ Identifying errors during translation or data transmission.
 Error Reporting: Logging errors and notifying relevant stakeholders for resolution.
 Fallback Mechanisms: Implementing fallback mechanisms to handle errors gracefully and maintain system stability.
 
@@ -151,7 +174,7 @@ let result = client.messages.create(
 In this example, the TwilioClient is used to send an SMS message to the specified phone number. The MessagingResponse object is used to generate the TwiML response, which is then sent to the Twilio SMS Gatew
 ````
 
-Translation Service API
+### Translation Service API
 The Translation Service API is a custom API that is used to receive messages from the Twilio SMS Gateway, parse and validate the messages, and forward them to the PowerPay Service. The Translation Service API is implemented as a Rust-based microservice.
 
 Here is an example of how to use the Translation Service API to send a message:
