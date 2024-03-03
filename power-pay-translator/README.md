@@ -95,7 +95,7 @@ These interactions are illustrated in the following diagram:
 
 ![alt text](image.png)
 
-# Defining between component Applcation Programming Interface
+# Defining between component API
 
 Twilio SMS Gateway API
 
@@ -151,7 +151,7 @@ In this example, the Client object is used to send a POST request to the /messag
 PowerPay Service API
 The PowerPay Service API is a custom API that is used to process messages and perform the necessary operations, such as sending money, registering users, and checking balances. The PowerPay Service API is implemented as a microservice.
 
-Here is an example of how to use the PowerPay Service API to send money:
+Here is an example of how to use the PowerPay Service API to send moneyFor more information on the specific endpoints and their input formats, please refer to the PowerPay Service API documentation:
 ````rust
 use reqwest::Client;
 use serde_json::Value;
@@ -173,6 +173,11 @@ let response = client.post("http://localhost:8081/transfers")
 println!("{}", response);
 
 In this example, the Client object is used to send a POST request to the /transfers endpoint of the PowerPay Service. The request body contains the transfer data, which is in JSON format. The PowerPay Service processes the transfer and sends a response back to the Translation Service, which then forwards the response to the Twilio SMS gateway to be sent back to the user as an SMS message.
+
+
+The following diagram illustrates how the API endpoints fit into the overall architecture of the Translation Service backend
+
+![alt text](image-1.png)
 ````
 The Table below summarizes the operations on the API endpoints for the Translation Service backend:
 
