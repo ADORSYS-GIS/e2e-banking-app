@@ -1,17 +1,15 @@
 # Project Overview
 
-The Power Payment Backend is a cutting-edge system designed to facilitate seamless money transfers between users through a Progressive Web App (PWA). The primary purpose of the project is to provide a secure and user-friendly platform for users to send and receive money electronically.
+The Power Payment Backend is a cutting-edge system designed to facilitate seamless money transfers between users.
 
-The target audience for this project includes individuals, businesses, and organizations that require a reliable and efficient payment solution. Whether it's friends splitting bills, businesses paying suppliers, or organizations distributing funds, the Power Payment Backend caters to a wide range of users.
+By offering robust security measures and scalability, the project aims to provide a hassle-free experience for users when transferring funds. The system is designed to handle a growing user base and high transaction volumes.
 
-By offering a convenient and intuitive user interface, along with robust security measures, the project aims to provide a hassle-free experience for users when transferring funds. The system is designed to be scalable, ensuring it can handle a growing user base and high transaction volumes.
-
-With its advanced technology stack and meticulous attention to detail, the Power Payment Backend sets out to meet the needs of users who value simplicity, speed, and security in their financial transactions.
+With its advanced technology stack and meticulous attention to detail, the Power Payment Backend sets out to meet the needs of users who value simplicity, speed, and security in their financial transactions. It serves as a reliable and efficient backend infrastructure for facilitating electronic money transfers.
 
 
 # Architecture and Technologies
 
-The Power Pay Backend is a robust and highly efficient system that facilitates seamless money transfers between users through a state-of-the-art progressive web application (PWA). It comprises multiple components, including the Power Pay Store, the Power Pay Service, SMS Gateway, Power Pay App, and a scalable and secured Database. The different components will be explained in the following lines.
+The backend architecture consists of several key components, including the Power Payment Service, SMS Gateway, Power Payment App, and a scalable and secure database. In the following sections, we will provide detailed explanations of each of these components.
 
 
 ![Alt text](image.png)
@@ -42,7 +40,7 @@ The Power Pay Backend is a robust and highly efficient system that facilitates s
 
 # Technologies and tools used for backend
 
-    1. GCP/AWS (Deployment):
+    1. GCP/AWS (Cloud Deployment):
 
         * The Power Payment Backend can be deployed on cloud platforms such as Google Cloud Platform (GCP) or Amazon Web Services (AWS).
         * These cloud platforms provide infrastructure services that enable easy provisioning, scaling, and management of the backend application.
@@ -61,24 +59,15 @@ The Power Pay Backend is a robust and highly efficient system that facilitates s
         * With Spring Boot, you can create RESTful APIs, handle request processing, and implement business logic for the Power Payment Backend.
         * Java's robustness, scalability, and extensive ecosystem make it a suitable choice for developing the backend service.
 
-    4. GitHub Pages (For website deployment):
-
-        The Power Pay App, built using React JS, can be deployed on GitHub Pages to provide users with an intuitive and interactive web interface for topping up their kiosk accounts.
-
-    5. SMS Gateway (Twilio):
+    4. SMS Gateway (Twilio):
 
         * Twilio can be used as the SMS Gateway for the Power Payment Backend.
         * Twilio provides a programmable SMS API that allows you to send and receive SMS messages programmatically.
         * The SMS Gateway component will integrate with Twilio's API to interpret incoming SMS requests from Choronko users and translate them into a format compatible with the Power Pay Service.
         * It will also utilize Twilio's API to send responses back to the users, ensuring seamless communication between the backend and Choronko users via SMS.
 
-    6. JavaScript (React JS for Power Pay Store App and Power Pay App):
 
-        * React JS provides a component-based architecture that enables the creation of interactive user interfaces.
-        * The Power Pay Store App, deployed on GitHub Pages, can be developed using React JS to provide a user-friendly web interface for topping up kiosk accounts.
-        * The Power Pay App, which allows users to create accounts, access transaction history, and transfer money, can also be developed using React JS to deliver a rich and responsive user experience.
-
-    7. Postman
+    5. Postman
 
         Postman will be utilized as the testing tool for the API. As a widely adopted API testing tool, Postman offers a user-friendly interface that simplifies the process of sending HTTP requests and receiving responses. It empowers developers to customize various aspects of the API requests, such as headers, query parameters, request bodies, and authentication methods.
 
@@ -93,6 +82,7 @@ The Power Pay Backend is a robust and highly efficient system that facilitates s
         - POST /api/payments: Initiate a money transfer between users. Request body should include transfer details.
         - GET /api/payments/{paymentId}: Get details of a specific payment by ID.
         - GET /api/users/{userId}/transactions: Get transaction history for a specific user.
+        - GET /api/users/{userId}/balance: Get balance for a specific user.
         - DELETE /api/users/{userId}: Delete a user account by ID.
 
 For each endpoint, provide examples of requests and responses along with the expected request and response formats.
@@ -158,8 +148,93 @@ This schema includes tables for users, transactions, and transaction history. Th
 
     - Error Logging and Notification:
 
-        Errors should be logged to a centralized logging system or a dedicated log file, along with relevant information such as timestamps, error messages, and stack traces. This allows developers and system administrators to monitor and troubleshoot issues effectively.
-        Notifications or alerts can be triggered to notify the appropriate individuals or teams when critical errors occur. This ensures that prompt action can be taken to address and resolve the issues.
+       To ensure effective issue monitoring and troubleshooting, errors in the Power Payment Backend should be logged to a centralized logging system or a dedicated log file. This logging mechanism should include essential details such as timestamps, error messages, and stack traces. This enables developers and system administrators to analyze and resolve issues efficiently. Additionally, notifications or alerts can be triggered to promptly notify the relevant individuals or teams when critical errors occur. This ensures swift action can be taken to address and resolve the issues.
+
+       Example Implementation in Spring Boot:
+
+            1. Error Logging:
+
+            Configure the logging framework in Spring Boot to capture and log errors to a centralized logging system or dedicated log file. For example, using the default logging framework, errors can be logged with the appropriate severity level:
+
+                ``` import org.slf4j.Logger;
+                    import org.slf4j.LoggerFactory;
+
+                    public class PaymentService {
+                        // Create a logger instance for the PaymentService class
+                        private static final Logger logger = LoggerFactory.getLogger(PaymentService.class);
+
+                        public void processPayment(Payment payment) {
+                            try {
+                                // Code that may generate an error
+                            } catch (Exception e) {
+                                // Log the error message and stack trace using the logger's error method
+                                logger.error("An error occurred while processing payment", e);
+                            }   
+                        }
+                    }```
+
+            2. Centralized Logging System:
+
+            Configure the Power Payment Backend to use a centralized logging system, such as ELK Stack (Elasticsearch, Logstash, Kibana). This allows for the aggregation, analysis, and visualization of logs from different components of the backend.
+
+            3. Error Notifications:
+
+            Utilize a notification service or tool to trigger alerts when critical errors occur. For example, you can configure an email notification to be sent to the development team or a dedicated Slack channel. This ensures the right people are promptly informed of critical issues. Here's an example using Spring Boot's email notification:
+
+               ```  import org.springframework.mail.SimpleMailMessage;
+                    import org.springframework.mail.javamail.JavaMailSender;
+                    import org.springframework.stereotype.Component;
+
+                    @Component
+                    public class ErrorNotificationService {
+                        private final JavaMailSender emailSender;
+
+                        public ErrorNotificationService(JavaMailSender emailSender) {
+                            // Initialize the ErrorNotificationService with the JavaMailSender dependency
+                            this.emailSender = emailSender;
+                        }
+
+                        public void sendErrorNotification(String errorMessage) {
+                            // Create a new SimpleMailMessage instance
+                            SimpleMailMessage message = new SimpleMailMessage();
+                            
+                            // Set the recipient's email address
+                            message.setTo("developer@example.com");
+                            
+                            // Set the email subject
+                            message.setSubject("Critical Error in Power Payment Backend");
+                            
+                            // Set the body of the email with the provided error message
+                            message.setText(errorMessage);
+
+                            // Send the email message using the emailSender instance
+                            emailSender.send(message);
+                        }
+                    }```
+
+                In the error handling logic, call the sendErrorNotification method when a critical error is encountered:
+
+                    ```import org.springframework.stereotype.Service;
+
+                        @Service
+                        public class PaymentService {
+                            private final ErrorNotificationService errorNotificationService;
+
+                            public PaymentService(ErrorNotificationService errorNotificationService) {
+                                this.errorNotificationService = errorNotificationService;
+                            }
+
+                            public void processPayment(Payment payment) {
+                                try {
+                                    // Code that may generate an error
+                                } catch (Exception e) {
+                                    logger.error("An error occurred while processing payment", e);
+                                    errorNotificationService.sendErrorNotification("An error occurred while processing payment: " + e.getMessage());
+                                }
+                            }
+                        }```
+
+                    By implementing error logging to a centralized system and triggering notifications, the Power Payment Backend ensures effective issue monitoring and prompt resolution, contributing to a reliable and robust system.
 
     - Exception Handling:
 
@@ -179,11 +254,68 @@ This schema includes tables for users, transactions, and transaction history. Th
 
         Example: If an external API used for a specific feature is temporarily unavailable, the backend can gracefully degrade by presenting an alternative workflow or disabling the feature temporarily until the API becomes accessible again.
 
+        ``` @RestController
+            public class MyController {
+
+                @Autowired
+                private ExternalApiService externalApiService;
+
+                @GetMapping("/api/feature")
+                public ResponseEntity<?> getFeature() {
+                    try {
+                        // Call the external API to retrieve feature data
+                        FeatureData featureData = externalApiService.getFeatureData();
+
+                        // Process the feature data and return a response
+                        // ...
+
+                        return ResponseEntity.ok(featureData);
+                    } catch (ExternalApiUnavailableException e) {
+                        // Handle the case when the external API is unavailable
+                        // Present an alternative workflow or disable the feature temporarily
+
+                        // Return an informative response to the client
+                        String errorMessage = "The feature is temporarily unavailable. Please try again later.";
+                        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorMessage);
+                    }
+                }
+            }```
+
+            The provided code snippet demonstrates how to gracefully degrade a feature in the backend when an external API used for that feature is temporarily unavailable. It handles a GET request to the /api/feature endpoint and tries to retrieve feature data from the external API. If the external API is unavailable, it catches the exception, presents an alternative workflow or temporarily disables the feature, and returns a 503 Service Unavailable response with an informative error message. This approach ensures a smooth user experience and manages expectations during the temporary unavailability of the external API.
+
     - Error Response Formats:
 
         The backend should provide consistent error response formats, such as JSON or XML, that include relevant error codes, messages, and additional details for easier identification and debugging by client applications.
 
         Example: An API request that fails due to missing required parameters can return a JSON response with an appropriate error code (e.g., 400 Bad Request) and a message indicating the missing parameters.
+
+        ``` import org.springframework.http.HttpStatus;
+            import org.springframework.http.ResponseEntity;
+            import org.springframework.web.bind.annotation.PostMapping;
+            import org.springframework.web.bind.annotation.RequestBody;
+            import org.springframework.web.bind.annotation.RestController;
+
+            @RestController
+            public class MyController {
+
+                @PostMapping("/api/endpoint")
+                public ResponseEntity<?> processRequest(@RequestBody RequestBodyData requestBodyData) {
+                    // Check if the required parameters are present
+                    if (requestBodyData.getParam1() == null || requestBodyData.getParam2() == null) {
+                        // Return a JSON response with an appropriate error code (400 Bad Request)
+                        // and a message indicating the missing parameters
+                        String errorMessage = "Missing required parameters: param1, param2";
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+                    }
+                    
+                    // Process the request and return a successful response
+                    // ...
+                    
+                    return ResponseEntity.ok("Request processed successfully");
+                }
+            }```
+
+        The provided code snippet above demonstrates a RESTful API endpoint implemented using Spring Boot. It handles a POST request to the /api/endpoint endpoint and checks for missing required parameters (param1 and param2). If any of the parameters are missing, it constructs a JSON response with a 400 Bad Request status code and an error message indicating the missing parameters. Otherwise, it processes the request and returns a successful response with a 200 OK status code. This approach allows clients to receive clear error messages when required parameters are absent and ensures proper handling of requests with all necessary parameters.
 
     - Input Validation and Sanitization:
 
@@ -198,27 +330,46 @@ This schema includes tables for users, transactions, and transaction history. Th
 
     1. User Authentication:
 
-        Testing Framework: JUnit or TestNG
+        - Unit Testing:
 
-        Example: Write test cases to validate user authentication by simulating login requests with different credentials and asserting the expected behavior, such as successful login or authentication failure.
+            Test the user authentication component by writing unit tests that validate the behavior of the login functionality.
+
+            Example: Verify that a valid username and password combination results in a successful login, while an invalid combination leads to authentication failure.
+
+        - Integration Testing:
+
+            Perform integration tests to ensure the seamless integration of the user authentication component with other related components, such as the user database or third-party authentication providers.
+
+            Example: Validate that when a user logs in successfully, their credentials are correctly fetched from the database and their session is properly maintained.
 
     2. Payment Processing:
 
-        Testing Framework: JUnit or TestNG
+        - Unit Testing:
 
-        Example: Create test cases to verify payment processing functionality, including mocking external payment gateways and asserting the correct calculation of transaction fees and the update of user balances.
+            Write unit tests to verify the payment processing component, focusing on individual functions or methods responsible for calculations, validations, or communication with payment gateways.
+
+            Example: Test that a function calculating transaction fees returns the expected result based on different input scenarios.
+
+        - Integration Testing:
+
+            Perform integration tests that simulate end-to-end payment processing flows, including interactions with external payment gateways and data updates in the backend.
+
+            Example: Validate that when a payment transaction is initiated, the correct payment gateway is called, the response is handled appropriately, and user balances are updated accordingly.
 
     3. Transaction History:
 
-        Testing Framework: JUnit or TestNG
+        - Unit Testing:
 
-        Example: Write test cases to ensure the accuracy of transaction history by simulating requests for transaction records, filtering by date range or transaction type, and asserting the correct display of transaction details.
+            Write unit tests to ensure the accuracy of the transaction history functionality, focusing on individual methods responsible for retrieving and filtering transaction records.
 
-    4. Error Handling:
+            Example: Test that a method filtering transactions by date range returns the expected results when provided with specific date inputs.
 
-        Testing Framework: JUnit or TestNG
+        - Integration Testing:
 
-        Example: Test the backend's error handling capabilities by writing test cases that intentionally trigger errors, such as sending invalid inputs or simulating database connection failures, and asserting the correct error responses or exception handling behavior.
+            Conduct integration tests that validate the end-to-end flow of retrieving and displaying transaction history, including interactions with the database or other data sources.
+
+            Example: Verify that when a request for transaction records is made, the backend retrieves the relevant data from the database and presents it accurately.
+
 
 # Conclusion
 
