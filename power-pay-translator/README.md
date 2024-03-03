@@ -32,6 +32,14 @@ Parsing and validating the messages
 Forwarding the messages to the PowerPay Service
 Handling errors and retries
 Logging and monitoring
+Receives requests from the P.P.Service to send someone an SMS
+
+Responds to users who send an SMS or sends someone OTP for login
+
+The system uses REST APIs for communication between components. The Rust application can be managed using tools like cargo (Rust's package manager) and rustfmt (for code formatting). To secure the APIs, you can use solutions like OAuth, JWT, or other authentication and authorization mechanisms.
+For deployment, the application is packaged as a Docker container and deployed using a Docker Compose file to a cloud platform like GCP or AWS. Logging for the Rust app can be implemented using libraries like log and env_logger.
+
+For continuous integration and delivery, you we use GitHub Actions or other CI/CD tools to automate the build, test, and deployment process
 
 
 # Components
@@ -74,9 +82,8 @@ The Translation Service backend is built using the following technology:
 ### PowerPay API:
 
  A custom API for processing messages and performing operations in the PowerPay system.
-### Cloud-native database:
- 
 
+ 
 
 # Architecture <a name="architecture"></a>
 
@@ -152,7 +159,7 @@ https://www.twilio.com/docs/glossary/what-is-sms-api-short-messaging-service
 
 
 ### Translation Service API
-The Translation Service API is a custom API that is used to receive messages from the Twilio SMS Gateway, parse and validate the messages, and forward them to the PowerPay Service. The Translation Service API is implemented as a Rust-based microservice.
+The Translation Service API is a custom API that is used to receive messages from the SMS Gateway, parse and validate the messages, and forward them to the PowerPay Service. The Translation Service API is implemented as a Rust-based microservice.
 
 
 PowerPay Service API
