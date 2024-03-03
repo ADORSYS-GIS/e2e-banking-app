@@ -40,6 +40,17 @@ PowerPay API: A custom API for processing messages and performing operations in 
 Cloud-native database: A scalable and highly available database for storing system data.
 Cloud platform: A cloud platform, such as GCP or AWS, for deploying the Translation Service backend.
 
+
+# Architecture <a name="architecture"></a>
+The architecture of the Translation Service backend consists of the following components:
+
+API Gateway: Receives requests from external clients and forwards them to the Translation Service backend.
+Translation Service Backend: Processes requests, performs translation where necessary, and forwards them to the PowerPay service.
+PowerPay Service: Receives translated requests from the Translation Service backend and processes them accordingly.
+The Translation Service backend acts as an intermediary between the API gateway and the PowerPay service, ensuring seamless communication by translating data as required.
+
+
+
 # Deployment
 
 The Translation Service backend is deployed to a cloud platform, such as GCP or AWS, for high availability and scalability. The backend is packaged as a Docker container and deployed using a Docker Compose file. The container includes all the necessary dependencies and configurations for the backend to run.
