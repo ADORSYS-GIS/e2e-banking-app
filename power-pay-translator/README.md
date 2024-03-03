@@ -121,8 +121,66 @@ let result = client.messages.create(
 In this example, the TwilioClient is used to send an SMS message to the specified phone number. The MessagingResponse object is used to generate the TwiML response, which is then sent to the Twilio SMS Gatew
 ````
 
+Translation Service API
+The Translation Service API is a custom API that is used to receive messages from the Twilio SMS Gateway, parse and validate the messages, and forward them to the PowerPay Service. The Translation Service API is implemented as a Rust-based microservice.
 
+Here is an example of how to use the Translation Service API to send a message:
+````rust
+use reqwest::Client;
+use serde_json::Value;
 
+let client = Client::new();
+let message = json!({
+    "sender": "555-555-5555",
+    "recipient": "555-555-5556",
+    "content": "Hello, world!"
+});
+
+let response = client.post("http://localhost:8080/messages")
+    .json(&message)
+    .send()
+    .await?
+    .json()
+    .await?;
+
+println!("{}", response);
+
+In this example, the Client object is used to send a POST request to the /messages endpoint of the Translation Service. The request body contains the message data, which is in JSON format. The Translation Service parses and validates the message, and then forwards it to the PowerPay Service.
+````
+
+PowerPay Service API
+The PowerPay Service API is a custom API that is used to process messages and perform the necessary operations, such as sending money, registering users, and checking balances. The PowerPay Service API is implemented as a microservice.
+
+Here is an example of how to use the PowerPay Service API to send money:
+````rust
+use reqwest::Client;
+use serde_json::Value;
+
+let client = Client::new();
+let transfer = json!({
+    "sender": "555-555-5555",
+    "recipient": "555-555-5556",
+    "amount": 100
+});
+
+let response = client.post("http://localhost:8081/transfers")
+    .json(&transfer)
+    .send()
+    .await?
+    .json()
+    .await?;
+
+println!("{}", response);
+
+In this example, the Client object is used to send a POST request to the /transfers endpoint of the PowerPay Service. The request body contains the transfer data, which is in JSON format. The PowerPay Service processes the transfer and sends a response back to the Translation Service, which then forwards the response to the Twilio SMS gateway to be sent back to the user as an SMS message.
+````
+The Table below summarizes the operations on the API endpoints for the Translation Service backend:
+
+| Endpoint | Method |Description |
+|-----------------|-----------------|-----------------|
+| /messages  | POST   |Receive a message from the Twilio SMS Gateway, parse and validate it, and forward it to the PowerPay Service. The request body should contain the following fields: sender (the phone number of the sender), recipient (the phone number of the recipient), and content (the content of the message).    |
+| /transfers	  | POST   | Process a transfer request. The request body should contain the following fields: sender (the phone number of the sender), recipient (the phone number of the recipient), and amount (the amount of money to be transferred). The PowerPay Service will process the transfer and send a response back to the Translation Service, which will then forward the response to the Twilio SMS gateway to be sent back to the user as an SMS message.
+  |
 
 
 # Conclusion
