@@ -57,4 +57,4 @@ const UseStorageComponent: React.FC<UseStorageComponentProps> = (props) => {
   );
 };
 
-export default UseStorageComponent;
+export default UseStorageComponent;;
