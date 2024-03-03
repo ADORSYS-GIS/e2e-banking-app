@@ -21,13 +21,13 @@
 
 # PowerPay Translator
 
-This service in the microservice architecture should get messages from the twilio and send to the P.P.Service.
+This service in the microservice architecture should get messages from the SMS gateway and send to the P.P.Service.
 
 # Translation Service Backend
 
-The Translation Service backend is a microservice in the PowerPay system that handles messages received from the Twilio SMS gateway and forwards them to the PowerPay Service. The Translation Service backend is responsible for:
+The Translation Service backend is a microservice in the PowerPay system that handles messages received from the  SMS gateway and forwards them to the PowerPay Service. The Translation Service backend is responsible for:
 
-Receiving messages from the Twilio SMS gateway
+Receiving messages from the SMS gateway
 Parsing and validating the messages
 Forwarding the messages to the PowerPay Service
 Handling errors and retries
@@ -38,7 +38,7 @@ Logging and monitoring
 
 The Translation Service backend consists of the following components:
 
-### Twilio SMS Gateway :
+### SMS Gateway :
 
  A third-party service that sends SMS messages to the Translation Service backend.
 
@@ -47,24 +47,19 @@ The Translation Service backend consists of the following components:
  A Rust-based microservice that receives messages from the Twilio SMS gateway, parses and validates the messages, and forwards them to the PowerPay Service.
 ### PowerPay Service:
 
- A microservice that processes the messages and performs the necessary operations, such as sending money, registering users, and checking balances.
-### Database:
 
-A cloud-native database that stores all the necessary information for the system to operate, such as user data, transaction history, and account balances.
 
 # Interactions
 
 The Translation Service backend interacts with the following components:
 
-### Twilio SMS Gateway:
+### SMS Gateway:
  The Translation Service backend receives messages from the Twilio SMS gateway using the Twilio API.
 
 ### PowerPay Service:
 
  The Translation Service backend forwards messages to the PowerPay Service using the PowerPay API.
-### Database:
 
- The Translation Service backend reads and writes data to the database as needed.
 
 # Technology
 
@@ -80,23 +75,20 @@ The Translation Service backend is built using the following technology:
 
  A custom API for processing messages and performing operations in the PowerPay system.
 ### Cloud-native database:
- A scalable and highly available database for storing system data.
-### Cloud platform:
-
- A cloud platform, such as GCP or AWS, for deploying the Translation Service backend.
+ 
 
 
 # Architecture <a name="architecture"></a>
 
 The architecture of the Translation Service backend consists of the following components:
 
-### API Gateway:
+## API Gateway:
 
  Receives requests from external clients and forwards them to the Translation Service backend.
-### Translation Service Backend:
+## Translation Service Backend:
 
  Processes requests, performs translation where necessary, and forwards them to the PowerPay service.
-### PowerPay Service:
+## PowerPay Service:
 
  Receives translated requests from the Translation Service backend and processes them accordingly.
 The Translation Service backend acts as an intermediary between the API gateway and the PowerPay service, ensuring seamless communication by translating data as required.
@@ -135,7 +127,7 @@ The Translation Service backend includes monitoring and logging capabilities to 
 
 The Translation Service backend interacts with the following components:
 
-Twilio SMS Gateway: The Translation Service backend receives messages from the Twilio SMS gateway using the Twilio API detailed description cam be found here on using twilio API'S 
+SMS Gateway: The Translation Service backend receives messages from the Twilio SMS gateway using the Twilio API detailed description cam be found here on using twilio API'S 
 
 https://www.twilio.com/docs/messaging/api#send-messages 
 
@@ -154,80 +146,20 @@ Twilio SMS Gateway API
 
 The Twilio SMS Gateway API is a third-party API that is used to send and receive SMS messages. The Translation Service backend uses the Twilio API to receive messages from the Twilio SMS Gateway.
 
-Here is an example of how to send an SMS message using the Twilio API, you can refare this url for more information on the implementation. 
+ you can refare this url for more information on the implementation. 
 https://www.twilio.com/docs/glossary/what-is-sms-api-short-messaging-service
 
-````js
-use twilio::TwilioClient;
-use twilio::twiml::MessagingResponse;
 
-let client = TwilioClient::new("ACCOUNT_SID", "AUTH_TOKEN");
-let mut response = MessagingResponse::new();
-response.message("Hello, world!");
-
-let twiml = response.to_string();
-let result = client.messages.create(
-    "TO_NUMBER",
-    Some("FROM_NUMBER"),
-    Some(&twiml),
-);
-In this example, the TwilioClient is used to send an SMS message to the specified phone number. The MessagingResponse object is used to generate the TwiML response, which is then sent to the Twilio SMS Gatew
-````
 
 ### Translation Service API
 The Translation Service API is a custom API that is used to receive messages from the Twilio SMS Gateway, parse and validate the messages, and forward them to the PowerPay Service. The Translation Service API is implemented as a Rust-based microservice.
 
-Here is an example of how to use the Translation Service API to send a message:
-````rust
-use reqwest::Client;
-use serde_json::Value;
-
-let client = Client::new();
-let message = json!({
-    "sender": "555-555-5555",
-    "recipient": "555-555-5556",
-    "content": "Hello, world!"
-});
-
-let response = client.post("http://localhost:8080/messages")
-    .json(&message)
-    .send()
-    .await?
-    .json()
-    .await?;
-
-println!("{}", response);
-
-In this example, the Client object is used to send a POST request to the /messages endpoint of the Translation Service. The request body contains the message data, which is in JSON format. The Translation Service parses and validates the message, and then forwards it to the PowerPay Service.
-````
 
 PowerPay Service API
 The PowerPay Service API is a custom API that is used to process messages and perform the necessary operations, such as sending money, registering users, and checking balances. The PowerPay Service API is implemented as a microservice.
 
 Here is an example of how to use the PowerPay Service API to send moneyFor more information on the specific endpoints and their input formats, please refer to the PowerPay Service API documentation:
-````rust
-use reqwest::Client;
-use serde_json::Value;
 
-let client = Client::new();
-let transfer = json!({
-    "sender": "555-555-5555",
-    "recipient": "555-555-5556",
-    "amount": 100
-});
-
-let response = client.post("http://localhost:8081/transfers")
-    .json(&transfer)
-    .send()
-    .await?
-    .json()
-    .await?;
-
-println!("{}", response);
-
-In this example, the Client object is used to send a POST request to the /transfers endpoint of the PowerPay Service. The request body contains the transfer data, which is in JSON format. The PowerPay Service processes the transfer and sends a response back to the Translation Service, which then forwards the response to the Twilio SMS gateway to be sent back to the user as an SMS message.
-
-````
 
 The following diagram illustrates how the API endpoints fit into the overall architecture of the Translation Service backend
 
