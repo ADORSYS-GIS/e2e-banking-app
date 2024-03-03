@@ -77,16 +77,14 @@ The Translation Service backend is deployed to a cloud platform, such as GCP or 
 
 The Translation Service backend includes monitoring and logging capabilities to ensure that the system is operating correctly and to diagnose and troubleshoot issues. The backend logs all requests, responses, and errors, and sends the logs to a centralized logging service for analysis and alerting. The backend also includes metrics and monitoring capabilities to track the performance and health of the system.
 
-# Conclusion
-
-
-The Translation Service backend is a critical component in the PowerPay system that enables users to send and receive money, register with the system, and check their balances. The backend is built using Rust and interact with the Twilio SMS gateway, the PowerPay Service, and the cloud-native database. The backend is deployed to a cloud platform for high availability and scalability, and includes monitoring and logging capabilities to ensure that the system is operating correctly.
 
 # Concrete interactions between different components 
 
 The Translation Service backend interacts with the following components:
 
-Twilio SMS Gateway: The Translation Service backend receives messages from the Twilio SMS gateway using the Twilio API (detailed description cam be found here https://www.twilio.com/docs/messaging/api#send-messages )
+Twilio SMS Gateway: The Translation Service backend receives messages from the Twilio SMS gateway using the Twilio API detailed description cam be found here on using twilio API'S 
+
+https://www.twilio.com/docs/messaging/api#send-messages 
 
 
 . When a message is received, the Translation Service extracts the necessary information, such as the sender's phone number, the recipient's phone number, and the message content. The Translation Service then validates the message and forwards it to the PowerPay Service for further processing.
@@ -98,3 +96,9 @@ These interactions are illustrated in the following diagram:
 
 
 
+
+
+
+# Conclusion
+
+The Translation Service backend is a critical component in the PowerPay system that enables users to send and receive money, register with the system, and check their balances. The backend is built using Rust and interact with the Twilio SMS gateway, the PowerPay Service, and the cloud-native database. The backend is deployed to a cloud platform for high availability and scalability, and includes monitoring and logging capabilities to ensure that the system is operating correctly.
