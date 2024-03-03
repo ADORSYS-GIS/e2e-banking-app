@@ -101,7 +101,8 @@ Twilio SMS Gateway API
 
 The Twilio SMS Gateway API is a third-party API that is used to send and receive SMS messages. The Translation Service backend uses the Twilio API to receive messages from the Twilio SMS Gateway.
 
-Here is an example of how to send an SMS message using the Twilio API, you can refare this url for more info  https://www.twilio.com/docs/glossary/what-is-sms-api-short-messaging-service
+Here is an example of how to send an SMS message using the Twilio API, you can refare this url for more information on the implementation. 
+https://www.twilio.com/docs/glossary/what-is-sms-api-short-messaging-service
 
 ````js
 use twilio::TwilioClient;
@@ -117,6 +118,7 @@ let result = client.messages.create(
     Some("FROM_NUMBER"),
     Some(&twiml),
 );
+In this example, the TwilioClient is used to send an SMS message to the specified phone number. The MessagingResponse object is used to generate the TwiML response, which is then sent to the Twilio SMS Gatew
 ````
 
 
