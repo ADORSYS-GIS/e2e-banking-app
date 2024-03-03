@@ -93,6 +93,8 @@ Database: The Translation Service and PowerPay Service both read and write data 
 
 These interactions are illustrated in the following diagram:
 
+![alt text](image.png)
+
 
 
 
