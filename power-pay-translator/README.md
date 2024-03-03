@@ -180,7 +180,7 @@ The Table below summarizes the operations on the API endpoints for the Translati
 |-----------------|-----------------|-----------------|
 | /messages  | POST   |Receive a message from the Twilio SMS Gateway, parse and validate it, and forward it to the PowerPay Service. The request body should contain the following fields: sender (the phone number of the sender), recipient (the phone number of the recipient), and content (the content of the message).    |
 | /transfers	  | POST   | Process a transfer request. The request body should contain the following fields: sender (the phone number of the sender), recipient (the phone number of the recipient), and amount (the amount of money to be transferred). The PowerPay Service will process the transfer and send a response back to the Translation Service, which will then forward the response to the Twilio SMS gateway to be sent back to the user as an SMS message.
-  |
+  
 
 
 # Conclusion
