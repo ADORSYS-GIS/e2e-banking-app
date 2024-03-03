@@ -14,66 +14,123 @@ PowerPay is a mobile payment application that allows users to send and receive m
 
 ## Technologies used
 
-- ReactJS for building the user interface and implementing a Progressive Web App (PWA) approach.
-- HTML and CSS for the structure and styling of the user interface.
-- RESTful APIs for communication with the backend server.
+- ReactJS: Our  primary framework for building our  user interface and implementing a Progressive Web App (PWA) approach. This ensures a responsive and performant user experience across different devices.
+- React Libraries: In addition to ReactJS, we'll leverage various React libraries to enhance specific functionalities of the app. These libraries might include:
+1. Navigation libraries: For managing navigation between different screens and views within the app (e.g., React Router).
+2. State management libraries: For handling complex application state and data flow (e.g., Redux, MobX).
+- HTML and CSS: The foundation for structuring and styling the user interface elements of the PowerPay App.
+- RESTful APIs: The communication protocol between the front-end (ReactJS) and the back-end server. RESTful APIs provide a standardized way to request and receive data, facilitating efficient interaction between the application layers.
+- PWA Implementation: The PWA approach utilizes web technologies to deliver an app-like experience that can be installed on user devices. This might involve additional libraries or frameworks to enhance features like offline functionality and push notifications.
+- HTTP Communication: RESTful APIs rely on HTTP requests and responses for communication. The back-end server will be configured to handle these requests and provide the necessary data or functionalities.
+
+
+### React App Architecture:
+
+**The PowerPay React application leverages a component-based architecture for building the user interface and managing application state. Here are the key aspects of this architecture:**
+
+- Components: Reusable UI building blocks that encapsulate functionality and presentation. The app will likely consist of various components representing screens (registration, main screen, send money, etc.) and smaller reusable elements (buttons, forms, input fields).
+- State Management: As the application complexity grows, a state management solution might be implemented to handle complex data flows and keep UI components in sync. Popular choices include Redux or MobX, which offer centralized state management for a more predictable and scalable application.
+- Data Fetching: The React app will likely fetch data from backend APIs using libraries like Axios or Fetch API. This data can then be used to populate UI components and update the application state.
+- Routing: A routing library like React Router will manage navigation between different screens within the app. This allows users to seamlessly switch between functionalities based on their actions.
+
+
+###Deployment and Operation:
+
+**Deploying and operating the PowerPay React app involves several steps:**
+
+- **Build Process:** The React application code will be bundled and optimized for production using tools . This creates a production-ready build that can be deployed to a hosting environment.
+
+- **Hosting Platform:** Several options exist for hosting the React app.
+1. Cloud Platforms: Cloud providers like AWS, Azure, or Google Cloud Platform offer various hosting options like servers or containers. These provide more flexibility for complex backend integrations or specific infrastructure needs.
+
+- **CI/CD Pipeline:** A continuous integration and continuous delivery (CI/CD) pipeline automates the build, testing, and deployment process. This ensures consistency, reduces manual errors, and allows for frequent updates with minimal downtime.
+
+- **Monitoring and Logging:** Implementing monitoring and logging solutions helps track application performance, identify errors, and troubleshoot issues after deployment.
+
 
 ## Architecture and Interaction
 
 ### User Interface:
+**The PowerPay mobile app offers a user-friendly interface that facilitates various financial transactions.**
 
-- **Registration Process**: The registration process is a series of steps that allows users to create an account and access the payment app's features. The steps typically include:
+**Registration screen:**
 
-    1. **Step 1 - Personal Information**: Users enter their personal details, such as name, phone number etc. This information is necessary for account creation and verification.
+- This is the first screen users encounter. It guides them through the account creation process.
+- The interface includes input fields for users to enter their full name, phone number,etc.
+- A separate section allows users to create a secure PIN for account access.
+- A clear "Register" button initiates the account creation process.
 
-    2. **Step 2 - Pin Setup**: Users set up a secure pin to protect their account. The pin should meet specific criteria, such as minimum length of numbers etc.
+**see:** ![reference image](/mockups_wireframes/Registration.png)
 
-    3. **Step 3 - OTP Confirmation**: Once users have entered their information, set up a pin, they are provide with an OTP in which they now confirm their account for security measures.
+**Main screen:**
+- After a successful registration, the user is directed to the main interface which has features needed by the use to perform various transactions using the power pay app.
+- This screen serves as the central hub for accessing various functionalities.
+- The interface likely utilizes clear  buttons representing actions like "Send Money," "Top Up," "Withdraw," and "Check Balance."
 
-    4. **Step 4 - Confirmation**: Once users have entered their information, set up a pin, etc . they can proceed to complete the registration process. The "Register" button is clicked to finalize the registration.
+**see:**
+![reference image](/mockups_wireframes/Main_interface.png)
+*The wireframe above shows how the main interface looks like and it follows by using the check balance functionality to show how it works and flow.*
 
-    **note:** **The above registration method is for a smartphone user.**
-    **See mockup:** ![reference image](/mockups_wireframes/Registration_process.png)
+For the **SendMoney** screen Interface/Procedure:
+**see:**
+![reference image](/mockups_wireframes/SendMoney.png)
 
-
-- **Registartion process for a choronko user**:As a choronko user who wants to register, all you need to do is :
-
-1. **Step 1 - Initiating Registration**: The choronko user can initiate the registration process by calling the powerpay service and then providing  their personal information such as full name , phone number etc.
-
-2. **Step 2 -  Mobile Number Verification**:After collecting the user's mobile number, the Choronko registration system will initiate a verification step. This will be done by sending an OTP (One-Time Password) to the user's mobile number via SMS.
-
-3. **Step 3 -  OTP Verification**:The Choronko user will be prompted to enter the OTP or verification code received via SMS. The system will validate the code to ensure the mobile number is associated with the user and proceed to the next step upon successful verification.
-
-4. **Step 4 -  Setting a Personal Identification Number (PIN)**: For security purposes, the Choronko user will be prompted to set a PIN .The system will guide the user through the process of setting a secure PIN following specific requirements.
-
-5. **Step 5 -  Completing Registration**: Once the user has set their PIN, the registration process for the Choronko user is considered complete. The system will store the user's information and PIN securely in the backend, associating it with the user's mobile number.
-
-
-
-## User Workflow
-
-The typical user workflow in the Power Payment App involves the following steps:
-
-- **Registration:** A potential user can register with the Power Payment App using either a smartphone or a Choronko device. The user provides necessary information and follows the registration process facilitated by the frontend client. The registration data is securely sent to the backend server for storage.
-
-- **Account Top-Up:** Once registered, a PowerPay user can top up their PowerPay account. This can be done at a PowerPay kiosk or store by following the relevant user story steps. The user interacts with the frontend client to initiate the top-up process, which involves communication with the backend server and potentially integrating with external payment gateways.
-
-- **Sending Money:** A PowerPay user can send money to another PowerPay user using either a smartphone or a Choronko device. The user initiates the transaction through the frontend client, providing the recipient's details and the desired amount. The backend server processes the transaction, deducts the amount from the sender's account, and updates the recipient's account accordingly.
-
-- **Withdrawing Money:** PowerPay users can withdraw money from their PowerPay accounts using either a smartphone or a Choronko device. The user initiates the withdrawal process through the frontend client, specifying the withdrawal amount and the preferred withdrawal method (e.g., PowerPay kiosk). The backend server processes the request, deducts the amount from the user's account, and facilitates the withdrawal through the appropriate channel.
-
-- **Checking Balance:**  PowerPay users can conveniently check their account balance at any time.  Here's how this works:
-
-1. **User Initiates Check:** The user opens the PowerPay app and navigates to the designated section for checking their balance (e.g., "check balance interface").
-2. **Front-End Request:** The app sends a request through the API to the backend server specifically designed to retrieve the user's account balance.
-3. **Back-End Processing:** The backend server authenticates the user and retrieves the latest balance information from the user database.
-4. **Response to App:** The backend server sends a response back to the app containing the user's current account balance.
-5. **Balance Display:** The app receives the response and updates the user interface to display the retrieved balance information.
+    
+For the **WithDraw Money** screen Interface/Procedure:
+**see:**
+![reference image](/mockups_wireframes/Withdraw_Money.png)
 
 
-**see mockup**:
-![reference image](/mockups_wireframes/User_flow_interface.png) 
-![reference image](/mockups_wireframes/Transactions.png)
+## User Workflow in PowerPay App
+The PowerPay app streamlines various financial transactions through a user-friendly workflow. Here's how power pay users  will interact with the app's interfaces:
+1. **User Registration:**
+- New users launch the app and  then navigates to the registration screen.
+- They enter their personal details (name, phone number) in the designated fields on screen.
+- After entering details, The user is directed to a screen to enter the received OTP.
+- They enter the OTP code in the designated field 
+- Upon successful OTP verification, the user is now redirected to a different screen.
+- The user is required to enter a pin code , these is important to ensure a secure access.
+- After filling in all the required details , including the OTP and the pin, the user now clicks on the "Register" button.
+- Upon succesfull registration , the app sends the registration information to the backend server for verification and for storage in the Data base and a new interface is displayed to the use which contains all the required transactions the user might want to execute(SendMoney , Top-up , Withdraw etc).
+
+**Depending on what feature the user wants to use  present in the main interface, we have:**
+
+ **Send Money:**
+- From the main interface  users tap the "Send Money"  button.
+- They are directed to the send money screen
+- On the send money screen, users enter the recipient's phone number in the designated field.
+- They  enter the amount in the designated field .
+- A friendly message is later on displayed on the screen confirming if the use wants to send the specific amount to the recipient number  and later on the user is prompted to enter pin code for comfirmation.
+- After reviewing the details on the screen , users confirm the transaction by tapping the "Send" button.
+
+**Top Up:**
+- The top-up process can be done either at the kiosk or  at the power pay store with a power pay operator.
+
+- The user who wants to top up provides physical cash to the kiosk user or power pay operator followed by their account details.
+
+- From the main interface , the kiosk users or power pay operator  tap the "Top Up"  button.
+- They are directed to the top-up screen.
+- In the top-up screen they enter the user account details(number,  amount , etc)  as specified by the user who wants to top up in the designated field.
+- After entering  the amount , users confirm the top-up by tapping the "Top Up" button.
+
+**Withdrawal:**
+- These operation is either performed either at the kiosk or power pay store.
+- These involve the user involve taking physical cash and amount being reducted digitally in his/her power pay app.
+
+- From the main interface, users(kiosk user or power pay operator) tap the "withdrawal" button
+- They are directed to the withdrawal screen.
+- The user now put in the number and amount given to them by the user who wants to carry on the withdraw.
+- If the user account balance is sufficient enough, the withdrawal process is continued followed by a message in the user's phone asking user to enter pin to confirm/initiate withdraw and also providing the amount that was withdrawed/date of withdrawal .
+withdrawal is then made succesful
+
+**Check Balance:**
+
+- From the main interface , users tap the "Check Balance"  button.
+- They are directed to the check balance screen.
+- The user is requested a pin code for confirmation.
+- The user's current account balance is prominently displayed on screen  for easy viewing.
+
+
 
 
 ## Error Handling in the PowerPay App
@@ -84,10 +141,52 @@ Types of Errors:
 - Network Errors: These occur when the user's device loses internet connectivity or cannot establish a connection to the server.
 - Server Errors: These can happen due to issues on the back-end server, such as high load, bugs, or maintenance.
 - API Errors: Errors returned from the back-end APIs due to invalid data formats, unauthorized access attempts, or other API-specific issues.
+- User Errors: Errors returned when the user mistakes in data entery orinteraction with the app's functionalities.
+
+**Common API Errors:**
+- *400 Bad Request:* This error typically indicates that the request sent by the PowerPay app to the back-end API contains invalid data or a parameter is missing.
+Common causes might be missing required fields in the request body, incorrectly formatted data (e.g., wrong date format, invalid characters in names), or exceeding character limits for specific fields.
+
+- *404 Not Found:* This error indicates that the resource (e.g., user data, transaction history) requested by the app is not found on the back-end server.
+This could be due to a typo in the API endpoint URL, referencing a non-existent user ID, or temporary server issues.
+
+- *403 Forbidden:* This error signifies that the user associated with the request is authorized but doesn't have the necessary permissions to perform the specific action.
+
+- *500 Internal Server Error:* This generic error signifies a problem on the back-end server preventing it from fulfilling the request.
+This could be due to server overload, bugs in the back-end code, or database issues.
+
+**API Error Handling:**
+1. **Graceful error display:**  Inform users without technical jargon
+- For example, instead of "400 Bad Request," the app displays "There seems to be a problem with your request. Please check your information and try again."
+2. **Offer Retry Options for Recoverable Errors:**
+- Not all errors are permanent. Some might be caused by temporary network issues or server overload.
+- The app should offer users the option to retry the action after a short delay.
+- This allows users to potentially complete their task if the initial error was temporary.
+
+
+**User Error Handling:**
+
+The PowerPay app prioritizes user-friendliness by providing clear and helpful messages in case of user errors. Here are some examples:
+
+*Invalid Phone Number:*
+- If a user enters a phone number in an incorrect format (e.g., missing digits, invalid characters), the app will display a message like "Invalid phone number format. Please enter a valid 10-digit phone number."
+
+*Missing Information:*
+- In cases where a user forgets to fill in a required field (e.g., name during registration, amount during top-up), the app will display a message like "Please enter all required fields."
+
+*Invalid Withdrawal Amount:*
+- If a user tries to withdraw an amount exceeding their account balance or below the minimum allowed withdrawal limit, the app will display  a message explaining the issue.
+For example, "Insufficient funds. Your current balance is not enough for this withdrawal." or "Please enter a valid amount."
+
+*Incorrect PIN:*
+- If a user enters an incorrect PIN during transaction processes, the app will limit the number of attempts to prevent unauthorized access.
+- After exceeding the attempt limit, the app will prompt the user to reset their PIN or contact support.
+- A generic message like "Incorrect PIN. Please try again." After exceeding attempts, a more informative message can be displayed.
+
 
 ##Error Handling Strategies:
 
-- Informative Error Messages: The app will display user-friendly error messages that clearly communicate the nature of the problem.for instance:
+- Informative Error Messages: The app  display's user-friendly error messages that clearly communicate the nature of the problem.for instance:
 "Network Error: Please check your internet connection and try again."
 "Server Error: We're currently experiencing technical difficulties. Please try again later."
 "Invalid Input: Please enter a valid phone number." (for API errors related to user input)
