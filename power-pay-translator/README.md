@@ -95,7 +95,29 @@ These interactions are illustrated in the following diagram:
 
 ![alt text](image.png)
 
+# Defining between component Applcation Programming Interface
 
+Twilio SMS Gateway API
+
+The Twilio SMS Gateway API is a third-party API that is used to send and receive SMS messages. The Translation Service backend uses the Twilio API to receive messages from the Twilio SMS Gateway.
+
+Here is an example of how to send an SMS message using the Twilio API, you can refare this url for more info  https://www.twilio.com/docs/glossary/what-is-sms-api-short-messaging-service
+
+````js
+use twilio::TwilioClient;
+use twilio::twiml::MessagingResponse;
+
+let client = TwilioClient::new("ACCOUNT_SID", "AUTH_TOKEN");
+let mut response = MessagingResponse::new();
+response.message("Hello, world!");
+
+let twiml = response.to_string();
+let result = client.messages.create(
+    "TO_NUMBER",
+    Some("FROM_NUMBER"),
+    Some(&twiml),
+);
+````
 
 
 
