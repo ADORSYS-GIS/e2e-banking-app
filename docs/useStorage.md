@@ -1,91 +1,46 @@
-#             useStorage()  HOOK
+# useStorage Hook
 
+ The react useStorage hook is a react hook which allows use to easily manage state in a web storage API like a localstorage or sessionstorage.<br>
+
+It is used for retrieving, writing, listening and removing data to and from various web storage like the localstorage.<br>
+
+We can fully utilize the power of the useStorage hook by adding either a react **Redux** or a react **Context** which are state management tools(libraries) in react. Each of this have different implementations and functions in different ways depending on what project they are to be used.<br>
+
+Lets see some of the aspects which sets them apart inother to choose the one which bests suits an application.<br>
+
+The **context** management tool provides us with features which are particularly helpful when you have data that needs to be accessed globally within a tree of React Components. such as theme preferences or preferred language.
+
+One of the main benefits of Context API is its ability to simplify state management in your application. By using Context, you can reduce the complexity of passing data between components and eliminate the need for additional actions or props. This can make your code more concise and easier to maintain. It’s like having a handy tool that streamlines the sharing of data among your components.
+
+* Context API has two core concepts:
+
+   - Providers
+    - Consumers
+    #
+
+**Providers** is to define and keep track of specific pieces of state. This state can then be accessed by all the child components nested inside the Provider. These child components, known as Consumers, are responsible for accessing or modifying the state provided by the Context Provider.Points to notes about Context before choosing the right library.<br>
+# 
+- Context is typically used for smaller-scale state management needs or for passing down data that is needed by many components in the application.
+- Context it's build into React itself, so there's no need to install additional libraries to use it.<br>
+
+
+And on the flip side we have **Redux** which provides us with a different way of viewing states in our application
  
-react ***Hooks*** are special functions which lets us use reusable state and other react features without having to write class components for those features . react provide some build in hooks such as ***useState***, ***useEffect***, ***useCallback*** etc which permits use to use reacts state and features in an effective and reusable manner. we are going to be needed this three hooks inother to build out ***useStorage*** hook. 
+Redux simplifies the way we view state in our application by requiring us to store all the state data in a single object. Everything we need to know about the application is in one place. with reduce we pull state management away from react entirely. 
 
-##
-    The react useStorage hook is a react hook which allows use to easily manage state in a web storage API like a localstorage or sessionstorage
-#
-
-**useState** : allows functional components to manage state. it returns a statefull value and a function to update it e.g
+* The reduce API has three main concepts 
+    - The store
+    - The Reducer
+    - Action
     
-```javascript
-import React, { useState } from 'react';
+#
+The **store**: An immutable object that holds the application's state<br>
+**Reducer**: A function that returns some data, triggered by an action type<br>
+**Action**: An object that tells the reducer how to change the state it must contain a type property and optional payload property.<br>
+Points to note are.<br>
+#
+- Redux is typically used for lager-scale management needs or for applications with complex state logic that require features such as as middleware, time-travel debigging and predictable container state.
 
-function Example() {
- // Declare a new state variable, "count"
-  const [count, setCount] = useState(0);
+To make the most use of the useStorage hook we are going to be using the Context library here this is because of its simplicity, also the Context api is a build in feature of react, the Context is suitable for managing global state or application-level state and also for the scope of our applications since we donot have to much data to handle.<br>
 
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
-  );
-}
-```
-**useEffect** : Allows functional components to perform side Effects it takes two arguments a function and a list of argument(s) for which the function is run s when and item is the list is modified.
-
-```javascript
-import React, { useState, useEffect } from 'react';
-
-function Example() {
-  const [count, setCount] = useState(0);
-
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect(() => {
-    // Update the document title using the browser API
-    document.title = `You clicked ${count} times`;
-  } [count]);
-
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count++)}>
-        Click me
-      </button>
-    </div>
-  );
-}
-```
-**useCallback** : used to optimise performance thats is for memory management
-```javascript
-import React, { useState, useCallback } from 'react';
-
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  // Define a callback function using useCallback to memoize it
-  const increment = useCallback(() => {
-    setCount(prevCount => prevCount + 1);
-  }, []);
-
-  const decrement = () => {
-    setCount(prevCount => prevCount - 1);
-  };
-
-  return (
-    <div>
-      <h1>Counter</h1>
-      <p>Count: {count}</p>
-      {/* Pass the memoized callback function to the onClick event handler */}
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-    </div>
-  );
-};
-
-export default Counter;
-```
-now that the hooks required to construct our storage hook have been examined lets look for closer to the useStorage hook.
-The useStorage is composed of two other hooks for storing the data either in the localstorage or the session storage which are the ***useLocalStorage*** and ***useSessionStorage**<br>
-but we will take them all in one 
-
-the detail implementation of this hook can be found here [Hook](../power-pay-frontend/src/Hooks/useStorage.ts)<br>
-
-And to test this hook on your machine make sure you have node 16 and above install  
-The test code is found here [Test](../power-pay-frontend/src/Tests/useStorageTest.tsx)
-
-then add the line `<UseStorageComponent>` to App.tsx then start the server using `npm start` navigate to your browser on `localhost:3000` then right click and select inspect, then in the menu heading choose application then localstorage and sessionstorage then you will see the the stored values with their key.
+Now we have our state library we now implement it in our useStorage hook so that we can now store it in the ***LocalStorage*** so that using a key passed to the hook we can have a corresponding value which can survive acrross refreshes and can be used by other components of out application.
