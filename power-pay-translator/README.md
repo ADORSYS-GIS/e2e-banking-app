@@ -145,13 +145,32 @@ Database: The Translation Service and PowerPay Service both read and write data 
 
 These interactions are illustrated in the following diagram:
 
-![alt text](image.png)
+```
+sequenceDiagram
+ SMS Gateway ->>Translation Service Backend:  / handle_message
+
+Translation Service Backend->>PowerPay Service: POST / api / send_money
+
+PowerPay Service-->>Translation Service Backend: POST /send_sms  (OTP)
+PowerPay Service-->>PowerPay Service: verification
+
+
+Translation Service Backend-->> SMS Gateway:  sms containing otp
+SMS Gateway->PowerPay Service: balance checking
+ SMS Gateway ->>Translation Service Backend:  / handle_message
+Translation Service Backend->>PowerPay Service: GET / api / balance
+PowerPay Service-->>PowerPay Service: verification
+
+PowerPay Service-->>Translation Service Backend: GET /send_sms  
+
+Translation Service Backend-->> SMS Gateway:  sms containing balance
+```
 
 # Defining between component API
 
-Twilio SMS Gateway API
+SMS Gateway API
 
-The Twilio SMS Gateway API is a third-party API that is used to send and receive SMS messages. The Translation Service backend uses the Twilio API to receive messages from the Twilio SMS Gateway.
+The  SMS Gateway API is a third-party API that is used to send and receive SMS messages. The Translation Service backend uses the API to receive messages from the Twilio SMS Gateway.
 
  you can refare this url for more information on the implementation. 
 https://www.twilio.com/docs/glossary/what-is-sms-api-short-messaging-service
@@ -165,26 +184,22 @@ The Translation Service API is a custom API that is used to receive messages fro
 PowerPay Service API
 The PowerPay Service API is a custom API that is used to process messages and perform the necessary operations, such as sending money, registering users, and checking balances. The PowerPay Service API is implemented as a microservice.
 
-Here is an example of how to use the PowerPay Service API to send moneyFor more information on the specific endpoints and their input formats, please refer to the PowerPay Service API documentation:
-
-
-The following diagram illustrates how the API endpoints fit into the overall architecture of the Translation Service backend
-
-![alt text](image-1.png)
 
 The Table below summarizes the operations on the API endpoints for the Translation Service backend:
 
 | Endpoint | Method |Description |
 |-----------------|-----------------|-----------------|
-| /messages  | POST   |Receive a message from the Twilio SMS Gateway, parse and validate it, and forward it to the PowerPay Service. The request body should contain the following fields: sender (the phone number of the sender), recipient (the phone number of the recipient), and content (the content of the message).    |
-| /transfers	  | POST   | Process a transfer request. The request body should contain the following fields: sender (the phone number of the sender), recipient (the phone number of the recipient), and amount (the amount of money to be transferred). The PowerPay Service will process the transfer and send a response back to the Translation Service, which will then forward the response to the Twilio SMS gateway to be sent back to the user as an SMS message.
+| /handle_messages  | POST   |Receive a message from the  SMS Gateway, parse and validate it, and forward it to the PowerPay Service. The request body should contain the following fields: sender (the phone number of the sender), recipient (the phone number of the recipient), and content (the content of the message).    |
+| /api/sendmoney	  | POST   | Process a transfer request. The request body should contain the following fields: sender (the phone number of the sender), recipient (the phone number of the recipient), and amount (the amount of money to be sent). The PowerPay Service will process the transfer and send a response back to the Translation Service, which will then forward the response to the  SMS gateway to be sent back to the user as an SMS message.
+| /api/balance	  | GET   |The PowerPay Service will process the check balance and uses the endpoitn /api/balance to send a response back to the Translation Service, which will then forward the response to the  SMS gateway to be sent back to the user as an SMS message.
+| /send_sms	  | GET   |The PowerPay Service will process the check balance and send a response back to the /send_sms endpoint of the Translation Service such as the OTP , which will then forward the response to the  SMS gateway to be sent back to the user as an SMS message.
   
 
 
 # Conclusion
 
-The Translation Service backend is a critical component in the PowerPay system that enables users to send and receive money, register with the system, and check their balances. The backend is built using Rust and interact with the Twilio SMS gateway, the PowerPay Service, and the cloud-native database. The backend is deployed to a cloud platform for high availability and scalability, and includes monitoring and logging capabilities to ensure that the system is operating correctly.
-n summary, the Translation Service backend consists of three main components: the Twilio SMS Gateway, the Translation Service, and the PowerPay Service. The Twilio SMS Gateway sends SMS messages to the Translation Service, which then parses and validates the messages and forwards them to the PowerPay Service. The PowerPay Service processes the messages and sends a response back to the Translation Service, which then forwards the response to the Twilio SMS gateway to be sent back to the user as an SMS message.
+The Translation Service backend is a critical component in the PowerPay system that enables users to send and receive money, register with the system, and check their balances. The backend is built using Rust and interact with the  SMS gateway, the PowerPay Service, and the cloud-native database. The backend is deployed to a cloud platform for high availability and scalability, and includes monitoring and logging capabilities to ensure that the system is operating correctly.
+n summary, the Translation Service backend consists of three main components: the SMS Gateway, the Translation Service, and the PowerPay Service. The SMS Gateway sends SMS messages to the Translation Service, which then parses and validates the messages and forwards them to the PowerPay Service. The PowerPay Service processes the messages and sends a response back to the Translation Service, which then forwards the response to the SMS gateway to be sent back to the user as an SMS message.
 
 The Translation Service API and the PowerPay Service API are both custom APIs that are used to facilitate communication between the components. The Translation Service API is used to receive messages from the Twilio SMS Gateway, and the PowerPay Service API is used to process the messages and perform the necessary operations.
 
