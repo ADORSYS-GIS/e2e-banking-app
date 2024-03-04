@@ -15,9 +15,6 @@ PowerPay is a mobile payment application that allows users to send and receive m
 ## Technologies used
 
 - ReactJS: Our  primary framework for building our  user interface and implementing a Progressive Web App (PWA) approach. This ensures a responsive and performant user experience across different devices.
-- React Libraries: In addition to ReactJS, we'll leverage various React libraries to enhance specific functionalities of the app. These libraries might include:
-1. Navigation libraries: For managing navigation between different screens and views within the app (e.g., React Router).
-2. State management libraries: For handling complex application state and data flow (e.g., Redux, MobX).
 - HTML and CSS: The foundation for structuring and styling the user interface elements of the PowerPay App.
 - RESTful APIs: The communication protocol between the front-end (ReactJS) and the back-end server. RESTful APIs provide a standardized way to request and receive data, facilitating efficient interaction between the application layers.
 - PWA Implementation: The PWA approach utilizes web technologies to deliver an app-like experience that can be installed on user devices. This might involve additional libraries or frameworks to enhance features like offline functionality and push notifications.
@@ -28,57 +25,79 @@ PowerPay is a mobile payment application that allows users to send and receive m
 
 **The PowerPay React application leverages a component-based architecture for building the user interface and managing application state. Here are the key aspects of this architecture:**
 
-- Components: Reusable UI building blocks that encapsulate functionality and presentation. The app will likely consist of various components representing screens (registration, main screen, send money, etc.) and smaller reusable elements (buttons, forms, input fields).
+- Components: Reusable UI building blocks that encapsulate functionality and presentation. The app will likely consist of various components representing screens (registration, Top-up, withdraw money,check balance send money, etc.) and smaller reusable elements (buttons, forms, input fields).
 - State Management: As the application complexity grows, a state management solution might be implemented to handle complex data flows and keep UI components in sync. Popular choices include Redux or MobX, which offer centralized state management for a more predictable and scalable application.
 - Data Fetching: The React app will likely fetch data from backend APIs using libraries like Axios or Fetch API. This data can then be used to populate UI components and update the application state.
 - Routing: A routing library like React Router will manage navigation between different screens within the app. This allows users to seamlessly switch between functionalities based on their actions.
+
+
+```mermaid
+
+graph LR
+A[RegistrationScreen]
+B[TopUpScreen]
+C[WithdrawMoneyScreen]
+D[CheckBalanceScreen]
+E[SendMoneyScreen]
+F[Button]
+G[Form]
+H[InputField]
+I[State Management]
+J[Data Fetching]
+K[React Router]
+L[Backend APIs]
+
+A -->|Route| B
+A -->|Route| C
+A -->|Route| D
+A -->|Route| E
+B --> F
+C --> F
+D --> F
+E --> F
+E --> G
+G --> H
+B --> I
+C --> I
+D --> I
+E --> I
+I --> J
+B --> K
+C --> K
+D --> K
+E --> K
+J --> L
+K -->|Route| A
+
+
+```
 
 
 ###Deployment and Operation:
 
 **Deploying and operating the PowerPay React app involves several steps:**
 
-- **Build Process:** The React application code will be bundled and optimized for production using tools . This creates a production-ready build that can be deployed to a hosting environment.
+- Build Process: The React application code will be bundled and optimized for production using tools like Webpack. This creates a production-ready build that can be deployed to a hosting environment.
 
-- **Hosting Platform:** Several options exist for hosting the React app.
-1. Cloud Platforms: Cloud providers like AWS, Azure, or Google Cloud Platform offer various hosting options like servers or containers. These provide more flexibility for complex backend integrations or specific infrastructure needs.
+- Hosting Platform: Here, we can present two cost-effective options for your client:
 
-- **CI/CD Pipeline:** A continuous integration and continuous delivery (CI/CD) pipeline automates the build, testing, and deployment process. This ensures consistency, reduces manual errors, and allows for frequent updates with minimal downtime.
+1. Static Hosting: Platforms like Netlify or Vercel are well-suited for PWAs as they can serve the static assets of the app and handle routing efficiently. These platforms typically offer free plans or affordable pricing tiers suitable for simpler applications.
 
-- **Monitoring and Logging:** Implementing monitoring and logging solutions helps track application performance, identify errors, and troubleshoot issues after deployment.
+2. Managed Hosting Providers: Managed hosting providers offer shared hosting or cloud hosting solutions specifically designed for web applications. Popular options include Heroku, DigitalOcean, or A2 Hosting. These providers offer a balance of affordability, ease of use, and scalability for growing applications.
 
+- CI/CD Pipeline: A continuous integration and continuous delivery (CI/CD) pipeline automates the build, testing, and deployment process. This ensures consistency, reduces manual errors, and allows for frequent updates with minimal downtime. Depending on the chosen hosting platform, there might be built-in CI/CD integrations or third-party options available at a reasonable cost.
+
+- Monitoring and Logging: Implementing monitoring and logging solutions helps track application performance, identify errors, and troubleshoot issues after deployment. Here, consider open-source solutions like ELK Stack or cost-effective monitoring tools offered by the chosen hosting provider.
 
 ## Architecture and Interaction
 
 ### User Interface:
-**The PowerPay mobile app offers a user-friendly interface that facilitates various financial transactions.**
-
-**Registration screen:**
-
-- This is the first screen users encounter. It guides them through the account creation process.
-- The interface includes input fields for users to enter their full name, phone number,etc.
-- A separate section allows users to create a secure PIN for account access.
-- A clear "Register" button initiates the account creation process.
-
-**see:** ![reference image](/mockups_wireframes/Registration.png)
-
-**Main screen:**
-- After a successful registration, the user is directed to the main interface which has features needed by the use to perform various transactions using the power pay app.
-- This screen serves as the central hub for accessing various functionalities.
-- The interface likely utilizes clear  buttons representing actions like "Send Money," "Top Up," "Withdraw," and "Check Balance."
-
-**see:**
-![reference image](/mockups_wireframes/Main_interface.png)
-*The wireframe above shows how the main interface looks like and it follows by using the check balance functionality to show how it works and flow.*
-
-For the **SendMoney** screen Interface/Procedure:
-**see:**
-![reference image](/mockups_wireframes/SendMoney.png)
-
-    
-For the **WithDraw Money** screen Interface/Procedure:
-**see:**
-![reference image](/mockups_wireframes/Withdraw_Money.png)
+**The PowerPay mobile app offers a user-friendly interface/layouts that facilitates various financial transactions.**
+**There wireframes of the layouts are:*
+![reference image](/docs/mockups_wireframes/Registration.png)
+![reference image](/docs/mockups_wireframes/SendMoney.png)
+![reference image](/docs/mockups_wireframes/Withdraw_Money.png)
+![reference image](/docs/mockups_wireframes/check_balance.png)
 
 
 ## User Workflow in PowerPay App
@@ -130,7 +149,35 @@ withdrawal is then made succesful
 - The user is requested a pin code for confirmation.
 - The user's current account balance is prominently displayed on screen  for easy viewing.
 
+``` mermaid
+graph LR
+A[Registration Screen]
+B[OTP Screen]
+C[Pin Code Screen]
+D[Main Interface]
+E[Send Money Screen]
+F[Top Up Screen]
+G[Withdrawal Screen]
+H[Check Balance Screen]
+I[Backend Server]
 
+A -->|Enter personal details| B
+B -->|Enter OTP| C
+C -->|Enter pin code| D
+D -->|Select Send Money| E
+D -->|Select Top Up| F
+D -->|Select Withdrawal| G
+D -->|Select Check Balance| H
+E -->|Enter recipient's phone number and amount| D
+E -->|Confirm transaction and enter pin code| I
+F -->|Enter user account details and amount| D
+F -->|Confirm top-up| I
+G -->|Enter user account details and amount| D
+G -->|Confirm withdrawal and enter pin code| I
+H -->|Enter pin code| D
+D -->|Logout| A
+
+```
 
 
 ## Error Handling in the PowerPay App
@@ -184,13 +231,6 @@ For example, "Insufficient funds. Your current balance is not enough for this wi
 - A generic message like "Incorrect PIN. Please try again." After exceeding attempts, a more informative message can be displayed.
 
 
-##Error Handling Strategies:
-
-- Informative Error Messages: The app  display's user-friendly error messages that clearly communicate the nature of the problem.for instance:
-"Network Error: Please check your internet connection and try again."
-"Server Error: We're currently experiencing technical difficulties. Please try again later."
-"Invalid Input: Please enter a valid phone number." (for API errors related to user input)
-
 ## Error Location:
 
 These error handling mechanisms will be implemented in several key locations within the user flow:
@@ -217,10 +257,3 @@ These error handling mechanisms will be implemented in several key locations wit
 - The backend receives the request, processes it, and interacts with various data sources to fulfill the request.
 - The backend may communicate with databases, external services (such as SMS gateways), or other backend systems to gather or update the required data.
 - The backend may also perform necessary validations, business logic execution, and security checks before responding to the frontend.
-
-##Data Sources:
-
-**The backend of the Power Pay app interacts with different data sources to retrieve or update data.**
-- User data: The backend accesses user-related data,  account information, and transaction history, from a user database.
-- Transaction data: The backend stores transaction-related data, such as transaction IDs, amounts, and statuses, in a transaction database.
-- SMS gateway: The backend may use an SMS gateway service to send SMS notifications or OTPs to users during the transaction process.
