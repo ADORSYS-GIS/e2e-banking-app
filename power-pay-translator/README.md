@@ -145,7 +145,12 @@ Database: The Translation Service and PowerPay Service both read and write data 
 
 These interactions are illustrated in the following diagram:
 
-````sequenceDiagram
+```mermaid
+sequenceDiagram
+participant SMS Gateway as  SMS Gateway 
+ participant Translation Service Backend as  Translation Service Backend
+participant PowerPay Service as  PowerPay Service
+
  SMS Gateway ->>Translation Service Backend:  / handle_message
 
 Translation Service Backend->>PowerPay Service: POST / api / send_money
@@ -163,7 +168,7 @@ PowerPay Service-->>PowerPay Service: verification
 PowerPay Service-->>Translation Service Backend: GET /send_sms  
 
 Translation Service Backend-->> SMS Gateway:  sms containing balance
-````
+```
 
 # Defining between component API
 
