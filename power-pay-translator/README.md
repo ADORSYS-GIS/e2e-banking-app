@@ -145,7 +145,7 @@ Database: The Translation Service and PowerPay Service both read and write data 
 
 These interactions are illustrated in the following diagram:
 
-```
+````
 sequenceDiagram
  SMS Gateway ->>Translation Service Backend:  / handle_message
 
@@ -164,7 +164,7 @@ PowerPay Service-->>PowerPay Service: verification
 PowerPay Service-->>Translation Service Backend: GET /send_sms  
 
 Translation Service Backend-->> SMS Gateway:  sms containing balance
-```
+````
 
 # Defining between component API
 
