@@ -39,7 +39,7 @@ jobs:
       - id: string
         uses: ASzc/change-string-case-action@v6
         with:
-          string: XyZzY
+          string: github.repository
       - id: Output_Lowercase_String
         run: echo ${{ steps.string.outputs.lowercase }}
 
