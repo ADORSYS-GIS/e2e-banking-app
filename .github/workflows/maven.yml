@@ -37,11 +37,10 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./power-pay-backend
           file: ./power-pay-backend/Dockerfile
           push: true
-          tags: |
-            ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/${{ github.repository }}:latest
       
       - name: Build Backend
         run: cd power-pay-backend && mvn package
