@@ -15,7 +15,7 @@ Before getting started,make sure you have the following tools installed:
 
 - [Java](https://www.java.com/): Programming Language and runtime environment.
 
--[Maven](https://maven.apache.org/): Build automation and dependency management tool.
+- [Maven](https://maven.apache.org/): Build automation and dependency management tool.
 
 - [cargo](https://doc.rust-lang.org/cargo/): Package manager for Rust.
 
