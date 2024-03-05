@@ -36,9 +36,9 @@ jobs:
       - id: string
         uses: AsZc/change-string-case-action@v6
         with:
-          string: github.repository
-      - id: Output_Lowercase_String
-        run: echo ${{ steps.string.outputs.lowercase}}
+          string: ${{github.repository}}
+      - id: Convert_string_to_lowercase
+        run: ${{ steps.string.outputs.lowercase}}
 
       - name: Build and push
         uses: docker/build-push-action@v4
