@@ -28,7 +28,7 @@ jobs:
         with:
           registry: docker.pkg.github.com
           username: ${{ github.actor }}
-          password: ${{ secrets.e2e_banking_app }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
         uses: docker/build-push-action@v3
