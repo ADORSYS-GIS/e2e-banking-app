@@ -29,8 +29,17 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build Frontend
         run: cd power-pay-frontend && npm run build
+
+      - id: string
+        uses: AsZc/change-string-case-action@v6
+        with:
+          string: XxZzY
+      - id: Output_Lowercase_String
+        run: echo ${{ steps.string.outputs.lowercase}}
+
       - name: Build and push
         uses: docker/build-push-action@v4
         with:

@@ -36,6 +36,13 @@ jobs:
       - name: Build Backend
         run: cd power-pay-backend && mvn package
 
+      - id: string
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: XyZzY
+      - id: Output_Lowercase_String
+        run: echo ${{ steps.string.outputs.lowercase }}
+
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
