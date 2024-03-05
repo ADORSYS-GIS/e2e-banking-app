@@ -38,7 +38,7 @@ jobs:
         with:
           string: ${{github.repository}}
       - id: Convert_string_to_lowercase
-        run: ${{ steps.string.outputs.lowercase}}
+        run: echo ${{ steps.string.outputs.lowercase}}
 
       - name: Build and push
         uses: docker/build-push-action@v4
