@@ -30,7 +30,7 @@ H --> |SMS| G
 
 1. Power Pay Service: 
 
-This is the core of the backend which intelligently processes all requests and orchestrates the system's intricate logic. This service intuitively interacts with the Power Pay App, SMS Gateway, and the Power Pay Store via RESTful APIs, ensuring smooth and reliable communication channels.
+This is the core of the backend which intelligently processes all requests and orchestrates the system's intricate logic. This service intuitively interacts with other components ensuring smooth and reliable communication channels.
 
 2. Database:
 
