@@ -73,7 +73,7 @@ K -->|Route| A
 ```
 
 
-###Deployment and Operation:
+### Deployment and Operation:
 
 **Deploying and operating the PowerPay React app involves several steps:**
 
