@@ -50,64 +50,69 @@ Follow the steps below to set up the local environment:
 
 To run the e2e-banking-app project locally, follow these steps:
 
-** 1. Clone the repository: ** 
+1. Clone the repository:
     ``` bash
         git clone https://github.com/ADORSYS-GIS/e2e-banking-app.git
     ```
 
-** 2. Change to the project directory: **
+2. Change to the project directory:
     ``` bash
         cd e2e-banking-app
     ```
 
-** 3. Install project dependencies and Start application: **
+3. Install project dependencies and Start application:
 
-a. For power-pay-front-end:
-    - Change to the project directory:
+    a. For power-pay-front-end:
+   - Change to the project directory:
         ``` bash
             cd power-pay-frontend
         ```
-    - Install dependencies:
+   - Install dependencies:
         ``` bash
             npm install
         ```
+        
     - Build the project:
         ``` bash
             npm run build
         ```
+        
     - Start application:
         ``` bash
             npm start
         ```
+        
 
 b. For power-pay-backend:
-    - Change to the project directory:
-        ``` bash
-            cd power-pay-backend
-        ```
-    - Install dependencies:
-        ``` bash
-            mvn install
-        ```
-    - Build the project:
-        ``` bash
-            mvn clean package
-        ```
-    - Start application:
-        ``` bash
-            java -jar target/power-pay-backend-0.0.1-SNAPSHOT.jar
-        ```
+- Change to the project directory:
+    ``` bash
+        cd power-pay-backend
+    ```
+- Install dependencies:
+    ``` bash
+        mvn install
+    ```
+- Build the project:
+    ``` bash
+        mvn clean package
+    ```
+- Start application:
+    ``` bash
+        java -jar target/power-pay-backend-0.0.1-SNAPSHOT.jar
+    ```
 
 c. For power-pay-translator:
-    - Change to the project directory:
-        ``` bash
-            cd power-pay-translator
-        ```
-    - Build the project:
-        ``` bash
-            cargo build
-        ```
-    - Start application:
-        ``` bash
-            cargo run
-        ```
+- Change to the project directory:
+    ``` bash
+        cd power-pay-translator
+    ```
+
+- Build the project:
+    ``` bash
+        cargo build
+    ```
+    
+- Start application:
+    ``` bash
+        cargo run
+    ```
