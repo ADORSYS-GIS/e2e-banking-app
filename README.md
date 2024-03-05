@@ -7,7 +7,7 @@ Before getting started,make sure you have the following tools installed:
 
 - [nvm (Node Version Manager)](https://github.com/nvm-sh/nvm): To manage Node.js versions.
 
-- [Node.js] (https://nodejs.org/): Javascript runtime environment.
+- [Node.js](https://nodejs.org/): Javascript runtime environment.
 
 - [npm](https://www.npmjs.com/): Package manager for Node.js.
 
