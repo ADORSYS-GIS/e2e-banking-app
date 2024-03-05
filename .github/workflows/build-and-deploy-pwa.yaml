@@ -22,8 +22,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: production-files
-          path: power-pay-frontend/dist
-          
+          path: power-pay-frontend
+
   # Deploy Job
   deploy:
     # Add a dependency to the build job
@@ -35,7 +35,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: production-files
-          path: power-pay-frontend/dist
+          path: power-pay-frontend
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
