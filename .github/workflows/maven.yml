@@ -37,8 +37,8 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v3
         with:
-          context: ./power-pay-backend
-          file: ./power-pay-backend/Dockerfile
+          context: e2e-banking-app/power-pay-backend
+          file: e2e-banking-app/power-pay-backend/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
       
