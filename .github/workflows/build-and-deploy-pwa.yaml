@@ -22,8 +22,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: production-files
-          path: ./dist
-  
+          path: power-pay-frontend/dist
+          
   # Deploy Job
   deploy:
     # Add a dependency to the build job
