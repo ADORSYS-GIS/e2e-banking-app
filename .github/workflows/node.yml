@@ -29,7 +29,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Build Frontend
+        run: cd power-pay-frontend && npm run build
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
@@ -37,5 +38,4 @@ jobs:
           file: ./power-pay-frontend/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
-      - name: Build Frontend
-        run: cd power-pay-frontend && npm run build
+      
