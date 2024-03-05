@@ -1,17 +1,19 @@
-# Use the official Rust Docker image as the base image
-FROM rust:1.76 as builder
+FROM rust as base
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Cargo.toml file to the container
-COPY Cargo.toml .
+FROM base as builder
 
-# Copy the source code to the container
-COPY . .
+# Copy the Cargo.toml and Cargo.lock files to cache dependencies
+COPY ./ ./
 
-# Build the project dependencies
+# Build the dependencies
 RUN cargo build --release
 
-# Set the entry point command to run the application
-CMD ["./target/release/power-pay-translator"]
+FROM base
+
+WORKDIR /app
+
+COPY --from=builder /app/target/release/power-pay-translator /app/power-pay-translator
+
+CMD ["/app/power-pay-translator"]
