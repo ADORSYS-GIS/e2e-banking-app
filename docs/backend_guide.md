@@ -11,7 +11,7 @@ With its advanced technology stack and meticulous attention to detail, the Power
 
 The backend architecture consists of several key components, including the Power Payment Service, SMS Gateway, Power Payment App, and a scalable and secure database. In the following sections, we will provide detailed explanations of each of these components.
 
-``` 
+``` mermaid
 graph TB
 
 A[Power Pay Store App] --> |Trigger Topup| B[Power Pay Service, SMS Gateway]
@@ -101,7 +101,7 @@ This status code indicates that an unexpected error occurred on the server while
 
 The provided Entity Relationship Diagram (ERD) depicts the data model for the Power Pay system. It showcases the relationships between different entities within the system. Here's a concise explanation of the ERD:
 
-``` 
+``` mermaid
 ---
 title: Power Pay Entity Relationship Diagram
 ---
