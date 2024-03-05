@@ -33,14 +33,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build Backend
+        run: cd power-pay-backend && mvn package
 
       - name: Build and push image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
-          context: e2e-banking-app/power-pay-backend
-          file: e2e-banking-app/power-pay-backend/Dockerfile
+          context: ./power-pay-backend
+          file: ./power-pay-backend/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
       
-      - name: Build Backend
-        run: cd power-pay-backend && mvn package
+      
