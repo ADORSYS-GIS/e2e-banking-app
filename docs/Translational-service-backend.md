@@ -193,9 +193,7 @@ The Table below summarizes the operations on the API endpoints for the Translati
 
 | Endpoint | Method |Description |
 |-----------------|-----------------|-----------------|
-| /handle_messages  | POST   |Receive a message from the  SMS Gateway, parse and validate it, and forward it to the PowerPay Service. The request body should contain the following fields: sender (the phone number of the sender), recipient (the phone number of the recipient), and content (the content of the message).    |
-| /api/sendmoney	  | POST   | Process a transfer request. The request body should contain the following fields: sender (the phone number of the sender), recipient (the phone number of the recipient), and amount (the amount of money to be sent). The PowerPay Service will process the transfer and send a response back to the Translation Service, which will then forward the response to the  SMS gateway to be sent back to the user as an SMS message.
-| /api/balance	  | GET   |The PowerPay Service will process the check balance and uses the endpoitn /api/balance to send a response back to the Translation Service, which will then forward the response to the  SMS gateway to be sent back to the user as an SMS message.
+| /handle_messages  | POST   |Receive a message from the  SMS Gateway, parse and validate it, and forward it to the PowerPay Service. The request body should contain the following fields: sender (the phone number of the sender), recipient (the phone number of the recipient), and content (the content of the message).    
 | /send_sms	  | GET   |The PowerPay Service will process the check balance and send a response back to the /send_sms endpoint of the Translation Service such as the OTP , which will then forward the response to the  SMS gateway to be sent back to the user as an SMS message.
   
 
