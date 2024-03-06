@@ -26,7 +26,7 @@ To conclude the react Context and useStorage helps our application to have reusa
 The flow is as shown
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'componentBackground': '#EEEEEE', 'componentBorder': '#CCCCCC', 'componentTextColor': '#333333'}}}%%
+
 graph TD;
    subgraph "ContextObject"
         contextobject[key = value]
