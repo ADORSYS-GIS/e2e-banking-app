@@ -13,19 +13,23 @@ on:
 env:
   CARGO_TERM_COLOR: always
 
-permissions:
-  contents: read
-  packages: write
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - uses: actions/checkout@v4
       - name: Build Translator
         run: cd power-pay-translator && cargo build --verbose && cargo test --verbose
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Login to the Docker registry
         uses: docker/login-action@v3
