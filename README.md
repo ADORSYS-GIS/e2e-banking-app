@@ -55,6 +55,7 @@ To run the e2e-banking-app project locally, follow these steps:
    ```
 
 3. Install project dependencies and Start application:
+   
    a. For power-pay-front-end:
       - Change to the project directory:
         ```bash
