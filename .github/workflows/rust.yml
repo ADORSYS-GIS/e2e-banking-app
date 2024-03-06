@@ -54,7 +54,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./power-pay-translator
-          platforms: linux/arm/v6,linux/arm/v7,linux/amd64,linux/arm64
           file: ./power-pay-translator/Dockerfile
           push: true
           tags: ghcr.io/${{ steps.string.outputs.lowercase }}:latest
