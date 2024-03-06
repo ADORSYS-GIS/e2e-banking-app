@@ -40,15 +40,13 @@ jobs:
         uses: ASzc/change-string-case-action@v6
         with:
           string: ${{github.repository}}
-      - id: Convert_string_to_lowercase
-        run: echo ${{ steps.string.outputs.lowercase }}
-
+     
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
           context: ./power-pay-backend
           file: ./power-pay-backend/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/${{ steps.string.outputs.lowercase }}:latest
       
       
