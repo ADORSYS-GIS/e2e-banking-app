@@ -12,7 +12,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }} + '-backend'
+  IMAGE_NAME: ${{ github.repository }}
 
 
 jobs:
@@ -47,7 +47,7 @@ jobs:
       - id: string
         uses: ASzc/change-string-case-action@v6
         with:
-          string: ${{github.repository}}
+          string: ${{github.repository}}-backend
 
       - name: Build and push image
         uses: docker/build-push-action@v5
