@@ -22,4 +22,41 @@ To make the most use of the useStorage hook we are going to be using the Context
 Here is a basic form of how the react Context and usestorage hook function in other for us to have persistent and reusable data across our components.<br>
 the react context works by creating a context object that holds the data we want to share between the components, once this context object is being created it is used in our components by first wrapping the component in a context provider then any component that imports(inherits) from this component can have access to the data, then now comes the useStorage hook which to persist that data to the localstorage or any other storage of our web browser to make the data persist accross page refresh or any other storage. <br>
 The usestorage hook performs its task by taking the key and associated value converting it to a json string then using the ```setItem()``` method to store it in the storage with its associated key. And also has a ```getItem()``` for retrieving the value stored based on the corresponding key and a ```removeItem()``` method which will be used to remove key value pair from the storage. <br>
-To conclude the react Context and useStorage helps our application to have reusable and persist data accross components.
+To conclude the react Context and useStorage helps our application to have reusable and persist data accross components.<br>
+The flow is as shown
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'componentBackground': '#EEEEEE', 'componentBorder': '#CCCCCC', 'componentTextColor': '#333333'}}}%%
+graph TD;
+   subgraph "ContextObject"
+        contextobject[key = value]
+        end
+
+    subgraph "Components"
+        A[component1]
+        B[component2]
+      
+        end
+    subgraph "useStorage"
+        usestoragehook[useStoragehook]
+        end
+    subgraph "BrowserStorage"
+       localstorage[LocalStorage]
+       end
+    subgraph "ContextProvider"
+        provider[Provider]
+        end
+
+ContextObject -->  ContextProvider
+ContextProvider --> Components
+A -->|setItem,removeItem| useStorage
+B --> |setItem,removeItem| useStorage
+
+useStorage--> |getItem| A
+useStorage --> |getItem|B
+
+useStorage --> |settingItem/ removingItem|BrowserStorage
+
+BrowserStorage --> |gettingItem|useStorage
+
+
