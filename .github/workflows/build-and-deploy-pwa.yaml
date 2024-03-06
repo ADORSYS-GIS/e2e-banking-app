@@ -20,7 +20,7 @@ jobs:
         run: cd power-pay-frontend && npm ci
 
       - name: Build Project
-        run: cd power-pay-frontend && npm run build
+        run: cd power-pay-frontend && npm run build-for-gh
 
       - name: Upload artifact to enable deployment
         uses: actions/upload-artifact@v3
