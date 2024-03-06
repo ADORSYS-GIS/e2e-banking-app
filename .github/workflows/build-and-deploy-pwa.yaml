@@ -1,6 +1,7 @@
 name: Build and deploy frontend
 
 on:
+  pull_request:
   push:
     branches:
       - main
@@ -23,7 +24,7 @@ jobs:
         run: cd power-pay-frontend && npm run build-for-gh
 
       - name: Upload artifact to enable deployment
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: production-files
           path: power-pay-frontend/dist
@@ -31,7 +32,8 @@ jobs:
   # Deploy Job
   deploy:
     permissions:
-      pages: write       
+      pages: write
+      contents: write
     # Add a dependency to the build job
     needs: build
     # Specify runner + deployment step
@@ -41,9 +43,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: production-files
-          path: power-pay-frontend
+          path: dist
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: power-pay-frontend
+          publish_dir: dist
