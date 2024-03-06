@@ -30,6 +30,8 @@ jobs:
 
   # Deploy Job
   deploy:
+    permissions:
+      pages: write       
     # Add a dependency to the build job
     needs: build
     # Specify runner + deployment step
