@@ -40,6 +40,7 @@ jobs:
         uses: ASzc/change-string-case-action@v6
         with:
           string: ${{github.repository}}
+
       - name: Enable create organization packages
         run: |
           curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
