@@ -4,4 +4,4 @@ package com.adorsys.gis.powerpay.powerpaybackend.services;
 public interface CheckBalance {
 
     void checkBalance();
-} 
+}  
