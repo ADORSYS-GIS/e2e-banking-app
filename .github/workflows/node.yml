@@ -12,7 +12,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_URL: "ghcr.io/my-org/my-image:1.0.0"
+  # IMAGE_URL: "ghcr.io/my-org/my-image:1.0.0"
+  IMAGE_NAME: ${{ github.repository }} + '-frontend'
 
 
 jobs:
