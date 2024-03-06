@@ -57,5 +57,5 @@ jobs:
           context: ./power-pay-frontend
           file: ./power-pay-frontend/Dockerfile
           push: true
-          tags: ghcr.io/${{ steps.string.outputs.lowercase }}:latest
+          tags: ${{ steps.meta.outputs.tags }}
       
