@@ -9,7 +9,9 @@ on:
   pull_request:
     branches:
       - '**'
-
+permissions:
+  contents: read
+  packages: write
 jobs:
   build:
 
@@ -37,13 +39,6 @@ jobs:
         uses: AsZc/change-string-case-action@v6
         with:
           string: ${{github.repository}}
-      - name: Enable create organization packages
-        run: |
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          -X POST \
-          https://api.github.com/orgs/${{ github.repository_owner }}/actions/permissions/orgs \
-          -d '{"permission": "write"}'
 
       - name: Build and push
         uses: docker/build-push-action@v4
