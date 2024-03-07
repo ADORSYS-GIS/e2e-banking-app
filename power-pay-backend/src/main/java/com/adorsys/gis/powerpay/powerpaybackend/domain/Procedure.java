@@ -5,34 +5,33 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Procedure {
+public  abstract class Procedure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    public   Status status = Status.WAITING;
+    public   ProcedureStatus status = ProcedureStatus.WAITING;
     private String phoneNumber;
 
 
     public void markAsDone() {
-        status = Status.DONE;
+        status = ProcedureStatus.DONE;
     }
 
     public void markAsError() {
-        status = Status.ERROR;
+        status = ProcedureStatus.ERROR;
     }
 
     public boolean isDone() {
-        return status == Status.DONE;
+        return status == ProcedureStatus.DONE;
     }
 
     public boolean isError() {
-        return status == Status.ERROR;
+        return status == ProcedureStatus.ERROR;
     }
 
     public boolean isWaiting() {
-        return status == Status.WAITING;
+        return status == ProcedureStatus.WAITING;
     }
-
 
     public int getId() {
         return id;
@@ -42,11 +41,11 @@ public class Procedure {
         this.id = id;
     }
 
-    public Status getStatus() {
+    public ProcedureStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(ProcedureStatus status) {
         this.status = status;
     }
 
@@ -56,16 +55,5 @@ public class Procedure {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public enum Status {
-        DONE,
-        WAITING,
-        ERROR
-    }
-
-    public enum Type {
-        Transaction,
-        CheckBalance
     }
 }
