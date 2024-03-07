@@ -59,6 +59,7 @@ jobs:
 
       - name: Build and push image
         uses: docker/build-push-action@v5
+        if: github.event_name != 'pull_request'
         with:
           context: ./power-pay-backend
           file: ./power-pay-backend/Dockerfile
