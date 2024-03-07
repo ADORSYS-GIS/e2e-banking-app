@@ -1,4 +1,4 @@
-name: Build Translator
+name: Build Translator v2
 
 on:
   push:
@@ -43,7 +43,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - id: string
         uses: AsZc/change-string-case-action@v6
         with: 
           string: ${{ env.IMAGE_NAME }}
@@ -52,13 +51,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ steps.string.outputs.lowercase }}
+
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: ./power-pay-translator
-          #platforms: linux/arm/v6,linux/arm/v7,linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
