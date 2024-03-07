@@ -16,4 +16,6 @@ WORKDIR /app
 
 COPY --from=builder /app/target/release/power-pay-translator /app/power-pay-translator
 
+EXPOSE 8000
+
 CMD ["/app/power-pay-translator"]
