@@ -1,4 +1,4 @@
-name: Build Translator v2
+name: Build Translator
 
 on:
   push:
@@ -14,7 +14,6 @@ env:
   CARGO_TERM_COLOR: always
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}-translator
-
 
 jobs:
   build:
