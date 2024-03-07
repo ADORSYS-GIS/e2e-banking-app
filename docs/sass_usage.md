@@ -30,6 +30,7 @@ Follow the following steps to install and use sass:
 3. install sass:
     ```bash
     npm add sass -D
+
     ```
 
 ## Getting started with sass
@@ -57,6 +58,7 @@ Follow the following to use sass in the e2e-banking-app project:
     - visit the sass website for sass basics: https://sass-lang.com/guide/ 
 
 6.Import the .scss file(s) in the app.tsx file,use the features defined in the scss file and the styles defined in the scss file will be automatcally applied.
+
 
 
 
