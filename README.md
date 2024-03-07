@@ -7,8 +7,7 @@ Before getting started, make sure you have the following tools installed:
 
 - [nvm (Node Version Manager)](https://github.com/nvm-sh/nvm): To manage Node.js versions.
 - [Node.js](https://nodejs.org/): Javascript runtime environment.
-- [npm](https://www.npmjs.com/): Package manager for Node.js.
-- [sdkman](https://sdkman.io/): Software Development Kit Manager.
+- [npm](https://Please utilize Serde for serializing and deserializing data structures.//sdkman.io/): Software Development Kit Manager.
 - [Java](https://www.java.com/): Programming Language and runtime environment.
 - [Maven](https://maven.apache.org/): Build automation and dependency management tool.
 - [cargo](https://doc.rust-lang.org/cargo/): Package manager for Rust.
