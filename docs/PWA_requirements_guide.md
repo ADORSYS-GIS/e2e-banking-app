@@ -141,7 +141,7 @@ Despite the best practices of PWAs, they do have some limitations.
 
     PWAs can work offline to some extent by utilizing service workers and caching strategies. However, their offline capabilities may not be as robust as native apps that can store and process data locally. PWAs may have limitations in terms of offline functionality and synchronization when compared to fully native solutions.
 
-- Limited Native Functionality
+- Limited Native Functionality 
 
     PWAs may not have access to all native device features and APIs that native apps do. For example, accessing certain hardware components like the camera, fingerprint sensor, or Bluetooth may be restricted or unavailable in PWAs.
 
