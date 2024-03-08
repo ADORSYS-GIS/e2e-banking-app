@@ -7,13 +7,13 @@ on:
     tags-ignore:
       - 'v*'
     paths:
-      - '/power-pay-backend/**'
-      
+      - 'power-pay-backend/**'
+
   pull_request:
     branches:
       - '**'
     paths:
-      - '/power-pay-backend/**'
+      - 'power-pay-backend/**'
 
 env:
   REGISTRY: ghcr.io

@@ -7,13 +7,13 @@ on:
     tags-ignore:
       - 'v*'
     paths:
-      - '/power-pay-translator/**'
-      
+      - 'power-pay-translator/**'
+
   pull_request:
     branches:
       - '**'
     paths:
-      - '/power-pay-translator/**'
+      - 'power-pay-translator/**'
 
 env:
   CARGO_TERM_COLOR: always
