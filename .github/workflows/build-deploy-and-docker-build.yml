@@ -75,6 +75,8 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - id: string
         uses: AsZc/change-string-case-action@v6
