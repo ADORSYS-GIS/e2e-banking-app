@@ -44,8 +44,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Backend
-        run: cd power-pay-backend && mvn package
 
       - id: string
         uses: ASzc/change-string-case-action@v6
