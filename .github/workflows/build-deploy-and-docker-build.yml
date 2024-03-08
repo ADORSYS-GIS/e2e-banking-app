@@ -8,6 +8,7 @@ on:
           - 'v*'
         paths:
           - 'power-pay-frontend/**'
+
     pull_request:
         branches:
           - '**'
