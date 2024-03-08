@@ -6,9 +6,13 @@ on:
           - '**'
         tags-ignore:
           - 'v*'
+        paths:
+          - '/power-pay-frontend/**'
     pull_request:
         branches:
           - '**'
+        paths:
+          - '/power-pay-frontend/**'
 
 env:
   REGISTRY: ghcr.io
@@ -62,6 +66,10 @@ jobs:
   # Docker Build Job
   docker-build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
     steps:
       - uses: actions/checkout@v4
         
