@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>17</java.version>
+        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
     </properties>
 
     <dependencies>
@@ -102,6 +103,13 @@
             <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- MapStruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.4.2.Final</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -118,6 +126,21 @@
                     </excludes>
                 </configuration>
             </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                    <version>3.11.0</version>-->
+<!--                    <configuration>-->
+<!--                        <annotationProcessorPaths>-->
+<!--                            <path>-->
+<!--                                &lt;!&ndash; Add the MapStruct dependency here &ndash;&gt;-->
+<!--                                <groupId>org.mapstruct</groupId>-->
+<!--                                <artifactId>mapstruct-processor</artifactId>-->
+<!--                                <version>1.4.2.Final</version>-->
+<!--                            </path>-->
+<!--                        </annotationProcessorPaths>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
         </plugins>
     </build>
 
