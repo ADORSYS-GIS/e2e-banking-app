@@ -85,3 +85,4 @@ Despite the benefits of PWAs, they do have some limitations.
 - **Less Discoverability**
     
     Since PWAs are primarily distributed through web channels rather than app stores, they may be less discoverable to users who are not actively searching for them. We may need to invest in marketing and promotion to increase visibility and adoption of our PWA.
+    
