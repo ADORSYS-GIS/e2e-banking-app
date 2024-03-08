@@ -12,7 +12,6 @@ Before being able to use sass, make sure to have the following installed
 
 - [npm] (https://www.npmjs.com/): Package manager for node.js
 
-- [gulp] (https://gulpjs.com/docs/en/getting-started/quick-start/):Javasript toolkit that helps automate the running of task.It can be useed to watch a .scss file and compile it to a .css file automatically.  **note** gulp is optional here as other tools can be used for example visualsstudio code has an extention for sass. sass itself has commands that can be run on the terminal to compile from .scss to .css.
 
 - [sass] (https://sass-lang.com/install/) :The preprocessor programming language that is either interpreted or compiled into css.
 
@@ -27,13 +26,11 @@ Follow the following steps to install and use sass:
    ```bash
    nvm install node
   ```
-3. Install gulp:
-   ```bash
-   npm install gulp-sass
-   ```
-4. install sass:
+
+3. install sass:
     ```bash
-    npm install -g sass
+    npm add sass -D
+
     ```
 
 ## Getting started with sass
@@ -54,15 +51,15 @@ Follow the following to use sass in the e2e-banking-app project:
     npm install
     ```
 4. Create files
-    a. Create .scss file(s) for the scss code. 
-    b. Create a gulpfile.js for the  the javascript code responsible for compiling scss to css.
-
+    Create .scss file(s) in the src directory for the scss code. 
+    
 5. Start coding 
-    - sass functions, varaibles and all othher sass features go to the .scss file
-    - visit the sass website for sass basics: https://sass-lang.com/guide/
-6. run gulp to compile scss code to css
+    - sass functions, varaibles and all other sass features go to the .scss file
+    - visit the sass website for sass basics: https://sass-lang.com/guide/ 
 
-7. Use the compiled css in the in your html file
+6.Import the .scss file(s) in the app.tsx file,use the features defined in the scss file and the styles defined in the scss file will be automatcally applied.
+
+
 
 
 
