@@ -16,5 +16,6 @@ ENV APP_VERSION=0.0.1-SNAPSHOT
 
 COPY --from=builder /app/target/power-pay-backend-${APP_VERSION}.jar /app/app.jar
 
+EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
