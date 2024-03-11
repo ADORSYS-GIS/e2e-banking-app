@@ -12,13 +12,20 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 @SpringBootTest
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = { PowerPayBackendApplication.class })
-public class PowerPayBackendHealthTest {
+class PowerPayBackendHealthTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void healthEndpointTest() throws Exception {
+    void healthEndpointTest_Failure() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/actuator/health"))
+            .andExpect(MockMvcResultMatchers.status().is5xxServerError())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.status").doesNotExist());
+    }
+
+    @Test
+    void healthEndpointTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/actuator/health"))
             .andExpect(MockMvcResultMatchers.status().isOk())
             .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("UP"));
