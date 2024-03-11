@@ -95,7 +95,7 @@ Here are some best practices for using Lombok annotations:
 # Conclusion
 In conclusion, Lombok is a valuable tool for Spring Boot development, offering automatic code generation to reduce boilerplate code. By leveraging Lombok's annotations, developers can save time and effort by eliminating the need to write repetitive code such as getters and setters, constructors, builder patterns, and logging statements. This results in cleaner and more concise code, improved productivity, and enhanced code maintainability. Adopting Lombok in Spring Boot projects can streamline the development process, allowing developers to focus on the core logic and requirements of their applications.
 
-# ReferencOfficial Lombok documentation:
-Official Lombok documentation: https://projectlombok.org/
-Lombok with Spring Boot tutorial: https://www.baeldung.com/intro-to-project-lombok
-techwasti article on lombok: https://techwasti.com/project-lombok-complete-guide-for-java-developer
+# References:
+- Official Lombok documentation: https://projectlombok.org/
+- Lombok with Spring Boot tutorial: https://www.baeldung.com/intro-to-project-lombok
+- Techwasti article on lombok: https://techwasti.com/project-lombok-complete-guide-for-java-developer
