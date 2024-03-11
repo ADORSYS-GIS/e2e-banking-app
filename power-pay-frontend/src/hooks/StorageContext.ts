@@ -1,68 +1,54 @@
 import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 
+// StorageContextData<T>: An interface for the StorageContext that holds two methods: getItem and setItem.
+// The getItem method returns the value associated with the given key if it exists in the local storage, otherwise returns undefined.
+// The setItem method sets the value in the local storage for the given key and updates the state with the new value.
 interface StorageContextData<T> {
-  getItem: (key: string) => T | undefined;
-  setItem: (key: string, value: T) => void;
+  getItem: <T>(key: string) => T | undefined;
+  setItem: <T>(key: string, value: T) => void;
 }
 
-interface StorageProviderProps<T> extends PropsWithChildren {
-  initialValue?: T;
-}
-
+// Initialize the StorageContext with default functions for getItem and setItem.
 const StorageContext = createContext<StorageContextData<unknown>>({
   getItem: () => undefined,
   setItem: () => {},
 });
 
-//StorageProvider component is a wrapper component that uses the StorageContext to provide the storage-related functionality
-
-export function StorageProvider<T>({ initialValue }: StorageProviderProps<T>) {
+// StorageProvider<T>: A React component that wraps the application and provides the storage context with getItem and setItem methods.
+// It initializes the state with the initialValue prop or a default value of undefined.
+// It initializes the state with the value from the local storage if it exists.
+// It updates the local storage whenever the state changes.
+// It exposes the getItem and setItem methods through the context.
+export function StorageProvider<T>({ initialValue, children }: PropsWithChildren<{ initialValue?: T }>) {
   const [storedValue, setStoredValue] = useState<T>(initialValue);
 
-  //useEffect hook  used to initialize the state with the value from the localStorage if it exists
-
+  // Initializes the state with the value from the local storage if it exists.
   useEffect(() => {
     const item = localStorage.getItem('key');
     if (item) {
-      try {
-        setStoredValue(JSON.parse(item));
-      } catch (error) {
-        console.error("Error parsing stored value:", error);
-      }
+      setStoredValue(JSON.parse(item));
     }
   }, []);
 
-  //useEffect hook is used to update the localStorage whenever the state changes. It updates the localStorage with the current state value.
+  // Updates the local storage whenever the state changes.
   useEffect(() => {
-    try {
-      localStorage.setItem('key', JSON.stringify(storedValue));
-    } catch (error) {
-      console.error("Error setting stored value:", error);
-    }
+    localStorage.setItem('key', JSON.stringify(storedValue));
   }, [storedValue]);
 
-  
-  //StorageProvider also provides two functions (getItem and setItem) via the StorageContext that can be used by its child components
-  const getItem = (key: string) => {
+  // Define the getItem method that retrieves the value from the local storage or returns undefined if it doesn't exist.
+  const getItem = <T>(key: string) => {
     const item = localStorage.getItem(key);
-    if (item) {
-      try {
-        return JSON.parse(item);
-      } catch (error) {
-        console.error("Error parsing item:", error);
-      }
-    }
-    return undefined;
+    return item ? JSON.parse(item) : undefined;
   };
-   
-  const setItem = (key: string, value: T) => {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-      setStoredValue(value);
-    } catch (error) {
-      console.error("Error setting item:", error);
-    }
+
+  // Define the setItem method that updates the local storage and the state with the new value.
+  const setItem = <T>(key: string, value: T) => {
+    localStorage.setItem(key, JSON.stringify(value));
+    setStoredValue(value);
   };
+
+  // Destructure getItem and setItem before using them in the StorageContext.Provider value prop.
+  const { getItem, setItem } = { getItem, setItem };
 
   return (
     <StorageContext.Provider value={{ getItem, setItem }}>
@@ -71,7 +57,9 @@ export function StorageProvider<T>({ initialValue }: StorageProviderProps<T>) {
   );
 }
 
+// useStorage<T = string>(): A custom hook that returns the getItem and setItem methods from the StorageContext.
 export function useStorage<T = string>() {
   const { getItem, setItem } = useContext(StorageContext);
-  return [getItem, setItem] as [StorageContextData<T>['getItem'], StorageContextData<T>['setItem']];
+  // Cast the getItem and setItem methods to the correct types.
+  return [getItem as StorageContextData<T>['getItem'], setItem as StorageContextData<T>['setItem']];
 }
