@@ -16,8 +16,8 @@ export function useStorage<T = string>(props: UseStorageProps<T>): [T, React.Dis
   //storedValue: A state variable that stores the value retrieved from the localStorage using the provided key
 
   const [storedValue, setStoredValue] = useState<T>(() => {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : initialValue;
+     const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : initialValue
   });
 
   //runs when the storedValue changes. It updates the localStorage
