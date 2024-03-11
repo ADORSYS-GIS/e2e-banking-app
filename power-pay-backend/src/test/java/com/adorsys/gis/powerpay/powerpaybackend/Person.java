@@ -1,5 +1,6 @@
 // Person.java
 package com.adorsys.gis.powerpay.powerpaybackend;
+
 public class Person {
     private String name;
 
@@ -11,3 +12,4 @@ public class Person {
         this.name = name;
     }
 }
+
