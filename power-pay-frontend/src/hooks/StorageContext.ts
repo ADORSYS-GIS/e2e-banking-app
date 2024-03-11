@@ -14,8 +14,12 @@ const StorageContext = createContext<StorageContextData<unknown>>({
   setItem: () => {},
 });
 
-export function StorageProvider<T>({ initialValue, children }: StorageProviderProps<T>) {
+//StorageProvider component is a wrapper component that uses the StorageContext to provide the storage-related functionality
+
+export function StorageProvider<T>({ initialValue }: StorageProviderProps<T>) {
   const [storedValue, setStoredValue] = useState<T>(initialValue);
+
+  //useEffect hook  used to initialize the state with the value from the localStorage if it exists
 
   useEffect(() => {
     const item = localStorage.getItem('key');
@@ -28,6 +32,7 @@ export function StorageProvider<T>({ initialValue, children }: StorageProviderPr
     }
   }, []);
 
+  //useEffect hook is used to update the localStorage whenever the state changes. It updates the localStorage with the current state value.
   useEffect(() => {
     try {
       localStorage.setItem('key', JSON.stringify(storedValue));
@@ -36,6 +41,8 @@ export function StorageProvider<T>({ initialValue, children }: StorageProviderPr
     }
   }, [storedValue]);
 
+  
+  //StorageProvider also provides two functions (getItem and setItem) via the StorageContext that can be used by its child components
   const getItem = (key: string) => {
     const item = localStorage.getItem(key);
     if (item) {
@@ -47,7 +54,7 @@ export function StorageProvider<T>({ initialValue, children }: StorageProviderPr
     }
     return undefined;
   };
-
+   
   const setItem = (key: string, value: T) => {
     try {
       localStorage.setItem(key, JSON.stringify(value));
@@ -57,7 +64,6 @@ export function StorageProvider<T>({ initialValue, children }: StorageProviderPr
     }
   };
 
-  // Pass getItem and setItem individually as the value prop
   return (
     <StorageContext.Provider value={{ getItem, setItem }}>
       {children}
