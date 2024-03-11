@@ -44,7 +44,7 @@ export function StorageProvider<T>({ initialValue, children }: PropsWithChildren
   };
 
   // Destructure getItem and setItem before using them in the StorageContext.Provider value prop.
-  const contextValue: StorageContextData<T> = { getItem, setItem };
+  const contextValue: StorageContextData<unknown> = { getItem, setItem } as StorageContextData<unknown>;
 
   return (
     <StorageContext.Provider value={contextValue}>
