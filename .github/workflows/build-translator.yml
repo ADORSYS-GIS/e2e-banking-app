@@ -6,9 +6,14 @@ on:
       - '**'
     tags-ignore:
       - 'v*'
+    paths:
+      - 'power-pay-translator/**'
+
   pull_request:
     branches:
       - '**'
+    paths:
+      - 'power-pay-translator/**'
 
 env:
   CARGO_TERM_COLOR: always
@@ -29,11 +34,6 @@ jobs:
       - name: Build Translator
         run: cd power-pay-translator && cargo build --verbose && cargo test --verbose
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-        
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
 
       - name: Login to the Docker registry
         id: login
