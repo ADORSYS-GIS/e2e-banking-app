@@ -1,6 +1,6 @@
 package com.adorsys.gis.powerpay.powerpaybackend;
 
-// PersonMapper.java
+// PersonMapper.jav
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
