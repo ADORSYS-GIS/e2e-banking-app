@@ -1,6 +1,5 @@
 import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 
-// StorageContextData<T>: An interface for the StorageContext that holds two methods: getItem and setItem.
 // The getItem method returns the value associated with the given key if it exists in the local storage, otherwise returns undefined.
 // The setItem method sets the value in the local storage for the given key and updates the state with the new value.
 interface StorageContextData<T> {
@@ -15,7 +14,6 @@ const StorageContext = createContext<StorageContextData<unknown>>({
 });
 
 // StorageProvider<T>: A React component that wraps the application and provides the storage context with getItem and setItem methods.
-// It initializes the state with the initialValue prop or a default value of undefined.
 // It initializes the state with the value from the local storage if it exists.
 
 export function StorageProvider<T>({ initialValue, children }: PropsWithChildren<{ initialValue?: T }>) {
