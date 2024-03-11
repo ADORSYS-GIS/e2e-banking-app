@@ -75,6 +75,239 @@ Lombok offers various annotations that can significantly reduce boilerplate code
 6. @Slf4j: Generates a logger instance using SLF4J.
 7. @Entity and @Table (for JPA entities): Generates necessary JPA annotations for entity classes.
 
+# Example usage
+a. @Getter, @Setter:
+When a field is annotated with @Getter and/or @Setter, Lombok will automatically generate the default getter and/or setter, respectively. The default implementation for getters simply takes care of returning the annotated field. Similarly, the default implementation for setters takes one parameter of the same type as the annotated field and simply sets it with the received value. When a field called value is annotated with both @Getter and @Setter, Lombok will define a getValue() (or isValue() if the field is boolean), and a setValue() method. The generated getter/setter method will be public, unless a particular AccessLevel is specified. The allowed AccessLevel values are PUBLIC, PROTECTED, PACKAGE, and PRIVATE.  Note that we can also annotate the entire class. In this case, this logic will be applied to each field.
+
+- With Lombok:
+```java
+@Getter
+@Setter
+public class Author {
+    private int id;
+    private String name;
+    @Setter(AccessLevel.PROTECTED)
+    private String surname;
+}
+```
+
+- With Java Vanilla:
+```java
+public class User {
+    private int id;
+    private String name;
+    private String surname;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    protected void setSurname(String surname) {
+        this.surname = surname;
+    }
+}
+```
+
+b. @NonNull:
+We can annotate with @NonNull a record component, a parameter of a method, or an entire constructor. This way, Lombok will generate null-check statements for you accordingly.
+
+- With Lombok:
+```java
+public class Author {
+    private int id;
+    private String name;
+    private String surname;
+
+    public Author(
+      @NonNull int id,
+      @NonNull String name,
+      String surname
+    ) {
+      this.id = id;
+      this.name = name;
+      this.surname = surname; 
+  }
+}
+```
+
+- With Java Vanilla:
+```java
+public class Author {
+    private int id;
+    private String name;
+    private String surname;
+
+    public Author(
+      int id,
+      String name,
+      String surname
+    ) {
+        if (id == null) {
+          throw new NullPointerException("id is marked @NonNull but is null");
+        }
+        this.id = id;
+        if (name == null) {
+          throw new NullPointerException("name is marked @NonNull but is null");
+        }
+        this.name = name;
+        this.surname = surname; 
+  }
+}
+```
+
+c. @Data:
+@Data is a shortcut annotation that combines the features of @ToString, @EqualsAndHashCode, @Getter @Setter, and @RequiredArgsConstructor together. So, @Data generates all the boilerplate involved in POJOs (Plain Old Java Objects). This means, in particular, getters for all fields, setters for all non-final fields, proper toString, equals, and hashCode implementations involving every field of the class, and a constructor for all final fields.
+
+- With Lombok:
+```java
+@Data
+public class Author {
+    private final int id;
+    private String name;
+    private String surname;
+}
+```
+
+- With Java Vanilla:
+```java
+public class Author {
+    private final int id;
+    private String name;
+    private String surname;
+
+    public Author(int id) {
+        this.id = id;
+    }    
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    @Override 
+    public int hashCode() {
+       final int PRIME = 31;
+       int result = 1;
+       result = prime * result + getId();
+       result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+       result = prime * result + ((getSurname() == null) ? 0 : getSurname().hashCode());
+       return result;
+    }
+
+    @Override 
+    public boolean equals(Object o) {
+       if (o == this) return true;
+       if (!(o instanceof Author)) return false;
+       Author other = (Author) o;
+       if (!other.canEqual((Object)this)) return false;
+       if (this.getId() == null ? other.getId() != null : !this.getId().equals(other.getId())) return false;
+       if (this.getName() == null ? other.getName() != null : !this.getName().equals(other.getName())) return false;
+       if (this.getSurname() == null ? other.getSurname() != null : !this.getSurname().equals(other.getSurname())) return false;
+       return true;
+    }
+}
+```
+
+d. @ToString:
+When a class is annotated with @ToString, Lombok will take care of generating a proper implementation of the toString() method. By default, a String containing the class name, followed by each field's value separated by a comma, will be returned. By setting the includeFieldNames parameter to true, the name of each field will be placed before its value. By default, all non-static fields will be considered when generating the toString() method. Annotate a field with @ToString.Exclude to make Lombok ignore it. Alternatively, you can specify which fields you wish to be taken into account by using @ToString(onlyExplicitlyIncluded = true). Then, mark each field you want to include with @ToString.Include.
+
+- With Lombok:
+```java
+@ToString(includeFieldNames=true)
+public class Author {
+    private int id;
+    private String name;
+    private String surname;
+}
+```
+
+- With Java Vanilla:
+```java
+public class Author {
+    private int id;
+    private String name;
+    private String surname;
+
+    @Override 
+    public String toString() {
+      return "Author(id=" + this.id + ", name=" + this.name + ", surnname=" + this.surname + ")";
+  }
+}
+```
+
+e. @NoArgsConstructor, @RequiredArgsConstructor, @AllArgsConstructor:
+When a class is annotated with @NoArgsConstructor, Lombok will take care of automatically generating a constructor with no parameters. Likewise, when annotated with @AllArgsConstructor, a constructor with one parameter for each field in your class will be generated. Similarly, @RequiredArgsConstructor leads to a constructor with a parameter for each field requiring special handling. In particular, this involves non-initialized final fields, as well as any fields marked as @NonNull that are not initialized where declared. Do not forget that static fields will be ignored by these annotations.
+
+- With Lombok:
+```java
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
+public class Author {
+    private int id;
+    private String name;
+    private String surname;
+    private final String birthPlace;
+}
+```
+
+- With Java Vanilla:
+```java
+public class Author {
+    private int id;
+    private String name;
+    private String surname;
+    private final String birthPlace;
+
+    // @NoArgsConstructor
+    public Author() {}
+
+    // @AllArgsConstructor
+    public Author(int id, String name, String surname, String birthPlace) {
+      this.id = id
+      this.name = name
+      this.surname = surname
+      this.birthPlace = birthPlace
+    }
+
+    // @RequiredArgsConstructor
+    public Author(String birthPlace) {
+      this.birthPlace = birthPlace
+    }
+}
+```
+
 # Best Practices and Common Pitfalls:
 
 ## 1. Best Practices
@@ -99,3 +332,4 @@ In conclusion, Lombok is a valuable tool for Spring Boot development, offering a
 - Official Lombok documentation: https://projectlombok.org/
 - Lombok with Spring Boot tutorial: https://www.baeldung.com/intro-to-project-lombok
 - Techwasti article on lombok: https://techwasti.com/project-lombok-complete-guide-for-java-developer
+- Auth0 article on lombok: https://auth0.com/blog/a-complete-guide-to-lombok/
