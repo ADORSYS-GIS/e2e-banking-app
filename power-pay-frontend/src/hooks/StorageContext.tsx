@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 
 // Define the interface for the StorageContext that holds two methods: getItem and setItem.
 interface StorageContextData<T> {
