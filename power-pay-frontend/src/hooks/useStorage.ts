@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 //UseStorageProps<T>: An interface defining the props for the useStorage hook
 interface UseStorageProps<T> {
   key: string;
-  initialValue?: T;
+  initialValue?: T | undefined ;
 }
 
 //useStorage<T = string>: A generic function that accepts a UseStorageProps<T> object.
 
-export function useStorage<T = string>(props: UseStorageProps<T>): [T, React.Dispatch<React.SetStateAction<T>>] {
+export function useStorage<T = string>(props: UseStorageProps<T>): [T, React.Dispatch<React.SetStateAction<T>> , () => void] {
 
   const { key, initialValue } = props;
 
@@ -25,5 +25,12 @@ export function useStorage<T = string>(props: UseStorageProps<T>): [T, React.Dis
     localStorage.setItem(key, JSON.stringify(storedValue));
   }, [key, storedValue]);
 
-  return [storedValue, setStoredValue];
+  //adding a newfunction removeValue to remove the stored value from the localstorage and set it to its initial state
+
+  const removeValue = () => {
+    localStorage.removeItem(key);
+    setStoredValue(initialValue!);
+  };
+
+  return [storedValue, setStoredValue , removeValue];
 }
