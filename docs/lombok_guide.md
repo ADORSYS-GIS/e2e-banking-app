@@ -26,7 +26,7 @@ To install Lombok with Maven, add the following dependency to your pom.xml file:
 <dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
-    <version>1.18.20</version>
+    <version>1.18.30</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -35,8 +35,8 @@ To install Lombok with Maven, add the following dependency to your pom.xml file:
 To install Lombok with Gradle, add the following dependency to your build.gradle file:
 ```java
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
 ```
 
