@@ -5,7 +5,7 @@ This documentation brings out and describes the strategies and tools used to des
 
 ## Table of content
 - [Objectives](#description)
-- [How to achieve this objectives](#Implementation Of The Validate PIN And Display Balance)
+- [How to achieve this objectives](#implementation-of-the-validate-pin-and-display-balance)
 - [Technical Considerations and Decisions](#TechincalsConsiderations)
 - [Visual Representation](#ClASSDiagram)
 
@@ -53,7 +53,7 @@ The system is made up of three core entities which interact for its implementati
   .<br>
 - The user confirms his PIN at the frontend level. The **CONTROLLER** layer handles this ```POST``` request and retrieves from it the ```ProcedureID``` and the user's **PIN***
 
-- At this point, the **CONTROLLER** layer automatically calls the ```checkProcedureID``` method found in the **SERVICE** layer which compares the incoming ```ProcedureID*``` with ```ProcedureID``` found in the database  by using the ```getProcedureID(key: Phone Number)->value(ProcedureID)``` method still in the **SERVICE** layer. If successful, it proceeds to the next step.
+- At this point, the **CONTROLLER** layer automatically calls the ```checkProcedureID``` method found in the **SERVICE** layer which compares the incoming ```ProcedureID*``` with ```ProcedureID``` found in the database. It then retrieves the **PhoneNumber** associated with this procedure by using the ```getPhoneNumber(key: ProcedureID)->value(PhoneNumber)``` method still in the **SERVICE** layer. If successful, it proceeds to the next step.
 
 - Next, the **CONTROLLER** layer calls the ```getPIN(PhoneNumber)``` method, implemented in the **REPOSITORY** layer, which takes the user's **PhoneNumber** and gets the corresponding PIN from the database and then calls ```checkPIN(PIN)``` which compares **PIN** gotten from the database by calling the ```getPIN(PhoneNumber)``` method against incoming **PIN***.<br>
 
