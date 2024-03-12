@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build",
+    "build-for-gh": "npm run build"
   },
   "dependencies": {
     "react": "^18.2.0",
