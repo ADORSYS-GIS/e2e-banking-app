@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 const Root: React.FC = () => {
   return (
     <StorageProvider initialValue={0}>
-      <App />
+      <Root />
     </StorageProvider>
   );
 };
