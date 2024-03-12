@@ -261,7 +261,7 @@ public class Author {
 
     @Override 
     public String toString() {
-      return "Author(id=" + this.id + ", name=" + this.name + ", surnname=" + this.surname + ")";
+      return "Author(id=" + this.id + ", name=" + this.name + ", surname=" + this.surname + ")";
   }
 }
 ```
@@ -306,6 +306,89 @@ public class Author {
       this.birthPlace = birthPlace
     }
 }
+```
+
+### Example: Using Lombok Annotations with Composition and Lists
+
+In this example, I am demonstrating how to use Lombok annotations in combination with composition and lists to create `Car` and `Engine` objects.
+
+a. Engine class:
+```java
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@ToString
+public class Engine {
+    private String type;
+    private int power;
+}
+```
+
+b. Car class:
+```java
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@ToString
+public class Car {
+    private String make;
+    private String model;
+    private List<Engine> engine;
+}
+```
+
+In this example, we have the Car class and the Engine class, both of which utilize Lombok annotations to reduce boilerplate code.
+
+To demonstrate the usage of these classes, we create three Engine objects (engine1, engine2, engine3) and add them to a List<Engine>. Then, we create a Car object named car1 with the provided make, model, and engine list. Finally, we print the car1 object, which triggers the toString() method and displays the string representation of the object.
+
+```java
+package com.example.demo1;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.example.demo1.lomboktest.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@SpringBootApplication
+public class Demo1Application {
+	public static void main(String[] args) {
+		SpringApplication.run(Demo1Application.class, args);
+		Engine engine1 = new Engine("V6", 300);
+		Engine engine2 = new Engine("V8", 400);
+		Engine engine3 = new Engine("Electric", 500);
+
+		List<Engine> engine = new ArrayList<>();
+		engine.add(engine1);
+		engine.add(engine2);
+
+		Car car1 = new Car("Ford", "Mustang", engine);
+		System.out.println(car1);
+
+	}
+
+}
+```
+
+When you run this code, it will output the string representation of the car1 object, which includes the make, model, and engine list.
+
+```java
+Car(make=Ford, model=Mustang, engine=[Engine(type=V6, power=300), Engine(type=V8, power=400), Engine(type=Electric, power=500)])
 ```
 
 # Best Practices and Common Pitfalls:
