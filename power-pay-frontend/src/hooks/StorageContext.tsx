@@ -1,4 +1,6 @@
-import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
+import { createContext, PropsWithChildren, useEffect } from 'react';
+import { useStorage } from './useStorage';
+
 
 // Define the interface for the StorageContext that holds two methods: getItem and setItem.
 interface StorageContextData<T> {
@@ -7,14 +9,12 @@ interface StorageContextData<T> {
 }
 
 // Create the StorageContext with default functions for getItem and setItem.
-const StorageContext = createContext<StorageContextData<unknown>>({
-  getItem: () => undefined,
-  setItem: () => {},
-});
+const StorageContext = createContext<StorageContextData<unknown> | undefined>(undefined);
+
 
 // StorageProvider: A React component that wraps the application and provides the storage context with getItem and setItem methods.
 export function StorageProvider<T>({ initialValue, children }: PropsWithChildren<{ initialValue?: T }>) {
-  const [storedValue, setStoredValue] = useState<T | undefined>(initialValue);
+  const [storedValue, setStoredValue] = useStorage<T>({ initialValue });
 
   // Initializes the state with the value from the local storage if it exists.
   useEffect(() => {
@@ -44,17 +44,12 @@ export function StorageProvider<T>({ initialValue, children }: PropsWithChildren
   };
 
   // Destructure getItem and setItem before using them in the StorageContext.Provider value prop.
-  const contextValue: StorageContextData<unknown> = { getItem, setItem } as StorageContextData<unknown>;
+  const contextValue: StorageContextData<T> = { getItem, setItem };
 
   return (
-    <StorageContext.Provider value={contextValue}>
+    <StorageContext.Provider value={contextValue as StorageContextData<unknown>}>
       {children}
     </StorageContext.Provider>
   );
 }
 
-// useStorage: A custom hook that returns the getItem and setItem methods from the StorageContext.
-export function useStorage<T = string>() {
-  const { getItem, setItem } = useContext(StorageContext) as StorageContextData<T>;
-  return [getItem, setItem];
-}
