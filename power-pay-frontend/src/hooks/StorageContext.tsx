@@ -42,12 +42,15 @@ const fakeStorage: StorageContextData<unknown> = {
 const StorageContext = createContext<StorageService<unknown> | undefined>(fakeStorage);
 
 // StorageProvider: A React component that wraps the application and provides the storage context with getItem and setItem methods.
-export function StorageProvider<T extends Record<string, T> | undefined>({ initialValue = {} as T, children }: PropsWithChildren<{ initialValue?: T }>) {
-  const [storedValue, setStoredValue] = useStorage<Record<string, T>>({ initialValue: { ...initialValue } });
+export function StorageProvider<T>({ initialValue, children }: PropsWithChildren<{ initialValue?: T }>) {
+  const [storedValue, setStoredValue] = useStorage<T | undefined>({ initialValue: { ...initialValue } });
+
+// Define a global constant for the key.
+  const STORAGE_KEY = 'key';
 
   // Initializes the state with the value from the local storage if it exists.
   useEffect(() => {
-    const item = localStorage.getItem('key');
+    const item = localStorage.getItem('STORAGE_KEY');
     if (item) {
       setStoredValue(JSON.parse(item));
     }
@@ -56,19 +59,30 @@ export function StorageProvider<T extends Record<string, T> | undefined>({ initi
   // Updates the local storage whenever the state changes.
   useEffect(() => {
     if (storedValue) {
-      localStorage.setItem('key', JSON.stringify(storedValue));
+      setItemWrapper(STORAGE_KEY, storedValue);
     }
   }, [storedValue]);
 
+   // Defining a wrapper function for the setItem method that updates the local storage and the state with the new value.
+   const setItemWrapper = async (key: string, value: T | undefined) => {
+    fakeStorage.setItem(key, value);
+    setStoredValue(value);
+    return true;
+  };
 
-  // Destructure getItem and setItem before using them in the StorageContext.Provider value prop.
-  const contextValue: StorageService<T> = { getItem: fakeStorage.getItem, setItem: fakeStorage.setItem, removeItem: fakeStorage.removeItem, clear: fakeStorage.clear };
-
-  return (
-    <StorageContext.Provider value={contextValue as StorageService<unknown>}>
-      {children}
-    </StorageContext.Provider>
-  );
+// Destructure getItem and setItem before using them in the StorageContext.Provider value prop.
+const contextValue: StorageService<T> = {
+  getItem: fakeStorage.getItem,
+  setItem: setItemWrapper,
+  removeItem: fakeStorage.removeItem,
+  clear: fakeStorage.clear,
+};
+return (
+  <StorageContext.Provider value={contextValue as StorageService<unknown>}>
+    {children}
+  </StorageContext.Provider>
+);
 }
+
 
 export default StorageContext;

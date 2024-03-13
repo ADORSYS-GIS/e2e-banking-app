@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 //UseStorageProps<T>: An interface defining the props for the useStorage hook
 interface UseStorageProps<T> {
-  initialValue?: T ;
+  initialValue?: T  | undefined;
 }
 
 //useStorage<T = string>: A generic function that accepts a UseStorageProps<T> object.
