@@ -1,3 +1,11 @@
+## WorkFlow Status
+
+[![Build, deploy and docker build frontend](https://github.com/ADORSYS-GIS/e2e-banking-app/actions/workflows/build-deploy-and-docker-build.yml/badge.svg)](https://github.com/ADORSYS-GIS/e2e-banking-app/actions/workflows/build-deploy-and-docker-build.yml)
+
+[![Build Translator](https://github.com/ADORSYS-GIS/e2e-banking-app/actions/workflows/build-translator.yml/badge.svg)](https://github.com/ADORSYS-GIS/e2e-banking-app/actions/workflows/build-translator.yml)
+
+[![Build Backend](https://github.com/ADORSYS-GIS/e2e-banking-app/actions/workflows/build-service.yml/badge.svg)](https://github.com/ADORSYS-GIS/e2e-banking-app/actions/workflows/build-service.yml)
+
 # e2e-banking-app
 Welcome to the e2e-banking-app project! This repository contains the code for the end-to-end banking application.
 
