@@ -1,9 +1,8 @@
-// routes.rs
-
-use rocket::serde::json::json;
-use rocket::serde::json::Value as JsonValue;
+use serde_json::json;
+use rocket::serde::json::{Json, Value as JsonValue};
 
 #[get("/health")]
-pub fn health() -> JsonValue {
-    json!({"status": "ok"})
+pub fn health() -> Json<JsonValue> {
+    let status = json!({"status": "ok"});
+    Json(status)
 }
