@@ -55,54 +55,21 @@ It provides an abstraction layer between the application logic and the data pers
 
 ```mermaid
 classDiagram
-    class Controller {
-    <<abstract>> 
-    int final PhoneNumber
-    + callgenerateprocedureID()
-    + caretrieveID() long
-    + sendID(POST: ID)
-    + calldisplaybalance() id
-    + callgetbalance(PIN, ID) int
-    + getprocedureID(ID*)
-    + getpin(PIN*)
-    + callcheckpin() boolean
-    + callcheckID() boolean
-
-
-    }
-
-    class ProcedureRepository {
-        <<Repository>>
-        - final int PhoneNumber
-        + getID() long
-     
+    class CheckBalance {
+        <<subclass>>
+        + checkbalance()
     }
     class UserRepository {
-        <<Repository>>
-        - final int PhoneNumber
-        + getPIN(PhoneNumber) int
+        - PIN
+        + getPIN
         
     }
-    class Service {
-        <<service>>
+    class TransactionRepository {
+        - calculatebalance()
+        + getbalance()
+        
+    }
 
-        - calculatebalance() int
-        + getbalance() int
-        - generateprocedureID() int
-        + checkID(ID*, ID) boolean
-        + checkpin(PIN, PIN*) boolean
-        + getpin(Phonenumber) PIN
-        + getprocedureID() long
-        - storeID(PhoneNumber, ID) long
-        + handleError()
- }
-  
-    
-    Controller --> Service
-    Service --> UserRepository
-    Service --> ProcedureRepository
-
-   
-    
-    
+CheckBalance --> UserRepository
+CheckBalance --> TransactionRepository
 ```
