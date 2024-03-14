@@ -57,11 +57,11 @@ It provides an abstraction layer between the application logic and the data pers
 classDiagram
     class CheckBalance {
         <<subclass>>
-        + checkbalance()
+        + validatePIN(PhoneNumber,PIN)
     }
     class UserRepository {
         - PIN
-        + getPIN
+        + getPIN(PhoneNumber)
         
     }
     class TransactionRepository {
