@@ -1,6 +1,7 @@
 #[macro_use]
 extern crate rocket;
  
+mod routes;
 #[get("/")]
 fn index() -> &'static str { 
     "Welcome to the Power Pay App!"
@@ -8,5 +9,6 @@ fn index() -> &'static str {
  
 #[launch] 
 fn rocket() -> _ { 
-    rocket::build().mount("/", routes![index]) 
+    rocket::build()
+        .mount("/", routes![index, routes::health]) // Mounting both index and health routes
 }
