@@ -1,11 +1,3 @@
-use rocket::http::{ContentType, Status};
-use rocket::local::blocking::Client;
-use rocket::serde::json::json;
-use rocket::serde::json::Value as JsonValue;
-
-use crate::routes::health;
-use crate::rocket;
-
 //unit tests
 
 #[test]
