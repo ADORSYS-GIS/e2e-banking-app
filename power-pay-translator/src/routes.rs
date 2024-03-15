@@ -1,8 +1,7 @@
-use serde_json::json;
-use rocket::serde::json::{Json, Value as JsonValue};
+use rocket::serde::json::json;
+use rocket::serde::json::Value as JsonValue;
 
 #[get("/health")]
-pub fn health() -> Json<JsonValue> {
-    let status = json!({"status": "ok"});
-    Json(status)
+pub fn health() -> JsonValue {
+    json!({"status": "ok"})
 }
