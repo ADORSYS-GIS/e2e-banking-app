@@ -43,7 +43,7 @@ NB:
                                          
                                          Introduction
 
-This document outlines the process of how we added a /health endpoint to our Rust-based server using the Rocket web framework. The /health endpoint provides a simple mechanism for monitoring the server's health and availability.
+    This document outlines the process of how we added a /health endpoint to our Rust-based server using the Rocket web framework. The /health endpoint provides a simple mechanism for monitoring the server's health and availability.
 
                                           Objectives
 
@@ -62,4 +62,4 @@ This document outlines the process of how we added a /health endpoint to our Rus
 
                                                Conclusion
 
-By following these steps, you can successfully add a /health endpoint to your Rust-based server using the Rocket web framework. This endpoint plays a vital role in ensuring the server's health and availability, enabling seamless monitoring and integration with external systems or services.
+    By following these steps, you can successfully add a /health endpoint to your Rust-based server using the Rocket web framework. This endpoint plays a vital role in ensuring the server's health and availability, enabling seamless monitoring and integration with external systems or services.
