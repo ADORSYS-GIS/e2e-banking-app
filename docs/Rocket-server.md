@@ -38,3 +38,29 @@ NB:
 
     Ensure that Docker is installed and running to utilize the Dockerfile configuration.
     
+
+
+                     "Adding a /health Endpoint to Rust-Based Server: A Quick Guide"
+                                         
+                                         Introduction
+
+This document outlines the process of how we added a /health endpoint to our Rust-based server using the Rocket web framework. The /health endpoint provides a simple mechanism for monitoring the server's health and availability.
+
+                                          Objectives
+
+    Develop a /health endpoint that returns a standard JSON response indicating the server's operational status.
+    Ensure the response format includes a status field indicating success.
+
+                                        Implementation Steps
+
+    Endpoint Definition: Define a new route in the Rocket application for the /health endpoint. This route should be accessible via a HTTP GET request and require no parameters.
+
+    Handler Function: Implement a handler function for the /health endpoint. This function should construct and return a JSON response indicating that the server's status is "ok".
+
+    Testing: Write unit and integration tests to verify that the /health endpoint behaves as expected under various conditions, including server start-up and running states.
+
+    Documentation Update: Update the project documentation to include details about the /health endpoint. Explain its purpose, the expected response format, and any relevant information for developers or system administrators.
+
+                                               Conclusion
+
+By following these steps, you can successfully add a /health endpoint to your Rust-based server using the Rocket web framework. This endpoint plays a vital role in ensuring the server's health and availability, enabling seamless monitoring and integration with external systems or services.
