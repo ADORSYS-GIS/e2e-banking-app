@@ -39,7 +39,6 @@ NB:
     Ensure that Docker is installed and running to utilize the Dockerfile configuration.
     
 
-
                      "Adding a /health Endpoint to Rust-Based Server: A Quick Guide"
                                          
                                          Introduction
