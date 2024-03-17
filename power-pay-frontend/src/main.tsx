@@ -6,16 +6,8 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-      <App />
+      <StorageProvider>
+          <App />
+      </StorageProvider>
   </React.StrictMode>,
-  
 )
-const Root: React.FC = () => {
-  return (
-    <StorageProvider>
-      <Root />
-    </StorageProvider>
-  );
-};
-
-export default Root;
