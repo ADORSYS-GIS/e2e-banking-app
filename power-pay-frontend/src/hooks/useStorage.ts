@@ -1,33 +1,35 @@
-import { useState } from 'react';
 
-// UseStorageProps<T>: An interface defining the props for the useStorage hook
+import { useContext, useEffect, useState } from 'react';
+import StorageContext, { StorageContextData } from './StorageContext';
+
 interface UseStorageProps<T> {
-  key: string; // the key to use for storing and retrieving the value from local storage
-  initialValue?: T | undefined; // the initial value to use for the state variable
+  key: string; 
+  initialValue?: T | undefined;
 }
 
 // useStorage<T = string>: A generic function that accepts a UseStorageProps<T> object.
-export function useStorage<T = string>(props: UseStorageProps<T>): [T, React.Dispatch<React.SetStateAction<T>>, () => void] {
-  const { key, initialValue } = props;
+export function useStorage<T = string>({ key, initialValue }: UseStorageProps<T>): [T, React.Dispatch<React.SetStateAction<T>>, () => void] {
+  const { item, setItem, removeItem } = useContext(StorageContext) as StorageContextData<T>;
 
-  // storedValue: A state variable that stores the value retrieved from the localStorage using the provided key
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    // Retrieve the value from local storage using the provided key
-    const valueInLocalStorage = localStorage.getItem(key);
-
-    // If the value exists, parse it from JSON and return it. Otherwise, return the initial value.
-    return valueInLocalStorage ? JSON.parse(valueInLocalStorage) : initialValue!;
+  // Initialize the state variable with the initial value or the value from the local storage
+  const [storedValue, setStoredValue] = useState<T | undefined>(() => {
+    return item[key] ?? initialValue;
   });
 
-  // adding a new function removeValue to remove the stored value from the localstorage and set it to its initial state
-  const removeValue = () => {
-    // Set the storedValue to the initial value
-    setStoredValue(initialValue!);
+  // Another useEffect for updating the stored value when the context changes
+  useEffect(() => {
+    setStoredValue(item[key] ?? initialValue);
+  }, [item, key, initialValue]);
 
-    // Remove the value from local storage using the provided key
-    localStorage.removeItem(key);
+  useEffect(() => {
+    setItem(key, storedValue!);
+  }, [key, storedValue, setItem]);
+
+  // Remove the item from local storage and set the stored value to undefined
+  const clearItem = () => {
+    removeItem(key);
+    setStoredValue(undefined)
   };
 
-  // Return the storedValue, setStoredValue function, and removeValue function as an array
-  return [storedValue, setStoredValue, removeValue];
+  return [storedValue!, setItem, clearItem];
 }

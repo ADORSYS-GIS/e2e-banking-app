@@ -1,91 +1,86 @@
-import { createContext, PropsWithChildren, useEffect } from 'react';
-import { useStorage } from './useStorage';
-
-
-
-// Creating  a fake implementation of the StorageContextData interface.
-const fakeStorage: StorageContextData<unknown> = {
-  getItem: async (key: string): Promise< unknown | undefined> => {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item): undefined;
-  },
-  setItem: async (key: string, value: unknown): Promise<boolean> => {
-    localStorage.setItem(key, JSON.stringify(value));
-    return true;
-  },
-  removeItem: async (key: string): Promise<boolean> => {
-    localStorage.removeItem(key);
-    return true;
-  },
-  clear: async (): Promise<boolean> => {
-    localStorage.clear();
-    return true;
-  },
-};
+import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 
 
 // Create the StorageContextData interface.
 interface StorageContextData<T> {
-  getItem: (key: string) => Promise<unknown | undefined>;
-  setItem: (key: string, value: T) => Promise<boolean>;
+  item: Record<string, T>;
+  setItem: (key: string, value: T) => Promise<boolean>; // adding a key into the map
+  removeItem: (key: string) => Promise<boolean>; // remove a key from the map
+  clear: () => Promise<boolean>; // clear the map
+}
+
+
+interface StorageService {
+  getItem: <T>(key: string) => Promise<T | undefined>;
+  setItem: <T>(key: string, value: T) => Promise<boolean>;
   removeItem: (key: string) => Promise<boolean>;
   clear: () => Promise<boolean>;
 }
 
-interface StorageService<T> {
-  getItem: (key: string) => Promise<T | undefined>;
-  setItem: (key: string, value: T) => Promise<boolean>;
-  removeItem: (key: string) => Promise<boolean>;
-  clear: () => Promise<boolean>;
+
+export class LocalStorageService implements StorageService {
+  removeItem!: (key: string) => Promise<boolean>;
+  clear!: () => Promise<boolean>;
+  async getItem<T>(key: string) {
+    const found = localStorage.getItem(key);
+    if (!found) return undefined;
+    return JSON.parse(found) as T;
+  }
+
+  async setItem<T>(key: string, value: T) {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  }
+
 }
 
+
+// Define a global constant for the key.
+const STORAGE_KEY = 'key';
 
 // Create the StorageContext with default functions for getItem and setItem.
-const StorageContext = createContext<StorageService<unknown> | undefined>(undefined);
+const StorageContext = createContext<StorageContextData<unknown> | undefined>(undefined);
 
 // StorageProvider: A React component that wraps the application and provides the storage context with getItem and setItem methods.
-export function StorageProvider<T>({ initialValue, children }: PropsWithChildren<{ initialValue?: T }>) {
-  const [storedValue, setStoredValue] = useStorage<T | undefined>({ key: 'your_key_here', initialValue });
-
-  // Define a global constant for the key.
-  const STORAGE_KEY = 'key';
+export function StorageProvider<T>({ children, storageService }: PropsWithChildren<{ storageService: StorageService }>) {
+  const [storedValue, setStoredValue] = useState<Record<string, unknown>>({});
 
   // Initializes the state with the value from the local storage if it exists.
   useEffect(() => {
-    const item = localStorage.getItem(STORAGE_KEY);
-    if (item) {
-      setStoredValue(JSON.parse(item));
-    }
-  }, [setStoredValue]);
+    storageService
+      .getItem<Record<string, T>>(STORAGE_KEY)
+      .then((item) => {
+        if (item) {
+          setStoredValue(item);
+        }
+      });
+  }, [storageService]);
 
   // Updates the local storage whenever the state changes.
   useEffect(() => {
     if (storedValue !== undefined) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(storedValue));
+      storageService.setItem(STORAGE_KEY, storedValue);
     }
-  }, [storedValue]);
-
-  // Defining a wrapper function for the setItem method that updates the local storage and the state with the new value.
-  const setItemWrapper = async (key: string, value: T | undefined) => {
-    if (value !== undefined) {
-      localStorage.setItem(key, JSON.stringify(value));
-    } else {
-      localStorage.removeItem(key);
-    }
-    setStoredValue(value);
-    return true;
-  };
+  }, [storageService, storedValue]);
 
   // Destructure getItem and setItem before using them in the StorageContext.Provider value prop.
-  const contextValue: StorageService<T> = {
-    getItem: (key) => fakeStorage.getItem(key),
-    setItem: (key, value) => setItemWrapper(key, value),
-    removeItem: (key) => fakeStorage.removeItem(key),
-    clear: () => fakeStorage.clear(),
+  const contextValue: StorageContextData<unknown> = {
+    item: storedValue,
+    setItem: async (key, value) => {
+      setStoredValue(pre => ({
+        ...pre, [key]: value
+      }))
+      return true;
+    },
+
+  
+    removeItem: (key) => storageService.removeItem(key),
+    
+    clear: () => storageService.clear(),
   };
 
   return (
-    <StorageContext.Provider value={contextValue as StorageService<unknown>}>
+    <StorageContext.Provider value={contextValue}>
       {children}
     </StorageContext.Provider>
   );
