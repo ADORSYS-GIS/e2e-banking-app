@@ -1,0 +1,109 @@
+name: Build, deploy and docker build frontend
+
+on:
+    push:
+        branches:
+          - '**'
+        tags-ignore:
+          - 'v*'
+        paths:
+          - 'power-pay-frontend/**'
+
+    pull_request:
+        branches:
+          - '**'
+        paths:
+          - 'power-pay-frontend/**'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}-frontend
+jobs:
+  # Build Job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install Dependencies
+        run: cd power-pay-frontend && npm ci
+
+      - name: Build Project
+        run: cd power-pay-frontend && npm run build-for-gh
+
+      - name: Upload artifact to enable deployment
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-files
+          path: power-pay-frontend/dist
+
+  # Deploy Job
+  deploy:
+    permissions:
+      pages: write
+      contents: write
+    # Add a dependency to the build job
+    needs: build
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: production-files
+          path: dist
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+
+
+  # Docker Build Job
+  docker-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - uses: actions/checkout@v4
+        
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to the Docker registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: string
+        uses: AsZc/change-string-case-action@v6
+        with:
+          string: ${{ env.IMAGE_NAME }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ steps.string.outputs.lowercase }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        if: github.event_name != 'pull_request'
+        with:
+          context: ./power-pay-frontend
+          file: ./power-pay-frontend/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }} 

@@ -33,11 +33,14 @@ So This is how we can obtain reusable , non-tree shaking and persistent data acr
 ```mermaid
 
 graph TD;
+
    subgraph "interface"
         data[data: type,
         setdata: function]
         
 end
+
+
     subgraph "Components"
         A[component1]
         B[component2]
