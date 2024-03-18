@@ -18,12 +18,16 @@ One of the main benefits of Context API is its ability to simplify state managem
 
 ## React Context with useStorage
 
-To make the most use of the useStorage hook we are going to be using the Context library here this is because of its simplicity and also its ability to pass data from parent to children components without the use of props.<br>
-Here is a basic form of how the react Context and usestorage hook function in other for us to have persistent and reusable data across our components.<br>
-the react context works by creating a context object that holds the data we want to share between the components, once this context object is being created it is used in our components by first wrapping the component in a context provider then any component that imports(inherits) from this component can have access to the data, then now comes the useStorage hook which to persist that data to the localstorage or any other storage of our web browser to make the data persist accross page refresh or any other storage. <br>
-The usestorage hook performs its task by taking the key and associated value converting it to a json string then using the ```setItem()``` method to store it in the storage with its associated key. And also has a ```getItem()``` for retrieving the value stored based on the corresponding key and a ```removeItem()``` method which will be used to remove key value pair from the storage. <br>
-To conclude the react Context and useStorage helps our application to have reusable and persist data accross components.<br>
-The flow is as shown.
+
+TO implement the React context with the useStorage, we first start by creating and interface from which we define our data
+and methods to read and write data across components by implementing the interface.<br>
+Once this interface created we then create a context provider by importing context from react the we create a context provider from
+it were all the child components to that component will consume its value.<br>
+Once this done we have a reusable and a none tree shaking code, Now then comes the useStorage hook, the usestorage hook then
+has then accepts the data provided by the consumer components and uses method such and getitem('key') and returns a value , setitem('key', value)
+to store and item in the browser's storage using a key and value depending from which value and key may come from that provider by the
+context provider for example.
+So This is how we can obtain reusable , non-tree shaking and persistent data across our components.<br>
 
 
 ```mermaid
@@ -31,7 +35,7 @@ The flow is as shown.
 graph TD;
    subgraph "interface"
         data[data: type,
-        setdata: Function]
+        setdata: function]
         
 end
     subgraph "Components"
