@@ -1,15 +1,14 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 
-
-// Create the StorageContextData interface.
-interface StorageContextData<T> {
+// Dethe StorageContextData interface.
+export interface StorageContextData<T> {
   item: Record<string, T>;
-  setItem: (key: string, value: T) => Promise<boolean>; // adding a key into the map
-  removeItem: (key: string) => Promise<boolean>; // remove a key from the map
-  clear: () => Promise<boolean>; // clear the map
+  setItem: (key: string, value: T) => Promise<boolean>;
+  removeItem: (key: string) => Promise<boolean>;
+  clear: () => Promise<boolean>;
 }
 
-
+// Defining the StorageService interface.
 interface StorageService {
   getItem: <T>(key: string) => Promise<T | undefined>;
   setItem: <T>(key: string, value: T) => Promise<boolean>;
@@ -17,23 +16,29 @@ interface StorageService {
   clear: () => Promise<boolean>;
 }
 
-
+// Define the LocalStorageService class implementing the StorageService interface.
 export class LocalStorageService implements StorageService {
-  removeItem!: (key: string) => Promise<boolean>;
-  clear!: () => Promise<boolean>;
-  async getItem<T>(key: string) {
+  async getItem<T>(key: string): Promise<T | undefined> {
     const found = localStorage.getItem(key);
     if (!found) return undefined;
     return JSON.parse(found) as T;
   }
 
-  async setItem<T>(key: string, value: T) {
+  async setItem<T>(key: string, value: T): Promise<boolean> {
     localStorage.setItem(key, JSON.stringify(value));
     return true;
   }
 
-}
+  async removeItem(key: string): Promise<boolean> {
+    localStorage.removeItem(key);
+    return true;
+  }
 
+  async clear(): Promise<boolean> {
+    localStorage.clear();
+    return true;
+  }
+}
 
 // Define a global constant for the key.
 const STORAGE_KEY = 'key';
@@ -41,11 +46,11 @@ const STORAGE_KEY = 'key';
 // Create the StorageContext with default functions for getItem and setItem.
 const StorageContext = createContext<StorageContextData<unknown> | undefined>(undefined);
 
-// StorageProvider: A React component that wraps the application and provides the storage context with getItem and setItem methods.
+// Define the StorageProvider component.
 export function StorageProvider<T>({ children, storageService }: PropsWithChildren<{ storageService: StorageService }>) {
-  const [storedValue, setStoredValue] = useState<Record<string, unknown>>({});
+  const [storedValue, setStoredValue] = useState<Record<string, T>>({});
 
-  // Initializes the state with the value from the local storage if it exists.
+  // Initialize the state with the value from the local storage if it exists.
   useEffect(() => {
     storageService
       .getItem<Record<string, T>>(STORAGE_KEY)
@@ -56,6 +61,7 @@ export function StorageProvider<T>({ children, storageService }: PropsWithChildr
       });
   }, [storageService]);
 
+
   // Updates the local storage whenever the state changes.
   useEffect(() => {
     if (storedValue !== undefined) {
@@ -63,20 +69,33 @@ export function StorageProvider<T>({ children, storageService }: PropsWithChildr
     }
   }, [storageService, storedValue]);
 
-  // Destructure getItem and setItem before using them in the StorageContext.Provider value prop.
-  const contextValue: StorageContextData<unknown> = {
+  // Remove the item from local storage and set the stored value to undefined
+  const clearItem = async (key: string): Promise<boolean> => {
+    localStorage.removeItem(key);
+    setStoredValue((prevState) => {
+      const newState = { ...prevState };
+      delete newState[key];
+      return newState;
+    });
+    return true;
+  };
+
+  // Define the context value.
+  const contextValue: StorageContextData<T> = {
     item: storedValue,
     setItem: async (key, value) => {
-      setStoredValue(pre => ({
-        ...pre, [key]: value
-      }))
+      setStoredValue((prevState) => ({
+        ...prevState,
+        [key]: value,
+      }));
       return true;
     },
-
-  
-    removeItem: (key) => storageService.removeItem(key),
-    
-    clear: () => storageService.clear(),
+    removeItem: async (key) => clearItem(key),
+    clear: async () => {
+      localStorage.clear();
+      setStoredValue({});
+      return true;
+    },
   };
 
   return (
