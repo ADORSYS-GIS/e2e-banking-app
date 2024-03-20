@@ -89,7 +89,6 @@ export function StorageProvider<T>({ children, storageService }: PropsWithChildr
     },
     removeItem: async (key) => clearItem(key),
     clear: async () => {
-    //  localStorage.clear();
       setStoredValue({});
       return true;
     },
