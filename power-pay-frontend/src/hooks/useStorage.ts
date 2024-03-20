@@ -18,9 +18,7 @@ export function useStorage<T = string>({ key, initialValue }: UseStorageProps<T>
 
   // Update the context when the storedValue changes
   useEffect(() => {
-    if (storedValue !== undefined) {
-      setItem(key, storedValue);
-    }
+    setItem(key, storedValue as T);
   }, [key, storedValue, setItem]);
 
   // Clear the item from local storage and reset the stored value

@@ -41,7 +41,7 @@ export class LocalStorageService implements StorageService {
 }
 
 // Define a global constant for the key.
-const STORAGE_KEY = 'key';
+const STORAGE_KEY = 'new_key';
 
 // Create the StorageContext with default functions for getItem and setItem.
 const StorageContext = createContext<StorageContextData<unknown> | undefined>(undefined);
@@ -53,7 +53,7 @@ export function StorageProvider<T>({ children, storageService }: PropsWithChildr
   // Initialize the state with the value from the local storage if it exists.
   useEffect(() => {
     storageService
-      .getItem<Record<string, T>>(STORAGE_KEY)
+      .getItem<Record<string, T>>(STORAGE_KEY) 
       .then((item) => {
         if (item) {
           setStoredValue(item);
@@ -63,7 +63,7 @@ export function StorageProvider<T>({ children, storageService }: PropsWithChildr
 
   // Updates the local storage whenever the state changes.
   useEffect(() => {
-    storageService.setItem(STORAGE_KEY, storedValue);
+    storageService.setItem(STORAGE_KEY, storedValue); 
   }, [storageService, storedValue]);
 
   // Remove the item from local storage and set the stored value to undefined
@@ -89,7 +89,7 @@ export function StorageProvider<T>({ children, storageService }: PropsWithChildr
     },
     removeItem: async (key) => clearItem(key),
     clear: async () => {
-     // localStorage.clear();
+      localStorage.clear();
       setStoredValue({});
       return true;
     },
