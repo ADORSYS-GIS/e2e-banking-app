@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 
-// Dethe StorageContextData interface.
+// Define the StorageContextData interface.
 export interface StorageContextData<T> {
   item: Record<string, T>;
   setItem: (key: string, value: T) => Promise<boolean>;
@@ -8,7 +8,7 @@ export interface StorageContextData<T> {
   clear: () => Promise<boolean>;
 }
 
-// Defining the StorageService interface.
+// Define the StorageService interface.
 interface StorageService {
   getItem: <T>(key: string) => Promise<T | undefined>;
   setItem: <T>(key: string, value: T) => Promise<boolean>;
@@ -61,12 +61,9 @@ export function StorageProvider<T>({ children, storageService }: PropsWithChildr
       });
   }, [storageService]);
 
-
   // Updates the local storage whenever the state changes.
   useEffect(() => {
-    if (storedValue !== undefined) {
-      storageService.setItem(STORAGE_KEY, storedValue);
-    }
+    storageService.setItem(STORAGE_KEY, storedValue);
   }, [storageService, storedValue]);
 
   // Remove the item from local storage and set the stored value to undefined
@@ -92,7 +89,6 @@ export function StorageProvider<T>({ children, storageService }: PropsWithChildr
     },
     removeItem: async (key) => clearItem(key),
     clear: async () => {
-      localStorage.clear();
       setStoredValue({});
       return true;
     },
