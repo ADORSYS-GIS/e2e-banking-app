@@ -29,7 +29,40 @@ to store and item in the browser's storage using a key and value depending from 
 context provider for example.
 So This is how we can obtain reusable , non-tree shaking and persistent data across our components.<br>
 
+## Transactions using the browser's IndexDB storage
+    indexDB is a low level API for client-side storage of significant anounts of structured
+    including files and blobs
 
+### KeyConcepts
++ Asynchronous, therefore it won't block any main thread operations.
++ lets you access data offline.
++ can store a large amount of data ( more than the local storage or session storage) of complex value types.
++ A noSQL database which makes it very flexible and dangerous.
+
+### keywords
++ **Object stores** : the mechanism by which data is stored in the database.
++ **Database** : A repository of information , typically comprising of one or more object stores 
++ **Index** :  and index is a specialixed object store for looking up records in another object store called the reference object store.
++ **request** : The operation by which reading and writing on a database is done. Every request represents one or more read or write operations
+
+IndexDB just as the localStorage and sessionStorage stores data on client side and provides methods for easy retrieval , adding , and removing data from this storage 
+depending on whether the store object uses a ```keypath``` or a ``` key generator``` and you can also use and index for retrieving the data based on the key in the index data store which 
+maps the value in the object store.
+
+### Basic Pattern
+1. open the database.
+2. create an object in the database.
+3. start a trasaction and make a request to do some database operations.
+4. wait for the operation to be completed by listening to the right kind od DOM events.
+5. do somthing with the result.
+
+#### Possible Errors
+One of the common possible errors when opening a databaseis ```VER_ERR``` it indicates that the version of the database stored on the 
+disk is greater than the version that you are trying to open. this an error case that must be handled by the 
+error handler.
+
+Source, [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
+)
 ```mermaid
 
 graph TD;
