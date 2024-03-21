@@ -44,3 +44,14 @@
 .read-the-docs {
   color: #888;
 }
+.ok-page {
+  justify-content: center;
+  align-items: center;
+  padding : 10px;
+  margin-bottom: 34px;
+  border: 1px solid white;
+  border-radius: 20px;
+}
+.okbtn{
+  background-color: green;
+}
