@@ -66,11 +66,14 @@ Source, [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_A
 ```mermaid
 
 graph TD;
+
    subgraph "interface"
         data[data: type,
         setdata: function]
         
 end
+
+
     subgraph "Components"
         A[component1]
         B[component2]
