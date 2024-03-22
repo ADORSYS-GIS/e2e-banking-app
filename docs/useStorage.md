@@ -42,7 +42,7 @@ So This is how we can obtain reusable , non-tree shaking and persistent data acr
 ### keywords
 + **Object stores** : the mechanism by which data is stored in the database.
 + **Database** : A repository of information , typically comprising of one or more object stores 
-+ **Index** :  and index is a specialixed object store for looking up records in another object store called the reference object store.
++ **Index** :  and index is a specialized object store for looking up records in another object store called the reference object store.
 + **request** : The operation by which reading and writing on a database is done. Every request represents one or more read or write operations
 
 IndexDB just as the localStorage and sessionStorage stores data on client side and provides methods for easy retrieval , adding , and removing data from this storage 
@@ -52,9 +52,9 @@ maps the value in the object store.
 ### Basic Pattern
 1. open the database.
 2. create an object in the database.
-3. start a trasaction and make a request to do some database operations.
+3. start a transaction and make a request to do some database operations.
 4. wait for the operation to be completed by listening to the right kind od DOM events.
-5. do somthing with the result.
+5. do something with the result.
 
 #### Possible Errors
 One of the common possible errors when opening a databaseis ```VER_ERR``` it indicates that the version of the database stored on the 
@@ -65,40 +65,44 @@ Source, [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_A
 )
 ```mermaid
 
-graph TD;
+classDiagram
 
-   subgraph "interface"
-        data[data: type,
-        setdata: function]
-        
-end
-
-
-    subgraph "Components"
-        A[component1]
-        B[component2]
-      
-        end
-    subgraph "useStorage"
-        usestoragehook[useStoragehook]
-        end
-    subgraph "BrowserStorage"
-       localstorage[LocalStorage]
-       end
-    subgraph "ContextProvider"
-        provider[Provider]
-        end
-
-ContextObject -->  ContextProvider
-ContextProvider --> Components
-A -->|setItem,removeItem| useStorage
-B --> |setItem,removeItem| useStorage
-
-useStorage--> |getItem| A
-useStorage --> |getItem|B
-
-useStorage --> |settingItem/ removingItem|BrowserStorage
-
-BrowserStorage --> |gettingItem|useStorage
-
-
+   class Storage {
+    <<interface>>
+    + getItem<T>(key: string): Promise<T>
+    + setItem<T>(key: string, value: T): Promise<void>
+    + removeItem(key: string): Promise<void>
+    + clear(): Promise<void>
+   }
+   class LocalstorageImpl {
+       
+   }
+   class IndexDBImpl{
+       
+   }
+   class MemoryStorageImp{
+       - dic: Map<string, any>
+   }
+   class IndexStorageImpl{
+       - dic: Map<any, any>
+   }
+   class Hook{
+       + item: value
+       + setItem(item: value): void
+ }
+ class ContextData {
+     + data Map<string, any>
+     + setData(data: Map<string, any>)
+ }
+ class Context {
+     + storage: storage
+     + data: connection
+ }
+ Context --> ContextData: use
+ Hook --> Context: use
+ MemoryStorageImp --> Storage: implements
+ LocalstorageImpl --> Storage: implements
+ IndexStorageImpl --> Storage: implements
+ IndexDBImpl --> Storage: implements
+ Context --> Storage: use
+```
