@@ -1,5 +1,4 @@
 package com.adorsys.gis.powerpay.powerpaybackend.services;
-import com.adorsys.gis.powerpay.powerpaybackend.domain.Procedure;
 import com.adorsys.gis.powerpay.powerpaybackend.domain.ProcedureStatus;
 import com.adorsys.gis.powerpay.powerpaybackend.domain.Transaction;
 import com.adorsys.gis.powerpay.powerpaybackend.errorhandling.InsufficientFundsException;
@@ -11,8 +10,11 @@ import org.springframework.transaction.TransactionException;
 @Service
 public class SendMoneyImpl implements SendMoney{
 
-      @Autowired
-      private MoneyTranferRepository moneyTranferRepository;
+    @Autowired
+    private MoneyTranferRepository moneyTranferRepository;
+
+    @Autowired
+    private Transaction transaction;
 
 
     @Override
@@ -25,21 +27,18 @@ public class SendMoneyImpl implements SendMoney{
             throw new IllegalArgumentException("Transfer amount must be positive.");
         }
 
-     if (!hasSufficientFunds(phoneNumber, amount)) {
+        if (!hasSufficientFunds(phoneNumber, amount)) {
             throw new InsufficientFundsException("Insufficient funds for transfer.");
         }
 
-
-        Transaction transaction = new Transaction();
-
-        transaction.setReceiverPhoneNumber(receiverPhoneNumber);
-        transaction.setAmount(amount);
-        transaction.setCurrency(currency);
-        transaction.setStatus(ProcedureStatus.WAITING);
-        transaction.getId(); //
-
-
         try {
+            
+            transaction.setReceiverPhoneNumber(receiverPhoneNumber);
+            transaction.setAmount(amount);
+            transaction.setCurrency(currency);
+            transaction.setStatus(ProcedureStatus.WAITING);
+            transaction.getId(); //
+
             transaction = moneyTranferRepository.save(transaction);
         } catch (Exception e) {
             throw new TransactionException("Failed to save transaction: " + e.getMessage(), e) {
