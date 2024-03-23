@@ -8,9 +8,17 @@ public class Transaction extends Procedure {
     private Double amount;
     private String currency;
 
+    private TransactionType transactionType;
+
     {
         currency = "XAF";
     }
+
+public Transaction(double amount, TransactionType transactionType) {
+    super();
+    this.amount = amount;
+    this.transactionType = transactionType;
+}
 
     public String getReceiverPhoneNumber() {
         return receiverPhoneNumber;
@@ -34,5 +42,13 @@ public class Transaction extends Procedure {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 }
