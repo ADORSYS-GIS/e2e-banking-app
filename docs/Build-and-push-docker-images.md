@@ -10,9 +10,9 @@ Github Actions is a continuous integration and continuous delivery (CI/CD) platf
 
 ### Step 1.
 - Create new files named:
- .github/workflows/maven.yml, 
- .github/workflows/node.yml, and 
- .github/workflows/rust.yml 
+    .github/workflows/build-service.yml, 
+    .github/workflows/build-deploy-and-docker-build.yml, and 
+    .github/workflows/build-translator.yml 
  in the main project directory for the backend, frontend and translator respectively.
 
  ### Step 2.
