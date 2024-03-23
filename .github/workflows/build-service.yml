@@ -6,14 +6,16 @@ on:
       - '**'
     tags-ignore:
       - 'v*'
-    #paths:
-    #  - 'power-pay-backend/**'
+    paths:
+      - 'power-pay-backend/**'
+      - '.github/workflows/build-service.yml'
 
   pull_request:
     branches:
       - '**'
-    #paths:
-    #  - 'power-pay-backend/**'
+    paths:
+      - 'power-pay-backend/**'
+      - '.github/workflows/build-service.yml'
 
 env:
   REGISTRY: ghcr.io
@@ -31,7 +33,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - run: mvn clean package -q
+      - name: Maven build
+        run: cd power-pay-backend && mvn clean package -q
       
   docker-build:
     if: github.event_name != 'pull_request'
