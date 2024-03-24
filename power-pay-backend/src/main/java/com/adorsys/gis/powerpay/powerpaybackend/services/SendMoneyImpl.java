@@ -18,7 +18,7 @@ public class SendMoneyImpl implements SendMoney{
 
 
     @Override
-    public Transaction send(Object phoneNumber, String receiverPhoneNumber, Double amount, String currency)
+    public Transaction send(String phoneNumber, String receiverPhoneNumber, Double amount, String currency)
             throws InsufficientFundsException, TransactionException {
         if (phoneNumber == null) {
             throw new IllegalArgumentException("Phone number cannot be null.");
@@ -32,14 +32,14 @@ public class SendMoneyImpl implements SendMoney{
         }
 
         try {
-            
-            transaction.setReceiverPhoneNumber(receiverPhoneNumber);
-            transaction.setAmount(amount);
-            transaction.setCurrency(currency);
-            transaction.setStatus(ProcedureStatus.WAITING);
-            transaction.getId(); //
-
-            transaction = moneyTranferRepository.save(transaction);
+            if (transaction != null) {
+                transaction.setReceiverPhoneNumber(receiverPhoneNumber);
+                transaction.setAmount(amount);
+                transaction.setCurrency(currency);
+                transaction.setStatus(ProcedureStatus.WAITING);
+        
+                transaction = moneyTranferRepository.save(transaction);
+            }
         } catch (Exception e) {
             throw new TransactionException("Failed to save transaction: " + e.getMessage(), e) {
             };
@@ -48,7 +48,7 @@ public class SendMoneyImpl implements SendMoney{
         return transaction;
     }
 
-    private boolean hasSufficientFunds(Object phoneNumber, Double amount) {
+    private boolean hasSufficientFunds(String phoneNumber, Double amount) {
         return true;
     }
 
