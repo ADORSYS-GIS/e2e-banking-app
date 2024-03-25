@@ -63,3 +63,19 @@ public class UserRegistrationImpl implements UserRegistrationService {
 
         return userRegistration.getId();
     }
+
+    @Override
+    public String generateOtp() {
+        StringBuilder otp = new StringBuilder(OTP_LENGTH);
+        SecureRandom secureRandom = new SecureRandom();
+
+        for (int i = 0; i < OTP_LENGTH; i++) {
+            int index = secureRandom.nextInt(CHARACTERS.length());
+            char character = CHARACTERS.charAt(index);
+            otp.append(character);
+        }
+
+        return otp.toString();
+    }
+    
+}
