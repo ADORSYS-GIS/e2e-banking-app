@@ -18,7 +18,7 @@ public class SendMoneyImpl implements SendMoney{
 
 
     @Override
-    public Transaction send(String phoneNumber, String receiverPhoneNumber, Double amount, String currency)
+    public Transaction send(String phoneNumber, String receiverPhoneNumber, Double amount, String currency, Integer id)
             throws InsufficientFundsException, TransactionException {
         if (phoneNumber == null) {
             throw new IllegalArgumentException("Phone number cannot be null.");
@@ -37,6 +37,8 @@ public class SendMoneyImpl implements SendMoney{
                 transaction.setAmount(amount);
                 transaction.setCurrency(currency);
                 transaction.setStatus(ProcedureStatus.WAITING);
+                transaction.setId(id);
+                transaction.setPhoneNumber(phoneNumber);
         
                 transaction = moneyTranferRepository.save(transaction);
             }
