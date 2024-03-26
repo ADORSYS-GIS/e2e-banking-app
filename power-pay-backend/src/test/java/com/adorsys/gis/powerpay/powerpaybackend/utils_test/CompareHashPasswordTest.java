@@ -16,6 +16,6 @@ public class CompareHashPasswordTest {
 
     @Test
     void compareHashPassword(){
-        assertTrue(dataSecurityService.compareHashPassword("mypin", "675243180"));
+        assertTrue(dataSecurityService.compareHashedData("mypin", "675243180"));
     }
 }
