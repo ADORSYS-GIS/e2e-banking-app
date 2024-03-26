@@ -13,9 +13,7 @@ public class SendMoneyImpl implements SendMoney{
     @Autowired
     private MoneyTranferRepository moneyTranferRepository;
 
-    @Autowired
     private Transaction transaction;
-
 
     @Override
     public Transaction send(String phoneNumber, String receiverPhoneNumber, Double amount, String currency, Integer id)
