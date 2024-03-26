@@ -1,11 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  useEffect(() => {
+    registerServiceWorker();
+  }, []);
 
+  const registerServiceWorker = async () => {
+    if ('serviceWorker' in navigator) {
+      try {
+        const registration = await navigator.serviceWorker.register('/service-worker.ts', {
+          scope: '/',
+        });
+        console.log('Service worker registered:', registration);
+      } catch (error) {
+        console.error('Service worker registration failed:', error);
+      }
+    } else {
+      console.log('Service workers are not supported in this browser.');
+    }
+  };
   return (
     <>
       <div>
