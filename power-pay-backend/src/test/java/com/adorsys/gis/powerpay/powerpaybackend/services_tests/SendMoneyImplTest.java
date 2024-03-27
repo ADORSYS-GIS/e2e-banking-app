@@ -31,6 +31,17 @@ public class SendMoneyImplTest {
     }
 
     @Test
+    public void testSend_InsufficientFunds_ExceptionThrown() {
+        // Arrange
+        SendMoneyImpl sendMoneyImpl = new SendMoneyImpl();
+        
+        // Act & Assert
+        assertThrows(InsufficientFundsException.class, () -> {
+            sendMoneyImpl.send("1234567890", "0987654321", 1000000.0, "XAF", 1);
+        });
+    }
+
+    @Test
     public void testSend_SuccessfulTransaction() {
         // Arrange
         SendMoneyImpl sendMoneyImpl = new SendMoneyImpl();
