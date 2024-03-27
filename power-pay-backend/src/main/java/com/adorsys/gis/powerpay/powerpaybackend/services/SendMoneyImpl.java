@@ -2,7 +2,7 @@ package com.adorsys.gis.powerpay.powerpaybackend.services;
 import com.adorsys.gis.powerpay.powerpaybackend.domain.ProcedureStatus;
 import com.adorsys.gis.powerpay.powerpaybackend.domain.Transaction;
 import com.adorsys.gis.powerpay.powerpaybackend.errorhandling.InsufficientFundsException;
-import com.adorsys.gis.powerpay.powerpaybackend.repository.MoneyTranferRepository;
+import com.adorsys.gis.powerpay.powerpaybackend.repository.MoneyTransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionException;
@@ -11,7 +11,7 @@ import org.springframework.transaction.TransactionException;
 public class SendMoneyImpl implements SendMoney{
 
     @Autowired
-    private MoneyTranferRepository moneyTranferRepository;
+    private MoneyTransferRepository moneyTranferRepository;
 
     private Transaction transaction;
 
