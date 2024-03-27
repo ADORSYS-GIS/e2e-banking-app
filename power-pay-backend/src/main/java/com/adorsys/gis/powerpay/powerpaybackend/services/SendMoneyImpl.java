@@ -11,7 +11,7 @@ import org.springframework.transaction.TransactionException;
 public class SendMoneyImpl implements SendMoney{
 
     @Autowired
-    private MoneyTransferRepository moneyTranferRepository;
+    private MoneyTransferRepository moneyTransferRepository;
 
     private Transaction transaction;
 
@@ -38,7 +38,7 @@ public class SendMoneyImpl implements SendMoney{
                 transaction.setId(id);
                 transaction.setPhoneNumber(phoneNumber);
         
-                transaction = moneyTranferRepository.save(transaction);
+                transaction = moneyTransferRepository.save(transaction);
             }
         } catch (Exception e) {
             throw new TransactionException("Failed to save transaction: " + e.getMessage(), e) {
