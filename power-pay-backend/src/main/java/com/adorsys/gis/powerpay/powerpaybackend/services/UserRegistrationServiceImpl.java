@@ -11,6 +11,7 @@ import com.adorsys.gis.powerpay.powerpaybackend.repository.UserRepository;
 import com.adorsys.gis.powerpay.powerpaybackend.utils.DataSecurityService;
 import com.adorsys.gis.powerpay.powerpaybackend.utils.UserRegistrationException;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -26,20 +27,13 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
 
     @Override
-    public User registerUser(String phoneNumber, String userName, String pin) {
-        validateInputParameters(phoneNumber, userName, pin);
+    public User registerUser(@NotNull String registrationId, String pin, String otp) {
 
         User newUser = new User();
         UserRegistration userRegistration = new UserRegistration();
-        createProcedure(userName);
 
         try {
-            newUser.setPhoneNumber(phoneNumber);
-            newUser.setUserName(userName);
-            newUser.setPin(dataSecurityService.hashData(pin));
-
             userRepository.save(newUser);
-            userRegistration.isDone();
         } catch (Exception e) {
             throw new UserRegistrationException("User registration failed", e);
         }
@@ -47,28 +41,11 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         return newUser;
     }
 
-    private void validateInputParameters(String phoneNumber, String userName, String pin) {
-        if (phoneNumber == null || userName == null || pin == null) {
-            throw new IllegalArgumentException("Invalid input parameters. Please ensure all fields are filled.");
-        }
-    }
-
-
     @Override
-    public int createProcedure(String userName) {
+    public UserRegistration createProcedure(String phoneNumber, String userName) {
         UserRegistration userRegistration = new UserRegistration();
-        userRegistration.setUserName(userName);
-        if(userRegistration != null){
-            String otp = generateOtp();
-            String hashedOtp = dataSecurityService.hashData(otp);
-            userRegistration.setOpt(hashedOtp);
-            userRegistrationRepository.save(userRegistration);
-        }
-        return userRegistration.getId();
-    }
 
-    @Override
-    public String generateOtp() {
+        // generating an otp
         StringBuilder otp = new StringBuilder();
         SecureRandom secureRandom = new SecureRandom();
 
@@ -78,7 +55,13 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
             otp.append(character);
         }
 
-        return otp.toString();
+        var otpValue = otp.toString();
 
+        userRegistration.setPhoneNumber(phoneNumber);
+        userRegistration.setUserName(userName);
+        userRegistration.setOpt(dataSecurityService.hashData(otpValue));
+        userRegistrationRepository.save(userRegistration);
+
+        return userRegistration;
     }
 }
