@@ -1,6 +1,6 @@
 package com.adorsys.gis.powerpay.powerpaybackend.utils_test;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.adorsys.gis.powerpay.powerpaybackend.utils.DataSecurityService;
 
@@ -16,6 +16,8 @@ public class CompareHashPasswordTest {
 
     @Test
     void compareHashPassword(){
-        assertTrue(dataSecurityService.compareHashedData("mypin", "675243180"));
+        String rawData = "mypin";
+        String hashedData = dataSecurityService.hashData(rawData);
+        assertTrue(dataSecurityService.compareHashedData(rawData, hashedData));
     }
 }
