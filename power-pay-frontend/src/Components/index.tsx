@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import QRScannerComponent from './scan_qr';
-import InputManuallyComponent from './input_manually';
 
 const PaymentOptions: React.FC = () => {
   const [showQRScanner, setShowQRScanner] = useState<boolean>(false);
