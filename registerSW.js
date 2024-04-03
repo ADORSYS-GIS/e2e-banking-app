@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/e2e-banking-app/sw.js', { scope: '/e2e-banking-app/' })})}
