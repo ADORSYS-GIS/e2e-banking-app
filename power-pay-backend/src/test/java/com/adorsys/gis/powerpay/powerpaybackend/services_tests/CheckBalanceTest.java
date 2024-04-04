@@ -1,49 +1,53 @@
 package com.adorsys.gis.powerpay.powerpaybackend.services_tests;
 
-import com.adorsys.gis.powerpay.powerpaybackend.domain.Transaction;
-import com.adorsys.gis.powerpay.powerpaybackend.domain.TransactionType;
+import com.adorsys.gis.powerpay.powerpaybackend.services.CheckBalance;
 import com.adorsys.gis.powerpay.powerpaybackend.services.CheckBalanceImpl;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 public class CheckBalanceTest {
 
-    private CheckBalanceImpl checkBalanceService;
+    @Mock
+    private EntityManager entityManager;
+
+    private CheckBalance checkBalanceService;
 
     @BeforeEach
-    public  void setup(){
-        Map<String, List<Transaction>> transactionHistory = new HashMap<>();
-        transactionHistory.put("user1", Arrays.asList(
-                new Transaction(1000.0, TransactionType.DEPOSIT),
-                new Transaction(200.0, TransactionType.WITHDRAWAL),
-                new Transaction(100.0, TransactionType.DEPOSIT)
-        ));
-
-        checkBalanceService = new CheckBalanceImpl(transactionHistory);
-    }
-    @Test
-    public void testCheckBalanceWithValidUser() throws UsernameNotFoundException {
-        String userId = "user1";
-        double expectedBalance = 900.0;
-        double actualBalance = checkBalanceService.checkBalance(userId);
-        System.out.println("Actual Balance: " + actualBalance);
-        Assertions.assertEquals(expectedBalance, actualBalance);
-
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        checkBalanceService = new CheckBalanceImpl(entityManager);
     }
 
     @Test
-    public void testCheckBalanceWithInvalidUser(){
-        String userId = "user2";
-        Assertions.assertThrows(UsernameNotFoundException.class, () -> {
-            checkBalanceService.checkBalance(userId);
-        });
+    public void testCheckBalance() {
+        // Mocking the Query and setting up expected behavior
+        Query query = Mockito.mock(Query.class);
+        Mockito.when(entityManager.createQuery(Mockito.anyString())).thenReturn(query);
+        Mockito.when(query.setParameter(Mockito.anyString(), Mockito.any())).thenReturn(query);
+        Mockito.when(query.getSingleResult()).thenReturn(1000.0);
 
-        }
+
+        Double balance = checkBalanceService.checkBalance("1234567890");
+
+        Assertions.assertEquals(1000.0, balance);
+    }
+
+    @Test
+    public void testCheckBalanceWithNoTransactions() {
+        // Mocking the Query and setting up expected behavior for no transactions
+        Query query = Mockito.mock(Query.class);
+        Mockito.when(entityManager.createQuery(Mockito.anyString())).thenReturn(query);
+        Mockito.when(query.setParameter(Mockito.anyString(), Mockito.any())).thenReturn(query);
+        Mockito.when(query.getSingleResult()).thenReturn(null);
+
+        Double balance = checkBalanceService.checkBalance("1234567890");
+
+        Assertions.assertEquals(0.0, balance);
+    }
 }
