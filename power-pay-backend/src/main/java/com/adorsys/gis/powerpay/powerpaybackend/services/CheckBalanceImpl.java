@@ -1,47 +1,30 @@
 package com.adorsys.gis.powerpay.powerpaybackend.services;
 
-import com.adorsys.gis.powerpay.powerpaybackend.domain.Transaction;
-import com.adorsys.gis.powerpay.powerpaybackend.domain.TransactionType;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @Service //  annotation to ensure classes are recognized as Spring Beans
 public class CheckBalanceImpl implements CheckBalance  {
-    private final Map<String, List<Transaction>> transactionHistory;
+    private final EntityManager entityManager;
 
-    public CheckBalanceImpl(Map<String, List<Transaction>> transactionHistory){
+    @Autowired
+    public CheckBalanceImpl(EntityManager entityManager){
 
-        this.transactionHistory = new HashMap<>();
-        this.transactionHistory.put("user1", Arrays.asList(
-                new Transaction(1000.0, TransactionType.DEPOSIT),
-                new Transaction(200.0, TransactionType.WITHDRAWAL),
-                new Transaction(100.0, TransactionType.DEPOSIT)
-
-        ));
-
+        this.entityManager = entityManager;
     }
+
     @Override
-    public Double checkBalance(String userId) throws UsernameNotFoundException {
-        if (transactionHistory.containsKey(userId)) {
-            List<Transaction> transactions = transactionHistory.get(userId);
-            double balance = 0.0;
-            for (Transaction transaction : transactions) {
-                if (transaction.getTransactionType() == TransactionType.DEPOSIT) {
-                    balance += transaction.getAmount();
-                } else if (transaction.getTransactionType() == TransactionType.WITHDRAWAL) {
-                    balance -= transaction.getAmount();
-                }
-            }
-            return balance;
-        } else {
-            throw new UsernameNotFoundException("User not found");
-        }
-    }
+    public Double checkBalance(String phoneNumber) throws UsernameNotFoundException {
+        String queryString = "SELECT SUM(CASE WHEN t.receiverPhoneNumber = :phoneNumber THEN t.amount ELSE -t.amount END) " +
+                "FROM Transaction t WHERE t.receiverPhoneNumber = :phoneNumber OR t.phoneNumber = :phoneNumber";
 
-    
+        Query query = entityManager.createQuery(queryString);
+        query.setParameter("phoneNumber", phoneNumber);
+        Double balance = (Double) query.getSingleResult();
+        return balance != null ? balance : 0.0;
+    }
 }
+
