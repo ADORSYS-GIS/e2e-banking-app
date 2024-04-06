@@ -11,9 +11,8 @@ import org.springframework.transaction.TransactionException;
 public class SendMoneyImpl implements SendMoney{
 
     @Autowired
-    private MoneyTransferRepository moneyTranferRepository;
+    private MoneyTransferRepository moneyTransferRepository;
 
-    private Transaction transaction;
 
     @Override
     public Transaction send(String phoneNumber, String receiverPhoneNumber, Double amount, String currency, Integer id)
@@ -29,6 +28,7 @@ public class SendMoneyImpl implements SendMoney{
             throw new InsufficientFundsException("Insufficient funds for transfer.");
         }
 
+        Transaction transaction = new Transaction();
         try {
             if (transaction != null) {
                 transaction.setReceiverPhoneNumber(receiverPhoneNumber);
@@ -38,7 +38,7 @@ public class SendMoneyImpl implements SendMoney{
                 transaction.setId(id);
                 transaction.setPhoneNumber(phoneNumber);
         
-                transaction = moneyTranferRepository.save(transaction);
+                transaction = moneyTransferRepository.save(transaction);
             }
         } catch (Exception e) {
             throw new TransactionException("Failed to save transaction: " + e.getMessage(), e) {
