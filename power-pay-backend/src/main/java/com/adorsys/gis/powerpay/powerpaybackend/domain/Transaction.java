@@ -1,16 +1,20 @@
 package com.adorsys.gis.powerpay.powerpaybackend.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Transaction")
 public class Transaction extends Procedure {
     private String receiverPhoneNumber;
     private Double amount;
     private String currency;
 
+
     {
         currency = "XAF";
     }
+
 
     public String getReceiverPhoneNumber() {
         return receiverPhoneNumber;
@@ -35,4 +39,5 @@ public class Transaction extends Procedure {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
 }
