@@ -1,3 +1,4 @@
+
 # useStorage Hook
 
 It is used for retrieving, writing, listening and removing data to and from various web storages like the localstorage.<br>
@@ -8,15 +9,16 @@ One of the main benefits of Context API is its ability to simplify state managem
 
 * Context API has two core concepts:
 
+
   - Providers
   - Consumers
   #
+
 
 **Providers** is to define and keep track of specific pieces of state. This state can then be accessed by all the child components nested inside the Provider. These child components, known as **Consumers**, are responsible for accessing or modifying the state provided by the Context Provider.
 
 
 ## React Context with useStorage
-
 
 TO implement the React context with the useStorage, we first start by creating and interface from which we define our data
 and methods to read and write data across components by implementing the interface.<br>
@@ -103,3 +105,4 @@ Source, [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_A
   IndexDBImpl --> Storage: implements
   Context --> Storage: use
  ```
+
