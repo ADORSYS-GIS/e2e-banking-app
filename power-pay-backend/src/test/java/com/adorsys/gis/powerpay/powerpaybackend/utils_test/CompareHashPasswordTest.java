@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes={DataSecurityService.class})
 public class CompareHashPasswordTest {
 
     @Autowired
