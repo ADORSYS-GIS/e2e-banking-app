@@ -1,23 +1,51 @@
-import { VitePWA } from 'vite-plugin-pwa'
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-// https://vitejs.dev/config/
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  plugins: [react(),
+  plugins: [
+    react(),
     VitePWA({
       injectRegister: 'auto',
-      registerType: 'autoUpdate', 
+      registerType: 'autoUpdate',
       workbox: {
         clientsClaim: true,
         skipWaiting: true,
-        globPatterns: ['**/*.{ts,css,html,}']
+        globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
       },
       devOptions: {
         enabled: true,
-        type: 'module',
       },
-    })
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      manifest: {
+        name: 'PPA',
+        short_name: 'PPA',
+        theme_color: '#ffffff',
+        icons: [
+          {
+            src: '/public/icon36x36.png',
+            sizes: '36x36',
+            type: 'image/png',
+          },
+          {
+            src: '/public/icon48x48.png',
+            sizes: '48x48',
+            type: 'image/png',
+          },
+          {
+            src: '/public/icon310x310.png',
+            sizes: '310x310',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: '/public/icon144x144.png',
+            sizes: '144x144',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+        ],
+      },
+    }),
   ],
-})
+});
