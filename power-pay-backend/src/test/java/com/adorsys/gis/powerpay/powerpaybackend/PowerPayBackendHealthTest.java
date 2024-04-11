@@ -17,17 +17,17 @@ class PowerPayBackendHealthTest {
     @Autowired
     private MockMvc mockMvc;
 
-    // @Test
-    // void healthEndpointTest() throws Exception {
-    //     mockMvc.perform(MockMvcRequestBuilders.get("/actuator/health"))
-    //         .andExpect(result -> {
-    //             if (result.getResponse().getStatus() == 200) {
-    //                 MockMvcResultMatchers.status().isOk().match(result);
-    //                 MockMvcResultMatchers.jsonPath("$.status").value("UP").match(result);
-    //             } else if (result.getResponse().getStatus() >= 500) {
-    //                 MockMvcResultMatchers.status().is5xxServerError().match(result);
-    //                 MockMvcResultMatchers.jsonPath("$.status").doesNotExist().match(result);
-    //             }
-    //         });
-    // }
+    @Test
+    void healthEndpointTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/actuator/health"))
+            .andExpect(result -> {
+                if (result.getResponse().getStatus() == 200) {
+                    MockMvcResultMatchers.status().isOk().match(result);
+                    MockMvcResultMatchers.jsonPath("$.status").value("UP").match(result);
+                } else if (result.getResponse().getStatus() >= 500) {
+                    MockMvcResultMatchers.status().is5xxServerError().match(result);
+                    MockMvcResultMatchers.jsonPath("$.status").doesNotExist().match(result);
+                }
+            });
+    }
 }
