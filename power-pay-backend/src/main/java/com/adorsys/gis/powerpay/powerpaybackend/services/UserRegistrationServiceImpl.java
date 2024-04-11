@@ -25,17 +25,19 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int OTP_LENGTH = 8;
 
-
     @Override
-    public User registerUser(@NotNull String registrationId, String pin, String otp) {
+    public User registerUser(@NotNull Integer registrationId, String pin, String otp) {
+        UserRegistration userRegistration = userRegistrationRepository.findById(registrationId)
+                .orElseThrow(() -> new UserRegistrationException("User registration not found"));
 
         User newUser = new User();
-        UserRegistration userRegistration = new UserRegistration();
+        newUser.setUserName(userRegistration.getUserName());
+        newUser.setPin(dataSecurityService.hashData(pin));
 
         try {
             userRepository.save(newUser);
         } catch (Exception e) {
-            throw new UserRegistrationException("User registration failed", e);
+            throw new UserRegistrationException("User registration failed: " + e.getMessage());
         }
 
         return newUser;

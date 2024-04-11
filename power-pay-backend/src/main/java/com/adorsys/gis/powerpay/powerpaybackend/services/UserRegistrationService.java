@@ -2,11 +2,12 @@ package com.adorsys.gis.powerpay.powerpaybackend.services;
 
 import com.adorsys.gis.powerpay.powerpaybackend.domain.User;
 import com.adorsys.gis.powerpay.powerpaybackend.domain.UserRegistration;
+import jakarta.validation.constraints.NotNull;
 
 public interface UserRegistrationService {
 
-    public User registerUser(String registrationId, String pin, String otp);
+    User registerUser(@NotNull Integer registrationId, String pin, String otp);
 
-    public UserRegistration createProcedure(String phoneNumber, String userName);
-    
+    UserRegistration createProcedure(String phoneNumber, String userName);
+
 }
