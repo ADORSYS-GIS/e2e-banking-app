@@ -20,6 +20,7 @@ public class CompareHashPasswordTest {
 
     @Test
     void compareHashPassword(){
+
         String rawData = "mypin";
         String hashedData = dataSecurityService.hashData(rawData);
         assertTrue(dataSecurityService.compareHashedData(rawData, hashedData));
