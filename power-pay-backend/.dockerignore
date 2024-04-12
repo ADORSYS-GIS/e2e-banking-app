@@ -3,3 +3,5 @@
 !pom.xml
 !mvnw
 !.mvn
+# ignore target folder but not the jar files in it
+!target/*.jar
