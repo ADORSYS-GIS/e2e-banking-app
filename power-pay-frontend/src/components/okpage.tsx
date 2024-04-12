@@ -2,23 +2,22 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 
 const OKPage: React.FC = () => {
-  const baseURL = 'http://localhost:5000';   // specifying the base URL with the desired port
-  const api = axios.create({ 
-    baseURL, 
+  const baseURL = 'http://localhost:5000';
+  const api = axios.create({
+    baseURL,
     timeout: 5000,
   });
 
-  // Mock function to simulate a successful API call
-  const mockSend_MoneyAPI = async ( 
-    senderPhoneNumber: string, 
-    recipientPhoneNumber: string, 
+  const mockSend_MoneyAPI = async (
+    senderPhoneNumber: string,
+    recipientPhoneNumber: string,
     amount: number
   ) => {
     try {
-      const response = await api.post('/send_money', { 
-        senderPhoneNumber, 
-        recipientPhoneNumber, 
-        amount 
+      const response = await api.post('/send_money', {
+        senderPhoneNumber,
+        recipientPhoneNumber,
+        amount
       });
       return response.data;
     } catch (error) {
@@ -26,15 +25,17 @@ const OKPage: React.FC = () => {
     }
   };
 
-  // Handle API call when component mounts
   useEffect(() => {
-    mockSend_MoneyAPI('12347656', '1234567890', 100)
-      .then((response) => {
+    const sendMoney = async () => {
+      try {
+        const response = await mockSend_MoneyAPI('12347656', '1234567890', 100);
         console.log("Mock API Response", response);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Mock API Error", error);
-      });
+      }
+    };
+
+    sendMoney();
   }, []);
 
   return (
@@ -42,9 +43,9 @@ const OKPage: React.FC = () => {
       <div className="card">
         <div className="ok-page">
           <h1>Success!</h1>
-          <br />
+          <br></br>
           <p>The money was successfully transferred.</p>
-        </div> 
+        </div>
         <div className="mt-16">
           <button className="w-96 mt-16 bg-Gray10-color rounded-3xl p-2 text-center text-white bg-green-500">OK</button>
         </div>
