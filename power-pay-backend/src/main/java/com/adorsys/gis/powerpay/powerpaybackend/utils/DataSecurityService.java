@@ -15,6 +15,7 @@ public class DataSecurityService {
 
     //Method to compare a given String with hashed value
     public boolean compareHashedData(String data, String hashedData) {
+
         return passwordEncoder.matches(data, hashedData);  
     }
 }

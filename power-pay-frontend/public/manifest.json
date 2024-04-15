@@ -1,0 +1,33 @@
+{
+    "name": "PPA",
+    "short_name": "PPA",
+    "theme_color": "#ffffff",
+    "icons": [
+      {
+        "src": "/public/icon36x36.png",
+        "sizes": "36x36",
+        "type": "image/png"
+      },
+      {
+        "src": "/public/icon48x48.png",
+        "sizes": "48x48",
+        "type": "image/png"
+      },
+      {
+        "src": "/public/icon310x310.png",
+        "sizes": "310x310",
+        "type": "image/png",
+        "purpose": "any"
+      },
+      {
+        "src": "/public/icon144x144.png",
+        "sizes": "144x144",
+        "type": "image/png",
+        "purpose": "maskable"
+      }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "description": "PowerPay App"
+  }
