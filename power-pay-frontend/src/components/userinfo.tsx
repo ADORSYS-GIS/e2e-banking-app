@@ -26,7 +26,7 @@ const UserInfo: React.FC = () => {
     };
 
     return (
-        <div className="max-w-md1 flex justify-center full">
+        <div className="max-w-md1 flex justify-center">
             <form onSubmit={formik.handleSubmit}>
             <div className="absolute top-0 left-0 mt- ml-4">
             <Link to={`PaymentOptions`}>
