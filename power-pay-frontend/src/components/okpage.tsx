@@ -3,22 +3,23 @@ import axios from 'axios';
 import SendMoneyConfirmation from './SendMoneyConfirmation';
 
 const OKPage: React.FC = () => {
-  const baseURL = 'http://localhost:5000';
-  const api = axios.create({
-    baseURL,
+  const baseURL = 'http://localhost:5000';   // specifying the base URL with the desired port
+  const api = axios.create({ 
+    baseURL, 
     timeout: 5000,
   });
 
-  const mockSend_MoneyAPI = async (
-    senderPhoneNumber: string,
-    recipientPhoneNumber: string,
+  // Mock function to simulate a successful API call
+  const mockSend_MoneyAPI = async ( 
+    senderPhoneNumber: string, 
+    recipientPhoneNumber: string, 
     amount: number
   ) => {
     try {
-      const response = await api.post('/send_money', {
-        senderPhoneNumber,
-        recipientPhoneNumber,
-        amount
+      const response = await api.post('/send_money', { 
+        senderPhoneNumber, 
+        recipientPhoneNumber, 
+        amount 
       });
       return response.data;
     } catch (error) {
@@ -26,24 +27,25 @@ const OKPage: React.FC = () => {
     }
   };
 
+  // Handle API call when component mounts
   useEffect(() => {
-    const sendMoney = async () => {
-      try {
-        const response = await mockSend_MoneyAPI('12347656', '1234567890', 100);
+    mockSend_MoneyAPI('12347656', '1234567890', 100)
+      .then((response) => {
         console.log("Mock API Response", response);
-      } catch (error) {
+      })
+      .catch((error) => {
         console.error("Mock API Error", error);
-      }
-    };
-
-    sendMoney();
+      });
   }, []);
 
   return (
     <div className="flex justify-center items-center  mb-34 bg-800 text-black text-sm">
       <div className="">
         <SendMoneyConfirmation onSuccess={(successMessage) => console.log(successMessage)} />
+Implement-the-frontend-Pin-input-for-send-money-using-PPA-#25
 
+
+main
       </div>
     </div>
   );
