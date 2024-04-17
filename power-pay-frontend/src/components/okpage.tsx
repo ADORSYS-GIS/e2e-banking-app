@@ -42,6 +42,10 @@ const OKPage: React.FC = () => {
     <div className="flex justify-center items-center  mb-34 bg-800 text-black text-sm">
       <div className="">
         <SendMoneyConfirmation onSuccess={(successMessage) => console.log(successMessage)} />
+Implement-the-frontend-Pin-input-for-send-money-using-PPA-#25
+
+
+main
       </div>
     </div>
   );
