@@ -20,22 +20,19 @@ public class CheckBalanceController {
     private final UserRepository userRepository;
 
     @Autowired
-    public CheckBalanceController(CheckBalance checkBalanceService,UserRepository userRepository){
+    public CheckBalanceController(CheckBalance checkBalanceService, UserRepository userRepository) {
         this.checkBalanceService = checkBalanceService;
         this.userRepository = userRepository;
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<String> checkBalance(@PathVariable String userId){
-        Optional<User> user = userRepository.findByUserId(userId);
-        if(user.isPresent()){
+    public ResponseEntity<String> checkBalance(@PathVariable String userId) {
+        Optional<User> user = userRepository.findByPhoneNumber(userId);
+        if (user.isPresent()) {
             Double balance = checkBalanceService.checkBalance(userId);
-            return ResponseEntity.ok("Balance for user ID" + " : " +balance);
-        }
-        else {
+            return ResponseEntity.ok("Balance for user ID" + " : " + balance);
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
-        }
     }
-
-
+}

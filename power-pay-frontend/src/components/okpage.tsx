@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
+import SendMoneyConfirmation from './SendMoneyConfirmation';
 
 const OKPage: React.FC = () => {
   const baseURL = 'http://localhost:5000';   // specifying the base URL with the desired port
@@ -38,16 +39,9 @@ const OKPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center p-10 mb-34 border border-white rounded-3xl bg--500 text-white">
-      <div className="card">
-        <div className="ok-page">
-          <h1>Success!</h1>
-          <br />
-          <p>The money was successfully transferred.</p>
-        </div> 
-        <div className="mt-16">
-          <button className="w-96 mt-16 bg-Gray10-color rounded-3xl p-2 text-center text-white bg-green-500">OK</button>
-        </div>
+    <div className="flex justify-center items-center  mb-34 bg-800 text-black text-sm">
+      <div className="">
+        <SendMoneyConfirmation onSuccess={(successMessage) => console.log(successMessage)} />
       </div>
     </div>
   );
