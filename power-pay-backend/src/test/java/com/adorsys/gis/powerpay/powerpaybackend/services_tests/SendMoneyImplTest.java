@@ -16,7 +16,7 @@ import com.adorsys.gis.powerpay.powerpaybackend.repository.MoneyTransferReposito
 import com.adorsys.gis.powerpay.powerpaybackend.services.SendMoneyImpl;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = {SendMoneyImpl.class})
 public class SendMoneyImplTest {
 
     @Autowired
