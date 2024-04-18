@@ -1,61 +1,63 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-export interface ApiResponse {
-  phone: string;
-  amount: string;
-}
-
-export interface ErrorResponse {
-  message: string;
-}
-
-const FakeApi = () => {
+const FakeApi: React.FC = () => {
   const baseURL = 'http://localhost:5000';
-  const api = axios.create({
-    baseURL,
+  const api = axios.create({ 
+    baseURL, 
     timeout: 5000,
   });
 
+  const [recipientPhoneNumber, setRecipientPhoneNumber] = useState('');
+  const [amount, setAmount] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const mockSend_MoneyAPI = async (
-    recipientPhoneNumber: string,
+    recipientPhoneNumber: string, 
     amount: number
-  ): Promise<ApiResponse | undefined> => {
+  ) => {
     try {
       if (!recipientPhoneNumber || !amount) {
-        throw new Error("Please fill in all fields");
-      }
-
-      const response: AxiosResponse<ApiResponse> = await api.post('/UserInfo', {
-        recipientPhoneNumber,
-        amount,
-      });
-
-      console.log("Transaction Successful");
-      console.log("Recipient Phone Number:", recipientPhoneNumber);
-      console.log("Amount:", amount);
-
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError<ErrorResponse>;
-        if (axiosError.response) {
-          // Server returned an error response
-          console.log(axiosError.response.data.message || "An error occurred while processing the transaction.");
-        } else if (axiosError.request) {
-          // No response received, possibly due to network issues
-          console.log("Network error. Please check your internet connection.");
-        } else {
-          // Something else went wrong
-          console.log("An error occurred while processing the transaction.");
-        }
+        setErrorMessage("Please fill in all fields");
       } else {
-        // Non-Axios errors
-        console.log("An error occurred while processing the transaction.");
+        console.log("Transaction Successful");
+        console.log("Recipient Phone Number:", recipientPhoneNumber);
+        console.log("Amount:", amount);
+        setErrorMessage('');
+        await api.post('/UserInfo', { 
+          recipientPhoneNumber, 
+          amount 
+        });
       }
+    } catch (error) {
+      setErrorMessage("An error occurred while processing the transaction.");
+      console.error("Error:", error);
     }
-  };
+  }
 
-  return mockSend_MoneyAPI; // Return the function directly
+  const handleSendMoney = () => {
+    mockSend_MoneyAPI(recipientPhoneNumber, parseInt(amount));
+  }
+
+  return (
+    <div>
+      <p>FAKED API</p>
+      <input
+        type="text"
+        value={recipientPhoneNumber}
+        onChange={(e) => setRecipientPhoneNumber(e.target.value)}
+        placeholder="Recipient Phone Number"
+      />
+      <input
+        type="text"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        placeholder="Amount"
+      />
+      <button onClick={handleSendMoney}>Send Money</button>
+      {errorMessage && <p>{errorMessage}</p>}
+    </div>
+  );
 };
 
 export default FakeApi;
