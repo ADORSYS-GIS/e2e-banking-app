@@ -1,27 +1,20 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
-import FakeApi from './fake_api';
+interface FormValues {
+    phone: string;
+    amount: string;
+}
 
 const UserInfo: React.FC = () => {
-    const mockSend_MoneyAPI = FakeApi(); // Call the FakeApi function to get the function mockSend_MoneyAPI
-
-    const formik = useFormik({
+    const formik = useFormik<FormValues>({
         initialValues: {
             phone: '',
             amount: ''
         },
-        onSubmit: async (values) => {
-            try {
-                // Call the mockSend_MoneyAPI function
-                const response = await mockSend_MoneyAPI(values.phone, parseInt(values.amount));
-                console.log("API Response:", response);
-                // Handle success, navigate to next step, etc.
-            } catch (error: any) {
-                // Handle errors thrown by the mockSend_MoneyAPI function
-                console.error("An error occurred:", error.message);
-                
-            }
+        onSubmit: (values) => {
+            // Handle form submission
+            console.log(values);
         }
     });
 
