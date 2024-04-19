@@ -22,6 +22,7 @@ a:hover {
 }
 
 body {
+  background-color: white;
   margin: 0;
   display: flex;
   place-items: center;
@@ -64,4 +65,33 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* disable wheel on number input */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  appearance: textfield;
+}
+
+.input-group {
+  position: relative;
+}
+
+.input-group input {
+  position: relative;
+}
+
+.input-group .fa-phone {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  color: red;
+  transform: translateY(-50%);
 }
