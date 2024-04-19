@@ -79,3 +79,19 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   appearance: textfield;
 }
+
+.input-group {
+  position: relative;
+}
+
+.input-group input {
+  position: relative;
+}
+
+.input-group .fa-phone {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  color: red;
+  transform: translateY(-50%);
+}
