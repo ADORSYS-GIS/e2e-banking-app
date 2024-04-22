@@ -5,7 +5,6 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,6 +22,7 @@ a:hover {
 }
 
 body {
+  background-color: white;
   margin: 0;
   display: flex;
   place-items: center;
@@ -42,7 +42,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  /* background-color: #0d235f; */
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -66,6 +66,20 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* disable wheel on number input */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  appearance: textfield;
+}
+
 .input-group {
   position: relative;
 }
@@ -77,21 +91,7 @@ button:focus-visible {
 .input-group .fa-phone {
   position: absolute;
   top: 50%;
-  left: 30px;
+  left: 10px; /* Changed left position */
   color: red;
-  transform: translateY(-50%);
-}
-.input-group .fa-user {
-  position: absolute;
-  top: 50%;
-  left: 30px;
-  color: rgb(58, 53, 53);
-  transform: translateY(-50%);
-}
-.input-group .fa-lock {
-  position: absolute;
-  top: 50%;
-  left: 30px;
-  color: rgb(58, 53, 53);
   transform: translateY(-50%);
 }

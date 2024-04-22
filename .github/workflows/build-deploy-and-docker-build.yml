@@ -8,13 +8,14 @@ on:
           - 'v*'
         paths:
           - 'power-pay-frontend/**'
+          - '.github/workflows/build-deploy-and-docker-build.yml'
 
     pull_request:
         branches:
           - '**'
         paths:
           - 'power-pay-frontend/**'
-
+          - '.github/workflows/build-deploy-and-docker-build.yml'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}-frontend
@@ -22,6 +23,9 @@ jobs:
   # Build Job
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: power-pay-frontend
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -30,10 +34,10 @@ jobs:
         with:
           node-version: 20
       - name: Install Dependencies
-        run: cd power-pay-frontend && npm ci
+        run: npm ci
 
       - name: Build Project
-        run: cd power-pay-frontend && npm run build-for-gh
+        run: npm run build-for-gh
 
       - name: Upload artifact to enable deployment
         uses: actions/upload-artifact@v4
@@ -72,7 +76,8 @@ jobs:
       packages: write
     
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
         
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3

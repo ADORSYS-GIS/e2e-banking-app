@@ -9,54 +9,100 @@ One of the main benefits of Context API is its ability to simplify state managem
 
 * Context API has two core concepts:
 
-   - Providers
-    - Consumers
-    #
+
+  - Providers
+  - Consumers
+  #
+
 
 **Providers** is to define and keep track of specific pieces of state. This state can then be accessed by all the child components nested inside the Provider. These child components, known as **Consumers**, are responsible for accessing or modifying the state provided by the Context Provider.
 
 
 ## React Context with useStorage
 
-To make the most use of the useStorage hook we are going to be using the Context library here this is because of its simplicity and also its ability to pass data from parent to children components without the use of props.<br>
-Here is a basic form of how the react Context and usestorage hook function in other for us to have persistent and reusable data across our components.<br>
-the react context works by creating a context object that holds the data we want to share between the components, once this context object is being created it is used in our components by first wrapping the component in a context provider then any component that imports(inherits) from this component can have access to the data, then now comes the useStorage hook which to persist that data to the localstorage or any other storage of our web browser to make the data persist accross page refresh or any other storage. <br>
-The usestorage hook performs its task by taking the key and associated value converting it to a json string then using the ```setItem()``` method to store it in the storage with its associated key. And also has a ```getItem()``` for retrieving the value stored based on the corresponding key and a ```removeItem()``` method which will be used to remove key value pair from the storage. <br>
-To conclude the react Context and useStorage helps our application to have reusable and persist data accross components.<br>
-The flow is as shown
+TO implement the React context with the useStorage, we first start by creating and interface from which we define our data
+and methods to read and write data across components by implementing the interface.<br>
+Once this interface created we then create a context provider by importing context from react the we create a context provider from
+it were all the child components to that component will consume its value.<br>
+Once this done we have a reusable and a none tree shaking code, Now then comes the useStorage hook, the usestorage hook then
+has then accepts the data provided by the consumer components and uses method such and getitem('key') and returns a value , setitem('key', value)
+to store and item in the browser's storage using a key and value depending from which value and key may come from that provider by the
+context provider for example.
+So This is how we can obtain reusable , non-tree shaking and persistent data across our components.<br>
 
-```mermaid
+## Transactions using the browser's IndexDB storage
+     indexDB is a low level API for client-side storage of significant anounts of structured
+     including files and blobs
 
-graph TD;
-   subgraph "ContextObject"
-        contextobject[key = value]
-        end
+### KeyConcepts
++ Asynchronous, therefore it won't block any main thread operations.
++ lets you access data offline.
++ can store a large amount of data ( more than the local storage or session storage) of complex value types.
++ A noSQL database which makes it very flexible and dangerous.
 
-    subgraph "Components"
-        A[component1]
-        B[component2]
-      
-        end
-    subgraph "useStorage"
-        usestoragehook[useStoragehook]
-        end
-    subgraph "BrowserStorage"
-       localstorage[LocalStorage]
-       end
-    subgraph "ContextProvider"
-        provider[Provider]
-        end
+### keywords
++ **Object stores** : the mechanism by which data is stored in the database.
++ **Database** : A repository of information , typically comprising of one or more object stores
++ **Index** :  and index is a specialized object store for looking up records in another object store called the reference object store.
++ **request** : The operation by which reading and writing on a database is done. Every request represents one or more read or write operations
 
-ContextObject -->  ContextProvider
-ContextProvider --> Components
-A -->|setItem,removeItem| useStorage
-B --> |setItem,removeItem| useStorage
+IndexDB just as the localStorage and sessionStorage stores data on client side and provides methods for easy retrieval , adding , and removing data from this storage
+depending on whether the store object uses a ```keypath``` or a ``` key generator``` and you can also use and index for retrieving the data based on the key in the index data store which
+maps the value in the object store.
 
-useStorage--> |getItem| A
-useStorage --> |getItem|B
+### Basic Pattern
+1. open the database.
+2. create an object in the database.
+3. start a transaction and make a request to do some database operations.
+4. wait for the operation to be completed by listening to the right kind od DOM events.
+5. do something with the result.
 
-useStorage --> |settingItem/ removingItem|BrowserStorage
+#### Possible Errors
+One of the common possible errors when opening a databaseis ```VER_ERR``` it indicates that the version of the database stored on the
+disk is greater than the version that you are trying to open. this an error case that must be handled by the
+error handler.
 
-BrowserStorage --> |gettingItem|useStorage
+Source, [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
+)
+ ```mermaid
+ classDiagram
+    class Storage {
+     <<interface>>
+     + getItem<T>(key: string): Promise<T>
+     + setItem<T>(key: string, value: T): Promise<void>
+     + removeItem(key: string): Promise<void>
+     + clear(): Promise<void>
+    }
+    class LocalstorageImpl {
 
+    }
+    class IndexDBImpl{
+
+    }
+    class MemoryStorageImp{
+        - dic: Map<string, any>
+    }
+    class IndexStorageImpl{
+        - dic: Map<any, any>
+    }
+    class Hook{
+        + item: value
+        + setItem(item: value): void
+  }
+  class ContextData {
+      + data Map<string, any>
+      + setData(data: Map<string, any>)
+  }
+  class Context {
+      + storage: storage
+      + data: connection
+  }
+  Context --> ContextData: use
+  Hook --> Context: use
+  MemoryStorageImp --> Storage: implements
+  LocalstorageImpl --> Storage: implements
+  IndexStorageImpl --> Storage: implements
+  IndexDBImpl --> Storage: implements
+  Context --> Storage: use
+ ```
 
