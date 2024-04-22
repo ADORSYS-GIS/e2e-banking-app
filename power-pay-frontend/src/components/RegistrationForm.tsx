@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-// import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
+import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -127,7 +127,7 @@ function RegistrationForm() {
               style={{ width: '350px', margin: 'auto' }}
               required
             />
-            {/* <FontAwesomeIcon icon={faLock} size="1x" className="mr-2 color-red-950" /> */}
+            <FontAwesomeIcon icon={faLock} size="1x" className="mr-2 color-red-950" />
           </div>
           <button type="submit" className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-20">
             Create an account
