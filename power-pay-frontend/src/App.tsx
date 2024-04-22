@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<RegistrationForm />} />
         <Route path="/otp" element={<OTPForm />} />
-        <Route path="/cesssuc" element={<SuccessPage />} />
+        <Route path="/success" element={<SuccessPage />} />
       </Routes>
     </Router>
   );

@@ -39,7 +39,7 @@ function OTPForm() {
       if (responseData.success) {
         alert('OTP verification successful');
         // Redirect user to another page after successful OTP verification
-        navigate('/cesssuc');
+        navigate('/success');
       } else {
         // OTP verification failed
         alert('OTP verification failed: ' + responseData.message);
@@ -57,32 +57,35 @@ function OTPForm() {
   
   return (
     <div className="flex flex-1 flex-col justify-center space-y-5 max-w-md mx-auto mt-24">
-      <div className="flex flex-col space-y-2 text-center">
+      <div className="```flex rounded-lg w-80 m-auto px-4 py-2  text-lg absolute  inset-x-0 top-16 bg-gray-100``` ">
         <h2 className="text-3xl md:text-4xl font-bold">Confirm OTP</h2>
         <p className="text-md md:text-xl">
           Enter the OTP we just sent you.
         </p>
       </div>
       <form className="flex flex-col max-w-md space-y-5" onSubmit={handleSubmit}>
+      <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', textAlign: 'center' }}>
         <input
           type="text"
           placeholder="OTP"
           value={otp}
           onChange={handleOTPChange}
-          className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
+          className="text-lg text-center rounded-full w-80 p-2.5 bg-red-50 dark:placeholder-gray-900 dark:text-black"
+          style={{ marginTop: '-50px' }} // Adjust the marginTop as needed to bring the bar up
         />
+      </div>
         <button
           type="submit"
-          className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black bg-black text-white"
+          className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950  text-lg absolute  inset-x-0 bottom-20"
         >
           Confirm
         </button>
       </form>
       <button
         onClick={handleGoBack}
-        className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black bg-white text-black"
+        className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950  text-lg absolute  inset-x-0 bottom-6"
       >
-        Go back to registration
+         Back
       </button>
     </div>
   );

@@ -1,3 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+// import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
@@ -74,26 +79,63 @@ function RegistrationForm() {
       });
   };
 
+  const handleLoginClick = () => {
+    navigate('/UserLogin'); 
+  };
+
   return (
     <section className="flex flex-col items-center pt-6">
-      <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-10 dark:bg-gray-800 dark:border-gray-700">
-        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Create an account</h1>
-          <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <input type="text" name="name" id="name" value={formData.name} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="full name" required />
-            </div>
-            <div>
-              <input type="tel" name="number" id="number" value={formData.number} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="number" required />
-            </div>
-            <div>
-              <input type="password" name="pin" id="pin" value={formData.pin} onChange={handleInputChange} pattern="\d{4,}" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="pin" required />
-            </div>
-            <button type="submit" className="w-full text-white bg-black hover:bg-gray-900 focus:ring-4 focus:outline-none 
-            focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
-            dark:bg-black dark:hover:bg-gray-900 dark:focus:ring-blue-800">Create an account</button>
-          </form>
-        </div>
+      <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+          <div className="input-group" style={{ position: 'absolute', top: '30px', left: '50%', transform: 'translateX(-50%)', width: '100%', textAlign: 'center' }}>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              className="bg-red-50 border border-gray-300 text-gray-900 sm:text-sm rounded-full focus:ring-blue-600 focus:border-blue-600 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="    full name"
+              style={{ width: '350px', margin: 'auto' }}
+              required
+            />
+            <FontAwesomeIcon icon={faUser} size="1x" className="mr-2 color-red-950"/>
+          </div>
+          <div className="input-group" style={{ position: 'absolute', top: '90px', left: '50%', transform: 'translateX(-50%)', width: '100%', textAlign: 'center' }}>
+            <input
+              type="text"
+              name="number"
+              id="number"
+              value={formData.number}
+              onChange={handleInputChange}
+              className="bg-red-50 border border-gray-300 text-gray-900 sm:text-sm rounded-full focus:ring-blue-600 focus:border-blue-600 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="      number"
+              style={{ width: '350px', margin: 'auto' }}
+              required
+            />
+            <FontAwesomeIcon icon={faPhone} size="1x" className="mr-2 color-red-950" />
+          </div>
+          <div className="input-group" style={{ position: 'absolute', top: '160px', left: '50%', transform: 'translateX(-50%)', width: '100%', textAlign: 'center' }}>
+            <input
+              type="text"
+              name="pin"
+              id="pin"
+              value={formData.pin}
+              onChange={handleInputChange}
+              className="bg-red-50 border border-gray-300 text-gray-900 sm:text-sm rounded-full focus:ring-blue-600 focus:border-blue-600 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="    pin"
+              style={{ width: '350px', margin: 'auto' }}
+              required
+            />
+            {/* <FontAwesomeIcon icon={faLock} size="1x" className="mr-2 color-red-950" /> */}
+          </div>
+          <button type="submit" className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-20">
+            Create an account
+          </button>
+          <button type="button" onClick={handleLoginClick} className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-6">
+            Login
+          </button>
+        </form>
       </div>
     </section>
   );
