@@ -37,7 +37,7 @@ const QRScannerComponent  = () => {
         facingMode="environment"
         style={{ width: '100%', height: 'auto' }}
       />
-      <button onClick={() => qrScannerRef.current?.start()}>Start Scan</button>
+      <button onClick={() => qrScannerRef.current?.start()} className="bg-blue-950 rounded-full w-80 m-auto px-4  text-white text-lg absolute  p-2.5 inset-x-0 bottom-12">Start Scan</button>
     </div>
   );
 };

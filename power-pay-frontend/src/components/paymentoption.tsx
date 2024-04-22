@@ -29,9 +29,11 @@ const PaymentOptions: React.FC = () => {
           <br></br>
         </Link>
         <div className="pt-12">
+  <Link to={`QRScannerComponent`}>
           <button onClick={handleScanQRClick} className="bg-blue-950 rounded-full w-80 m-auto px-4  text-white text-lg absolute  inset-x-0 bottom-12">
             QR Scan
           </button>
+</Link>
         </div>
       </div>
       {showQRScanner && <QRScannerComponent />}
