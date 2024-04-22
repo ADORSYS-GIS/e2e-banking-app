@@ -91,7 +91,7 @@ input[type=number] {
 .input-group .fa-phone {
   position: absolute;
   top: 50%;
-  left: 10px;
+  left: 10px; /* Changed left position */
   color: red;
   transform: translateY(-50%);
 }
