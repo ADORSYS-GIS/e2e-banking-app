@@ -18,7 +18,7 @@ const UserLogin: React.FC = () => {
             </div>
             <div className="pt-12">
                 <button className="rounded-full w-80 m-auto px-4 py-2 my-16 text-white bg-blue-950 hover:border-blue-950 text-lg absolute  inset-x-0 bottom-12">
-                    Confirm
+                    Login
                 </button>
                 <button className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950  text-lg absolute  inset-x-0 bottom-12">
                     Register
