@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import QRScannerComponent from './scan_rq';
-import UserInfo from './userinfo'; // Import the UserInfo component
+import RecipientInfo from './RecipientInfo'; // Import the RecipientInfo component
 import { Link } from "react-router-dom";
 
 const PaymentOptions: React.FC = () => {
@@ -35,7 +35,7 @@ const PaymentOptions: React.FC = () => {
         </div>
       </div>
       {showQRScanner && <QRScannerComponent />}
-      {showInputManually && <UserInfo />} {/* Render UserInfo component when showInputManually is true */}
+      {showInputManually && <RecipientInfo />} {/* Render RecipientInfo component when showInputManually is true */}
     </div>
   );
 };
