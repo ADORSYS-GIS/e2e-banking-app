@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import QRScannerComponent from './scan_rq';
-import UserInfo from './userinfo'; // Import the UserInfo component
+import RecipientInfo from './RecipientInfo'; // Import the RecipientInfo component
 import { Link } from "react-router-dom";
 
 const PaymentOptions: React.FC = () => {
@@ -24,7 +24,7 @@ const PaymentOptions: React.FC = () => {
         <h5 className="text-center pt-9 mb-2 text-black">Choose the option you wish to pay</h5>
       </div>
       <div className="pt-12">
-        <Link to={`UserInfo`}>
+        <Link to={`RecipientInfo`}>
           <button onClick={handleInputManuallyClick} className='bg-blue-950 rounded-full w-80 m-auto px-4  text-white text-lg absolute  inset-x-0 mb-20 bottom-12'>Input Manually</button>
           <br></br>
         </Link>
@@ -37,7 +37,7 @@ const PaymentOptions: React.FC = () => {
         </div>
       </div>
       {showQRScanner && <QRScannerComponent />}
-      {showInputManually && <UserInfo />} {/* Render UserInfo component when showInputManually is true */}
+      {showInputManually && <RecipientInfo />} {/* Render RecipientInfo component when showInputManually is true */}
     </div>
   );
 };
