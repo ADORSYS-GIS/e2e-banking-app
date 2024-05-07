@@ -6,7 +6,7 @@ interface FormValues {
     amount: string;
 }
 
-const UserInfo: React.FC = () => {
+const RecipientInfo: React.FC = () => {
     const formik = useFormik<FormValues>({
         initialValues: {
             phone: '',
@@ -64,4 +64,4 @@ const UserInfo: React.FC = () => {
     );
 }
 
-export default UserInfo;
+export default RecipientInfo;
