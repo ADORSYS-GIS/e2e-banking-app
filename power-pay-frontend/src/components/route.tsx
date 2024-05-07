@@ -3,7 +3,7 @@ import {
   } from "react-router-dom"
   ;
   import PaymentOptions from "./paymentoption";
-import UserInfo from "./userinfo";
+import RecipientInfo from "./RecipientInfo";
 import QRScannerComponent
  from "./scan_rq";
 const router = createBrowserRouter([
@@ -12,8 +12,8 @@ const router = createBrowserRouter([
       element: <PaymentOptions/>,
     },
     {
-        path: "/userinfo",
-                      element: <UserInfo/>,
+        path: "/RecipientInfo",
+                      element: <RecipientInfo.tsx/>,
     },
     {
         path: "/qRScannerComponent",
