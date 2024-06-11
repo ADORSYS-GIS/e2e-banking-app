@@ -31,9 +31,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install OpenAPI Generator
+        run: npm install @openapitools/openapi-generator-cli -g
+
+      - name: Run OpenAPI
+        run: cd power-pay-translator && openapi-generator-cli generate -i ../docs/pps-ppt.openapi.yaml -g rust-server -o crates/server-ppt --additional-properties packageName=server-ppt
+
       - name: Build Translator
         run: cd power-pay-translator && cargo build --verbose && cargo test --verbose
-
 
       - name: Login to the Docker registry
         id: login
