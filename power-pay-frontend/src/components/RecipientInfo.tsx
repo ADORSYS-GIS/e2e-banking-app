@@ -1,6 +1,9 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoneyBill } from '@fortawesome/free-solid-svg-icons';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
 interface FormValues {
     phone: string;
     amount: string;
@@ -26,16 +29,10 @@ const RecipientInfo: React.FC = () => {
     };
 
     return (
-        <div className="max-w-md1 flex justify-center">
-            <form onSubmit={formik.handleSubmit}>
-            <div className="absolute top-0 left-0 mt- ml-4">
-            <Link to={`PaymentOptions`}>
-                <button className="hover:bg-blue-700 text-black font-bold py-61 px-4 rounded">
-                &larr; 
-            </button>
-            </Link>
-            </div>
-                <div className="mb-4">
+        <div className="flex  flex-col items-center justify-center h-screen bg-800 text-black text-sm">
+            <form onSubmit={formik.handleSubmit} className="max-w-sm mx-auto w-80 mb-12">
+                <div className="flex pb-4 flex-col items-center">
+                    <div className="input-group">
                     <input
                         type="text"
                         id="phone"
@@ -44,10 +41,13 @@ const RecipientInfo: React.FC = () => {
                         onChange={handleChange}
                         value={formik.values.phone}
                         style={{ color: 'black' }}
-                        className="mt-1 p-2 border border-gray-300 rounded-full w-full bg-white"
+                        className="text-lg px-12 rounded-full w-80 p-2.5 bg-red-50 dark:placeholder-gray-400 dark:text-black required"
                     />
+                    <FontAwesomeIcon icon={faPhone} size="1x" className="absolute text-red-500 left-10 top-1/2 transform -translate-y-1/2 color-red-100" />
+                    </div>
                 </div>
-                <div className="mb-4">
+                <div className="flex flex-col items-center">
+                    <div className="input-group">
                     <input
                         type="text"
                         id="amount"
@@ -55,8 +55,10 @@ const RecipientInfo: React.FC = () => {
                         placeholder="Amount"
                         onChange={handleChange}
                         value={formik.values.amount}
-                        className="mt-1 p-2 border border-gray-300 rounded-full w-full bg-white"
+                        className="text-lg px-12 rounded-full w-80 p-2.5 bg-red-50 dark:placeholder-gray-400 dark:text-black required"
                     />
+                    <FontAwesomeIcon icon={faMoneyBill} size="1x" className="absolute text-red-500 left-2 top-1/2 transform -translate-y-1/2 color-red-100" />
+                    </div>
                 </div>
                 <button type="submit" className="rounded-full bg-blue-950 hover:bg-blue-950 w-80 m-auto px-4 py-2 text-white text-lg absolute  inset-x-0 bottom-12">Submit</button>
             </form>
