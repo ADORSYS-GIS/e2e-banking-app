@@ -71,7 +71,6 @@ function RegistrationForm() {
           alert('Registration failed: ' + responseData.message);
         }
       })
-
       .catch((error) => {
         // Handle network or other errors
         console.error('Error sending registration data:', error);
@@ -80,64 +79,83 @@ function RegistrationForm() {
   };
 
   const handleLoginClick = () => {
-    navigate('/UserLogin'); 
+    navigate('/user_login');
+  };
+  const handleregistrationClick = () => {
+    navigate('/otp');
   };
 
   return (
-    <section className="flex flex-col items-center pt-6">
+    <div className="flex flex-col items-center justify-center w-8 h-screen bg-800 text-black text-sm">
       <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-          <div className="input-group" style={{ position: 'absolute', top: '30px', left: '50%', transform: 'translateX(-50%)', width: '100%', textAlign: 'center' }}>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="bg-red-50 border border-gray-300 text-gray-900 sm:text-sm rounded-full focus:ring-blue-600 focus:border-blue-600 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="    full name"
-              style={{ width: '350px', margin: 'auto' }}
-              required
-            />
-            <FontAwesomeIcon icon={faUser} size="1x" className="mr-2 color-red-950"/>
+          <div className="flex flex-col items-center text-lg absolute inset-x-0 top-12 pt-12">
+            <div className="input-group relative">
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="text-lg px-12 rounded-full w-80 p-2.5 bg-red-50 dark:placeholder-gray-400 dark:text-black required"
+                placeholder="Full Name"
+                required
+              />
+              <FontAwesomeIcon
+                icon={faUser}
+                size="1x"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-red-600"
+              />
+            </div>
+            <div className="input-group mt-4">
+              <input
+                type="text"
+                name="number"
+                value={formData.number}
+                onChange={handleInputChange}
+                className="text-lg px-9 rounded-full w-80 p-2.5 bg-red-50 dark:placeholder-gray-400 dark:text-black required"
+                placeholder="Number"
+                required
+              />
+              <FontAwesomeIcon
+                icon={faPhone}
+                size="1x"
+                className="mr-2 text-red-600"
+              />
+            </div>
+            <div className="input-group mt-4 relative">
+              <input
+                type="password"
+                name="pin"
+                value={formData.pin}
+                onChange={handleInputChange}
+                className="text-lg px-12 rounded-full w-80 p-2.5 bg-red-50 dark:placeholder-gray-400 dark:text-black required"
+                placeholder="Pin"
+                required
+              />
+              <FontAwesomeIcon
+                icon={faLock}
+                size="1x"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-red-600"
+              />
+            </div>
           </div>
-          <div className="input-group" style={{ position: 'absolute', top: '90px', left: '50%', transform: 'translateX(-50%)', width: '100%', textAlign: 'center' }}>
-            <input
-              type="text"
-              name="number"
-              id="number"
-              value={formData.number}
-              onChange={handleInputChange}
-              className="bg-red-50 border border-gray-300 text-gray-900 sm:text-sm rounded-full focus:ring-blue-600 focus:border-blue-600 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="      number"
-              style={{ width: '350px', margin: 'auto' }}
-              required
-            />
-            <FontAwesomeIcon icon={faPhone} size="1x" className="mr-2 color-red-950" />
-          </div>
-          <div className="input-group" style={{ position: 'absolute', top: '160px', left: '50%', transform: 'translateX(-50%)', width: '100%', textAlign: 'center' }}>
-            <input
-              type="text"
-              name="pin"
-              id="pin"
-              value={formData.pin}
-              onChange={handleInputChange}
-              className="bg-red-50 border border-gray-300 text-gray-900 sm:text-sm rounded-full focus:ring-blue-600 focus:border-blue-600 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="    pin"
-              style={{ width: '350px', margin: 'auto' }}
-              required
-            />
-            <FontAwesomeIcon icon={faLock} size="1x" className="mr-2 color-red-950" />
-          </div>
-          <button type="submit" className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-20">
+          <button
+            type="submit"
+            onClick={handleregistrationClick}
+            className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-20"
+          >
             Create an account
           </button>
-          <button type="button" onClick={handleLoginClick} className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-6">
+          <button
+            type="button"
+            onClick={handleLoginClick}
+            className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-6"
+          >
             Login
           </button>
         </form>
       </div>
-    </section>
+    </div>
   );
 }
 

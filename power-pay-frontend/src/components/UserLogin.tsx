@@ -1,7 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 const UserLogin: React.FC = () => {
+    const navigate = useNavigate();
+
+    const handleLoginClick = () => {
+        navigate('/home');
+    };
+    const handleRegisterClick = () => {
+        navigate('/');
+    };
     return (
       <div className="flex justify-center items-center  mb-34  bg-800 text-black text-sm">
         <FontAwesomeIcon icon={faUser} size="4x" className="text-center w-80 justify-center align-middle pb-9 pt-12 absolute top-3"  />
@@ -17,10 +26,13 @@ const UserLogin: React.FC = () => {
                 </form>
             </div>
             <div className="pt-12">
-                <button className="rounded-full w-80 m-auto px-4 py-2 my-16 text-white bg-blue-950 hover:border-blue-950 text-lg absolute  inset-x-0 bottom-12">
+                <button className="rounded-full w-80 m-auto px-4 py-2 my-16 text-white bg-blue-950 hover:border-blue-950 text-lg absolute  inset-x-0 bottom-12"
+                onClick={handleLoginClick }
+                >
                     Login
                 </button>
-                <button className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950  text-lg absolute  inset-x-0 bottom-12">
+                <button className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950  text-lg absolute  inset-x-0 bottom-12"
+                onClick={handleRegisterClick}>
                     Register
                 </button>
           </div>
