@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/Logo.png';
+
 import React, { useState, useEffect } from 'react';
 
 const Home: React.FC = () => {
@@ -11,9 +12,6 @@ const Home: React.FC = () => {
     const handleSendMoneyClick = () => {
         navigate('/payment');
     };
-
-   
-
     return (
         <div className="flex justify-center items-center  mb-34 bg-800 text-black text-sm">
             <div className="w-80 m-auto px-4 py-2  text-lg absolute  inset-x-0 top-12">
@@ -26,6 +24,7 @@ const Home: React.FC = () => {
                     Send Money
                 </button>
                 <button
+
                     className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-6"
                     onClick={handleCheckBalanceClick}>
                     Check Balance
