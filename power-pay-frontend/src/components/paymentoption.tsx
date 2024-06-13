@@ -12,15 +12,15 @@ const PaymentOptions: React.FC = () => {
     };
   return ( 
     <div className="container">
-      <div className="absolute inset-x-6 top-12 h-40 rounded-lg">
-        <h5 className="h-auto text-center pt-9 mb-2 text-2xl font-bold tracking-tight text-black">Payment Option.</h5>
-        <h5 className="text-center pt-9 mb-2 text-black">Choose the option you wish to pay</h5>
+      <div className="rounded-lg w-80 m-auto px-4 py-2  text-lg absolute  inset-x-0 top-12 bg-gray-100">
+        <h5 className="text-bold text-2xl text-black text-center pb-5">Payment Option.</h5>
+        <h5 className="text-sm text-center text-black pb-4">Choose the option you wish to pay</h5>
       </div>
       <div className="pt-12">
-          <button onClick={handleManuallyClick} className='bg-blue-950 rounded-full w-80 m-auto px-4  text-white text-lg absolute  inset-x-0 mb-20 bottom-12'>Input Manually</button>
+          <button onClick={handleManuallyClick} className='rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-20'>Input Manually</button>
           <br></br>
         <div className="pt-12">
-          <button onClick={handleQRscanClick} className="bg-blue-950 rounded-full w-80 m-auto px-4  text-white text-lg absolute  inset-x-0 bottom-12"
+          <button onClick={handleQRscanClick} className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-6"
            type='button'>
             QR Scan
           </button>

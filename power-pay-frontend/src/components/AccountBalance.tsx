@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
             </div>
           </div>
           <div className="pt-12">
-            <button className="rounded-full bg-blue-950 hover:bg-blue-900 w-80 m-auto px-4 py-2 text-white text-lg absolute  inset-x-0 bottom-12" 
+            <button className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-6" 
             onClick={handleOkClick}
             >
               OK

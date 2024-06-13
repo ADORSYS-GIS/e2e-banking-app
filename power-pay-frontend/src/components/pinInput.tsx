@@ -16,9 +16,9 @@ const PinInput: React.FC = () => {
   return (
     <div className="flex justify-center items-center  mb-34  bg-800 text-black text-sm">
       <div className="">
-        <div className="flex rounded-lg w-80 m-auto px-4 py-2  text-lg absolute  inset-x-0 top-4 bg-gray-100">
+        <div className="rounded-lg w-80 m-auto px-4 py-2  text-lg absolute  inset-x-0 top-12 bg-gray-100">
           <div>
-            <h1 className="text-lg text-center text-red-400 pb-5">Notice!!!</h1>
+            <h1 className="text-bold text-2xl text-center pb-5">Notice!!!</h1>
             <p className="text-sm text-center text-black-400 pb-4">By entering you PIN below, you confirm that the sum of of FCFA100.50  be sent to Mr Stephane</p>
           </div>
         </div>
@@ -42,12 +42,12 @@ const PinInput: React.FC = () => {
           </form>
         </div>
         <div className="pt-12">
-          <button className="rounded-full w-80 m-auto px-4 py-2 my-16 text-white bg-red-600 hover:border-red-950 text-lg absolute  inset-x-0 bottom-12"
+          <button className="rounded-full w-80 m-auto px-4 py-2 text-white bg-red-600 text-lg absolute inset-x-0 bottom-20"
           onClick={handleCancelClick}
           >
             Cancel
           </button>
-          <button className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950  text-lg absolute  inset-x-0 bottom-12"
+          <button className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-6"
           onClick={handleConfirmClick}
           >
             Confirm
