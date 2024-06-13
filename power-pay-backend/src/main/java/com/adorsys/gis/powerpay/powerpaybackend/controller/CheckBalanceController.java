@@ -27,14 +27,17 @@ public class CheckBalanceController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<String> checkBalance(@PathVariable String userId) {
-        Optional<User> user = userRepository.findByPhoneNumber(userId);
+
+    @GetMapping("/{phoneNumber}")
+    public ResponseEntity<String> checkBalance(@PathVariable String phoneNumber) {
+        Optional<User> user = userRepository.findByPhoneNumber(phoneNumber);
         if (user.isPresent()) {
-            Double balance = checkBalanceService.checkBalance(userId);
-            return ResponseEntity.ok("Balance for user ID" + " : " + balance);
+            Double balance = checkBalanceService.checkBalance(phoneNumber);
+            return ResponseEntity.ok("Balance for user phoneNumber" + " : " + balance);
+
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
 }
+

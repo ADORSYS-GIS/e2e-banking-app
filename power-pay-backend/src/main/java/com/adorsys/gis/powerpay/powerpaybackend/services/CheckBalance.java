@@ -4,5 +4,5 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 //implementing an empty interface
 public interface CheckBalance {
-    Double checkBalance(String userId) throws UsernameNotFoundException;
+    Double checkBalance(String phoneNumber) throws UsernameNotFoundException;
 }
