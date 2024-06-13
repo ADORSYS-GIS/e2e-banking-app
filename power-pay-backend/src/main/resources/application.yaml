@@ -1,16 +1,8 @@
 spring:
   application:
     name: e2e-banking-app
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/bank1
-    username: e2e
-    password: e2e1234.
-    driver-class-name: org.postgresql.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: update
+  profile:
+    active: dev,postgres
 
 management:
   endpoints:
