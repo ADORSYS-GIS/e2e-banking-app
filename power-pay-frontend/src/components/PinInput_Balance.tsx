@@ -36,13 +36,16 @@ const PinInput_For_Balance: React.FC = () => {
         </div>
         <div className="pt-12">
           <button
-            className="rounded-full w-80 m-auto px-4 py-2 my-16 text-white bg-red-600 hover:border-red-950 text-lg absolute inset-x-0 bottom-12"
+
+            className="rounded-full w-80 m-auto px-4 py-2 text-white bg-red-600 text-lg absolute inset-x-0 bottom-20"
+
             onClick={handleCancelClick}
           >
             Cancel
           </button>
           <button
-            className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-12"
+            className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950 text-lg absolute inset-x-0 bottom-6"
+
             onClick={handleConfirmClick}
           >
             Confirm
