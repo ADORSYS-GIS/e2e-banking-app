@@ -1,13 +1,18 @@
-// import { Link } from 'react-router-dom'; uncomment this line of you want to use react-router in the app 
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import RegistrationForm from './components/RegistrationForm';
+import OTPForm from './components/OTPForm';
+import SuccessPage from './components/SuccessPage';
 
 function App() {
-  
   return (
-    <>
-    {/* Add the link to the path to the page you want */}
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<RegistrationForm />} />
+        <Route path="/otp" element={<OTPForm />} />
+        <Route path="/success" element={<SuccessPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
