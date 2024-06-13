@@ -1,10 +1,15 @@
 import {  useEffect, useRef as ref } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Scanner as S } from '@yudiel/react-qr-scanner'; // Importing Scanner from @yudiel/react-qr-scanner
 const Scanner: any = S;
 
 
 const QRScannerComponent  = () => {
-  
+  const navigate = useNavigate();
+
+    const handleCancelClick = () => {
+        navigate('/payment');
+    };
   const qrScannerRef = ref<any>(null);
   useEffect(() => {
     if (qrScannerRef.current) {
@@ -30,14 +35,23 @@ const QRScannerComponent  = () => {
 
   return (
     <div>
-      <Scanner
-        ref={qrScannerRef}
-        on={handleScan}
-        onError={handleError}
-        facingMode="environment"
-        style={{ width: '100%', height: 'auto' }}
-      />
-      <button onClick={() => qrScannerRef.current?.start()} className="bg-blue-950 rounded-full w-80 m-auto px-4  text-white text-lg absolute  p-2.5 inset-x-0 bottom-12">Start Scan</button>
+      <div className="flex rounded-lg w-80 m-auto px-4 py-2  text-lg absolute  inset-x-0 top-4">
+        <Scanner
+          ref={qrScannerRef}
+          on={handleScan}
+          onError={handleError}
+          facingMode="environment"
+          style={{ width: '100%', height: 'auto' }}
+        />
+      </div>
+      <div className="pt-12">
+      <button className="rounded-full w-80 m-auto px-4 py-2 my-16 text-white bg-red-600 hover:border-red-950 text-lg absolute  inset-x-0 bottom-12"
+          onClick={handleCancelClick }
+          >
+            Cancel
+          </button>
+        <button onClick={() => qrScannerRef.current?.start()} className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950  text-lg absolute  inset-x-0 bottom-12">Start Scan</button>
+      </div>
     </div>
   );
 };

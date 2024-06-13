@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 interface SendMoneyConfirmationProps {
     onSuccess: (successMessage: string) => void;
   }
@@ -12,6 +13,11 @@ interface SendMoneyConfirmationProps {
   
     // success message to be displayed on the screen
     const successMessage = `Successful transfer of FCFA${amount.toFixed(2)} to ${recipientName}  on ${transferDate} . Reference: ${referenceNumber} , New Balance: FCFA${newBalance.toFixed(2)}`;
+    const navigate = useNavigate();
+
+    const handleOkClick = () => {
+        navigate('/home');
+    };
   
     return (
       <div className="flex justify-center items-center  mb-34 bg-800 text-black text-sm">
@@ -23,7 +29,8 @@ interface SendMoneyConfirmationProps {
             </div>
           </div>
           <div className="pt-12">
-            <button className="rounded-full bg-blue-950 hover:bg-blue-900 w-80 m-auto px-4 py-2 text-white text-lg absolute  inset-x-0 bottom-12" onClick={() => onSuccess(successMessage)}>
+            <button className="rounded-full bg-blue-950 hover:bg-blue-900 w-80 m-auto px-4 py-2 text-white text-lg absolute  inset-x-0 bottom-12" 
+            onClick={handleOkClick}>
               OK
             </button>
           </div>

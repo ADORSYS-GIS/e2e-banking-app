@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/RecipientInfo",
-                      element: <RecipientInfo.tsx/>,
+                      element: <RecipientInfo/>,
     },
     {
         path: "/qRScannerComponent",

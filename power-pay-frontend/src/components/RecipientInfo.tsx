@@ -1,6 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
@@ -10,12 +10,20 @@ interface FormValues {
 }
 
 const RecipientInfo: React.FC = () => {
+    const navigate = useNavigate();
+
+    const handleCancelClick = () => {
+        navigate('/home');
+    };
+    const handleConfirmClick = () => {
+        navigate('/pin_send');
+    };
     const formik = useFormik<FormValues>({
         initialValues: {
             phone: '',
             amount: ''
         },
-        onSubmit: (values) => {
+        onSubmit: (values: any) => {
             // Handle form submission
             console.log(values);
         }
@@ -29,7 +37,7 @@ const RecipientInfo: React.FC = () => {
     };
 
     return (
-        <div className="flex  flex-col items-center justify-center h-screen bg-800 text-black text-sm">
+        <div className="flex  flex-col items-center justify-center bg-800 text-black text-sm">
             <form onSubmit={formik.handleSubmit} className="max-w-sm mx-auto w-80 mb-12">
                 <div className="flex pb-4 flex-col items-center">
                     <div className="input-group">
@@ -60,7 +68,18 @@ const RecipientInfo: React.FC = () => {
                     <FontAwesomeIcon icon={faMoneyBill} size="1x" className="absolute text-red-500 left-2 top-1/2 transform -translate-y-1/2 color-red-100" />
                     </div>
                 </div>
-                <button type="submit" className="rounded-full bg-blue-950 hover:bg-blue-950 w-80 m-auto px-4 py-2 text-white text-lg absolute  inset-x-0 bottom-12">Submit</button>
+                <div className="pt-12">
+                    <button className="rounded-full w-80 m-auto px-4 py-2 my-16 text-white bg-red-600 hover:border-red-950 text-lg absolute  inset-x-0 bottom-12"
+                    onClick={handleCancelClick}
+                    >
+                        Cancel
+                    </button>
+                    <button className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950  text-lg absolute  inset-x-0 bottom-12"
+                    onClick={handleConfirmClick}
+                    >
+                        Confirm
+                    </button>
+                </div>
             </form>
         </div>
     );
