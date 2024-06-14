@@ -3,40 +3,46 @@ package com.adorsys.gis.powerpay.powerpaybackend.services_tests;
 import com.adorsys.gis.powerpay.powerpaybackend.services.MoneyTransferService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
 public class MoneyTransferServiceTest {
+
+    @Autowired
+    private MoneyTransferService moneyTransferService;
+
     @Test
     public void moneyTransferTest() {
-        MoneyTransferService Service = new MoneyTransferService();
+
         String transactionId = "transactionId";
         String pin = "pin";
-        String recipientAccountId = "recipientAccountId";
-        String senderAccountId = "senderAccountId";
-
-        boolean isValid = Service.validationMoneyTransfer(transactionId, pin, recipientAccountId, senderAccountId);
+        Double amount = 100.00;
+        String currency = "currency";
+        boolean isValid = moneyTransferService.validationMoneyTransfer(transactionId, pin, amount, currency );
         Assertions.assertFalse(isValid);
     }
 
     @Test
     public void moneyTransferExceptionTest() {
-        MoneyTransferService Service = new MoneyTransferService();
+
         String transactionId = "transactionId";
         String pin = "pin";
-        String recipientAccountId = "recipientAccountId";
-        String senderAccountId = "senderAccountId";
-
-        boolean isValid = Service.validationMoneyTransfer(transactionId, pin, senderAccountId, recipientAccountId );
+        Double amount = 100.00;
+        String currency = "currency";
+        boolean isValid = moneyTransferService.validationMoneyTransfer(transactionId, pin, amount, currency);
         Assertions.assertFalse(isValid);
     }
 
     @Test
     public void testInvalidMoneyTransferInvalidPin() {
-        MoneyTransferService Service = new MoneyTransferService();
+
         String transactionId = "transactionId";
         String pin = "pin";
-        String recipientAccountId = "recipientAccountId";
-        String senderAccountId = "senderAccountId";
+        Double amount = 100.00;
+        String currency = "currency";
 
-        boolean isValid = Service.validationMoneyTransfer(transactionId, pin, recipientAccountId, senderAccountId );
+        boolean isValid = moneyTransferService.validationMoneyTransfer(transactionId, pin, amount,currency);
         Assertions.assertFalse(isValid);
     }
 }
