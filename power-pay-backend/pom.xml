@@ -17,6 +17,7 @@
     <properties>
         <java.version>17</java.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <api-package>com.adorsys.gis.powerpay.api</api-package>
     </properties>
 
     <dependencies>
@@ -32,6 +33,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -43,6 +45,12 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.1</version>
         </dependency>
 
         <dependency>
@@ -109,14 +117,17 @@
             <artifactId>mapstruct</artifactId>
             <version>1.4.2.Final</version>
         </dependency>
-     
-         <dependency>
-             <groupId>org.mapstruct</groupId>
-             <artifactId>mapstruct-processor</artifactId>
-             <version>1.4.2.Final</version>
-             <scope>provided</scope>
-         </dependency>
-
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.4.2.Final</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -133,6 +144,45 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.4.0</version>
+                <executions>
+                    <execution>
+                        <id>client-ppt</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+
+                        <configuration>
+                            <generatorName>java</generatorName>
+                            <inputSpec>${project.basedir}/../docs/pps-ppt.openapi.yaml</inputSpec>
+
+                            <invokerPackage>${api-package}.handler</invokerPackage>
+                            <modelPackage>${api-package}.model</modelPackage>
+                            <apiPackage>${api-package}.api</apiPackage>
+
+                            <configOptions>
+                                <library>resttemplate</library>
+                                <serializableModel>true</serializableModel>
+                                <useBeanValidation>true</useBeanValidation>
+                                <generateClientAsBean>true</generateClientAsBean>
+                                <performBeanValidation>true</performBeanValidation>
+                                <useJakartaEe>true</useJakartaEe>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <generateApis>true</generateApis>
+                    <generateApiTests>true</generateApiTests>
+                    <generateModelTests>true</generateModelTests>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>
