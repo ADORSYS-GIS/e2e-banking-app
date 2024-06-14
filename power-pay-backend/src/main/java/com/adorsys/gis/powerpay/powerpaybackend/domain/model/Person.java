@@ -1,5 +1,5 @@
 // Person.java
-package com.adorsys.gis.powerpay.powerpaybackend;
+package com.adorsys.gis.powerpay.powerpaybackend.domain.model;
 
 public class Person {
     private String name;
