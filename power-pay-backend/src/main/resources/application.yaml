@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: e2e-banking-app
+  profile:
+    active: dev,postgres
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics
+  endpoint:
+    health:
+      show-details: always
