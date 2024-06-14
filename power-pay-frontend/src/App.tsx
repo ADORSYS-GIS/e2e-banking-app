@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import RegistrationForm from './components/RegistrationForm';
+import OTPForm from './components/OTPForm';
+import SuccessPage from './components/SuccessPage';
+import Home from './components/Home';
+import AccountBalance from './components/AccountBalance';
+import PaymentOptions from './components/paymentoption';
+import PinInput_For_Balance from './components/PinInput_Balance';
+import PinInput from './components/pinInput';
+import RecipientInfo from './components/RecipientInfo';
+import SendMoneyConfirmation from './components/SendMoneyConfirmation';
+import UserLogin from './components/UserLogin';
+import QRScannerComponent from './components/scan_rq';
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<RegistrationForm />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/balance" element={<AccountBalance />} />
+        <Route path="/payment" element={<PaymentOptions />} />
+        <Route path="/pin_balance" element={<PinInput_For_Balance />} />
+        <Route path="/pin_send" element={<PinInput />} />
+        <Route path="/send_money_confirmation" element={<SendMoneyConfirmation onSuccess={function (successMessage: string): void {
+          throw new Error('Function not implemented.');
+        } } />} />
+        <Route path="/recipient_info" element={<RecipientInfo />} />
+        <Route path="/user_login" element={<UserLogin />} />
+        <Route path="/otp" element={<OTPForm />} />
+        <Route path="/success" element={<SuccessPage />} />
+        <Route path="/QR_scan" element={<QRScannerComponent />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,82 @@
+openapi: 3.0.3
+info:
+  title: PPS (client) to PPT (server) Converter
+  description: Some description
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:{port}'
+    variables:
+      port:
+        default: '8080'
+  - url: 'https://translator.powerpay.internal'
+tags:
+  - name: SMS
+    description: Operations related to SMS
+paths:
+  '/send-sms':
+    post:
+      tags:
+        - SMS
+      summary: Send SMS
+      operationId: sendSms
+      description: Send SMS to a phone number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendSmsPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendSmsResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  '/hello':
+    get:
+      summary: Hello
+      operationId: hello
+      description: Hello
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+
+components:
+  schemas:
+    SendSmsPayload:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          example: '+237 6 23 45 17 89'
+          description: Phone number to which the SMS will be sent
+        message:
+          type: string
+          description: Message to be sent
+    SendSmsResponse:
+      type: object
+      properties:
+        status_description:
+          type: string
+          description: Detailed status of the operation.
+        status:
+          type: boolean
+          description: Status of the operation.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status
+        message:
+          type: string
+          description: Message
