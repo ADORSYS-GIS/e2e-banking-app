@@ -30,7 +30,7 @@ public class SendMoneyImplTest {
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> {
-            sendMoneyImpl.send(null, "1234567890", 100.0, "XAF", 1);
+            sendMoneyImpl.send("1234567890", null, 100.0, "XAF", 1);
         });
     }
 

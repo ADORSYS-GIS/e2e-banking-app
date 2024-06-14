@@ -1,7 +1,9 @@
-package com.adorsys.gis.powerpay.powerpaybackend.services;
+package com.adorsys.gis.powerpay.powerpaybackend.controller;
 
 import com.adorsys.gis.powerpay.powerpaybackend.domain.User;
 import com.adorsys.gis.powerpay.powerpaybackend.repository.UserRepository;
+import com.adorsys.gis.powerpay.powerpaybackend.services.CheckBalance;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
