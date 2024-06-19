@@ -1,41 +1,52 @@
 package com.adorsys.gis.powerpay.powerpaybackend.services;
 
 import com.adorsys.gis.powerpay.powerpaybackend.domain.Transaction;
-import com.adorsys.gis.powerpay.powerpaybackend.repository.MoneyTransferRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.adorsys.gis.powerpay.powerpaybackend.repository.MoneyTransferRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MoneyTransferService {
-    private MoneyTransferRepo moneyTransferRepo;
+@RequiredArgsConstructor
+public class MoneyTransferService implements MoneyTransferInterface {
+    private final MoneyTransferRepository moneyTransferRepository;
 
-    @Autowired
-    public MoneyTransferService(MoneyTransferRepo moneyTransferRepo) {
-        this.moneyTransferRepo = moneyTransferRepo;
-    }
-
-    public boolean validationMoneyTransfer(String transactionId, String receiverPhoneNumber, Double amount, String currency, String pin) {
-        Transaction transaction = retrieveTransactionById(transactionId);
-        if (transaction != null) {
-            String transactionPin = transaction.getPin();
-            if (transactionPin != null && transactionPin.equals(pin)) {
-                return true;
-            } else {
-                return false;
-            }
+    @Override
+    public void send(String sender, String receiver, Double amount, String currency, Integer pin) {
+        if (sender == null || receiver == null || amount == null || currency == null || pin == null) {
+            throw new IllegalArgumentException("Invalid input parameters");
         }
 
+        boolean isValid = validationMoneyTransfer(String.valueOf(pin), String.valueOf(pin), receiver, amount, currency);
+        if (!isValid) {
+            throw new IllegalArgumentException("Money transfer validation failed");
+        }
+
+        Transaction transaction = new Transaction();
+        transaction.setAmount(amount);
+        transaction.setCurrency(currency);
+        transaction.setReceiverPhoneNumber(receiver);
+        transaction.setPhoneNumber(sender);
+        moneyTransferRepository.save(transaction);
+    }
+
+    @Override
+    public boolean validationMoneyTransfer(String transactionId, String pin, String receiverPhoneNumber, Double amount, String currency) {
+        Transaction transaction = retrieveTransactionById(transactionId);
+        if (transaction != null) {
+            String transactionReceiverPhoneNumber = transaction.getReceiverPhoneNumber();
+            return transactionReceiverPhoneNumber.equals(receiverPhoneNumber);
+        }
         return false;
     }
 
+    @Override
     public Transaction retrieveTransactionById(String transactionId) {
-        Transaction transaction = new Transaction();
-        transaction.setTransactionId(transactionId);
-        transaction.setPin("pin"); // Set a valid pin value here
-        return transaction;
+        // Fetch transaction from repository
+        return moneyTransferRepository.findById(transactionId).orElse(null);
     }
 
+    @Override
     public boolean validationMoneyTransfer(String transactionId, String pin, Double amount, String currency) {
-        return validationMoneyTransfer(transactionId, pin, amount, currency, null );
+        return false;
     }
 }

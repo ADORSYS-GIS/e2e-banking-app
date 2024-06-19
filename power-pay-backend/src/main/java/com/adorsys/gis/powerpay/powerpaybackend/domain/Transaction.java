@@ -9,8 +9,6 @@ public class Transaction extends Procedure {
     private String receiverPhoneNumber;
     private Double amount;
     private String currency;
-    private String transactionId;
-    private String pin;
 
     {
         currency = "XAF";
@@ -38,21 +36,5 @@ public class Transaction extends Procedure {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public String getPin() {
-        return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
     }
 }
