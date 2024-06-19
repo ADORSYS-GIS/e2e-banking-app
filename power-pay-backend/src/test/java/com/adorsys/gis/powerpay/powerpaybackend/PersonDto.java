@@ -1,4 +1,4 @@
-package com.adorsys.gis.powerpay.powerpaybackend.services.dto;
+package com.adorsys.gis.powerpay.powerpaybackend;
 
 // PersonDto.java
 public class PersonDto {

@@ -1,12 +1,7 @@
-
 package com.adorsys.gis.powerpay.powerpaybackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import com.adorsys.gis.powerpay.powerpaybackend.domain.model.Person;
-import com.adorsys.gis.powerpay.powerpaybackend.services.dto.PersonDto;
-import com.adorsys.gis.powerpay.powerpaybackend.utils.PersonMapper;
 
 @SpringBootTest
 public class MapstructTest {
