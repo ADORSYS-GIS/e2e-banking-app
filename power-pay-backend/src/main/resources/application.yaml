@@ -1,3 +1,9 @@
+spring:
+  application:
+    name: e2e-banking-app
+  profile:
+    active: dev,postgres
+
 management:
   endpoints:
     web:
