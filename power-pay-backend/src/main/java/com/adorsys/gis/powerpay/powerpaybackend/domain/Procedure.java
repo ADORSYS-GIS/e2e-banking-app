@@ -2,6 +2,8 @@ package com.adorsys.gis.powerpay.powerpaybackend.domain;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "procedure")
+
 @Inheritance(strategy = InheritanceType.JOINED)
 public  abstract class Procedure {
     @Id
