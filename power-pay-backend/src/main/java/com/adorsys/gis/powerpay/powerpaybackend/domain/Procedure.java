@@ -10,6 +10,7 @@ public  abstract class Procedure {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     public   ProcedureStatus status = ProcedureStatus.WAITING;
+    @Column(nullable = false,unique = true)
     private String phoneNumber;
 
 
