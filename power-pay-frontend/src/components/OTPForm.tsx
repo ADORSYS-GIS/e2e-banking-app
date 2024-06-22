@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function OTPForm() {
   const [otp, setOTP] = useState('');
@@ -54,6 +56,9 @@ function OTPForm() {
   const handleGoBack = () => {
     navigate('/');
   };
+  const handleConfirmClick = () => {
+    navigate('/home');
+};
   
   return (
     <div className="flex flex-1 flex-col justify-center space-y-5 max-w-md mx-auto mt-24">
@@ -64,19 +69,25 @@ function OTPForm() {
         </p>
       </div>
       <form className="flex flex-col max-w-md space-y-5" onSubmit={handleSubmit}>
-      <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', textAlign: 'center' }}>
-        <input
-          type="text"
-          placeholder="OTP"
-          value={otp}
-          onChange={handleOTPChange}
-          className="text-lg text-center rounded-full w-80 p-2.5 bg-red-50 dark:placeholder-gray-900 dark:text-black"
-          style={{ marginTop: '-50px' }} // Adjust the marginTop as needed to bring the bar up
-        />
-      </div>
+      <div className="input-group relative bottom-12 mb-12">
+            <input
+              type="password"
+              name="OTP"
+              onChange={handleOTPChange}
+              className="text-lg px-12 rounded-full w-80 p-2.5 bg-red-50 dark:placeholder-gray-400 dark:text-black required"
+              placeholder="OTP"
+              required
+            />
+            <FontAwesomeIcon
+              icon={faAsterisk}
+              size="1x"
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-red-600"
+            />
+          </div>
         <button
           type="submit"
           className="rounded-full w-80 m-auto px-4 py-2 text-white bg-blue-950  text-lg absolute  inset-x-0 bottom-20"
+          onClick={handleConfirmClick}
         >
           Confirm
         </button>

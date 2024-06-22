@@ -1,10 +1,10 @@
-package com.adorsys.gis.powerpay.powerpaybackend.services_tests;
+package com.adorsys.gis.powerpay.powerpaybackend.controllers_tests;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.adorsys.gis.powerpay.powerpaybackend.services.userRegistrationController.CompletionRequest;
-import com.adorsys.gis.powerpay.powerpaybackend.services.userRegistrationController.RegistrationRequest;
+import com.adorsys.gis.powerpay.powerpaybackend.domain.FirstRegistrationRequest;
+import com.adorsys.gis.powerpay.powerpaybackend.domain.SecondRegistrationRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class UserRegistrationIntegrationTest {
 
     @Test
     public void testRegisterUser() throws Exception {
-        RegistrationRequest request = new RegistrationRequest();
+        FirstRegistrationRequest request = new FirstRegistrationRequest();
         request.setPhoneNumber("1234567890");
         request.setUserName("testuser");
 
@@ -42,7 +42,7 @@ public class UserRegistrationIntegrationTest {
     @Test
     public void testCompleteRegistration() throws Exception {
         // Register a user
-        RegistrationRequest registrationRequest = new RegistrationRequest();
+        FirstRegistrationRequest registrationRequest = new FirstRegistrationRequest();
         registrationRequest.setPhoneNumber("1234567890");
         registrationRequest.setUserName("testuser");
 
@@ -55,7 +55,7 @@ public class UserRegistrationIntegrationTest {
                 .getContentAsString();
 
         // Complete the registration
-        CompletionRequest completionRequest = new CompletionRequest();
+        SecondRegistrationRequest completionRequest = new SecondRegistrationRequest();
         completionRequest.setPin("1234");
         completionRequest.setOtp("5678");
 
