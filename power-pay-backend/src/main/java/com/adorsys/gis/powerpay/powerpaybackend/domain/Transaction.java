@@ -10,11 +10,9 @@ public class Transaction extends Procedure {
     private Double amount;
     private String currency;
 
-
     {
         currency = "XAF";
     }
-
 
     public String getReceiverPhoneNumber() {
         return receiverPhoneNumber;
@@ -39,5 +37,4 @@ public class Transaction extends Procedure {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-
 }
