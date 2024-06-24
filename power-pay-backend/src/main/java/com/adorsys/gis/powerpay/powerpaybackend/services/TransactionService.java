@@ -2,15 +2,14 @@ package com.adorsys.gis.powerpay.powerpaybackend.services;
 
 import com.adorsys.gis.powerpay.powerpaybackend.domain.Transaction;
 import com.adorsys.gis.powerpay.powerpaybackend.repository.TransactionRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class TransactionService {
     private final MoneyTransferInterface moneyTransferInterface;
     private final TransactionRepository transactionRepository;
-
-    public TransactionService(MoneyTransferInterface moneyTransferInterface, TransactionRepository transactionRepository) {
-        this.moneyTransferInterface = moneyTransferInterface;
-        this.transactionRepository = transactionRepository;
-    }
 
     public String sendMoneyTransfer(Double amount, String receiverPhoneNumber, String currency, String pin, String transactionId) {
         boolean isValid = moneyTransferInterface.validationMoneyTransfer(transactionId, pin, amount, currency);
@@ -30,4 +29,3 @@ public class TransactionService {
         return "Transaction successfully sent!";
     }
 }
-

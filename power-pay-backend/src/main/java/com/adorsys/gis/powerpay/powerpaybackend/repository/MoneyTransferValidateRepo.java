@@ -5,7 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MoneyTransferValidateRepo {
-    public interface MoneyTransferRepo extends JpaRepository<Transaction, String> {
-    }
+public interface MoneyTransferValidateRepo extends JpaRepository<Transaction, String> {
 }

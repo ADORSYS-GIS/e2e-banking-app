@@ -1,14 +1,14 @@
 package com.adorsys.gis.powerpay.powerpaybackend.services;
 
 import com.adorsys.gis.powerpay.powerpaybackend.domain.Transaction;
-import com.adorsys.gis.powerpay.powerpaybackend.repository.MoneyTransferRepository;
+import com.adorsys.gis.powerpay.powerpaybackend.repository.MoneyTransferValidateRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class MoneyTransferService implements MoneyTransferInterface {
-    private final MoneyTransferRepository moneyTransferRepository;
+    private final MoneyTransferValidateRepo moneyTransferValidateRepository;
 
     @Override
     public void send(String sender, String receiver, Double amount, String currency, Integer pin) {
@@ -26,7 +26,7 @@ public class MoneyTransferService implements MoneyTransferInterface {
         transaction.setCurrency(currency);
         transaction.setReceiverPhoneNumber(receiver);
         transaction.setPhoneNumber(sender);
-        moneyTransferRepository.save(transaction);
+        moneyTransferValidateRepository.save(transaction);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class MoneyTransferService implements MoneyTransferInterface {
     @Override
     public Transaction retrieveTransactionById(String transactionId) {
         // Fetch transaction from repository
-        return moneyTransferRepository.findById(transactionId).orElse(null);
+        return moneyTransferValidateRepository.findById(transactionId).orElse(null);
     }
 
     @Override
