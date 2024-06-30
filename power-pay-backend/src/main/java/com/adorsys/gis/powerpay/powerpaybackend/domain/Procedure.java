@@ -2,12 +2,15 @@ package com.adorsys.gis.powerpay.powerpaybackend.domain;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "procedure")
+
 @Inheritance(strategy = InheritanceType.JOINED)
 public  abstract class Procedure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     public   ProcedureStatus status = ProcedureStatus.WAITING;
+    @Column(nullable = false,unique = true)
     private String phoneNumber;
 
 

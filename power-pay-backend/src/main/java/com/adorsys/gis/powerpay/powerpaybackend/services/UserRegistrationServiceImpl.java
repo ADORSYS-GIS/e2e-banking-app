@@ -66,4 +66,18 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
         return userRegistration;
     }
+
+    @Override
+    public boolean findByPhoneNumber(String phoneNumber) {
+        UserRegistration userRegistration = userRegistrationRepository.findByPhoneNumber(phoneNumber);
+        if(userRegistration != null) {
+            return Boolean.TRUE;
+        }else{ return Boolean.FALSE;}
+    }
+
+    @Override
+    public String findByOpt(String otp) {
+        String userOtp = userRegistrationRepository.findByOpt(otp);
+        return userOtp;
+    }
 }

@@ -10,4 +10,7 @@ public interface UserRegistrationService {
 
     UserRegistration createProcedure(String phoneNumber, String userName);
 
+    boolean findByPhoneNumber(String phoneNumber);
+    String findByOpt(String otp);
+
 }
