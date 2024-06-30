@@ -75,9 +75,9 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         }else{ return Boolean.FALSE;}
     }
 
-    // @Override
-    // public UserRegistration findByOpt(String otp) {
-    //     UserRegistration userOtp = userRegistrationRepository.findByOpt(otp);
-    //     return userOtp;
-    // }
+    @Override
+    public String findByOpt(String otp) {
+        String userOtp = userRegistrationRepository.findByOpt(otp);
+        return userOtp;
+    }
 }

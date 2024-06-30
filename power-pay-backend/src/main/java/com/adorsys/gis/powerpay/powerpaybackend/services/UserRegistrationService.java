@@ -11,6 +11,6 @@ public interface UserRegistrationService {
     UserRegistration createProcedure(String phoneNumber, String userName);
 
     boolean findByPhoneNumber(String phoneNumber);
-    // UserRegistration findByOpt(String otp);
+    String findByOpt(String otp);
 
 }
